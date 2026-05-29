@@ -4,7 +4,8 @@
 
     ../common
 
-    ./hardware-configuration.nix
+    ../../packages/cli/git
+
     ./disk.nix
   ];
 

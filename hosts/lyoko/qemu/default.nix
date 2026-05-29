@@ -13,7 +13,9 @@
         content = {
           partitions = {
             luks = {
-              passwordFile = "/tmp/password";
+              content = {
+                passwordFile = "/tmp/password";
+              };
             };
           };
         };
