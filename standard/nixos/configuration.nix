@@ -8,6 +8,7 @@
 {
   imports = [
     ./boot.nix
+    ./disk.nix
     ./host.nix
   ];
 
