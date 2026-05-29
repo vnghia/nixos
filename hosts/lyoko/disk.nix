@@ -33,7 +33,6 @@ in
                   "--type luks2"
                   "--pbkdf argon2id"
                 ];
-                passwordFile = "/tmp/password";
                 settings = {
                   allowDiscards = true;
                   bypassWorkqueues = true;

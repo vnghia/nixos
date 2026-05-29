@@ -28,7 +28,15 @@
           modules = [
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
-            ./hosts/lyoko/nixos/configuration.nix
+            ./hosts/lyoko/host
+          ];
+        };
+        lyoko-qemu = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+            ./hosts/lyoko/qemu
           ];
         };
       };
