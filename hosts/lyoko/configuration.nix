@@ -4,6 +4,7 @@
 
     ../common
 
+    ../../packages/shell/zsh
     ../../packages/cli/git
 
     ./disk.nix
