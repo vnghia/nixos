@@ -6,6 +6,11 @@
   ...
 }:
 {
+  imports = [
+    ./boot.nix
+    ./host.nix
+  ];
+
   nixpkgs = {
     config = {
       allowUnfree = true;
