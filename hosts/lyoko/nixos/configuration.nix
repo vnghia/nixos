@@ -2,6 +2,7 @@
   imports = [
     ../../common
 
+    ./hardware-configuration.nix
     ./disk.nix
   ];
 

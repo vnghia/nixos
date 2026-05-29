@@ -26,9 +26,9 @@
         lyoko = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/lyoko/nixos/configuration.nix
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
+            ./hosts/lyoko/nixos/configuration.nix
           ];
         };
       };
