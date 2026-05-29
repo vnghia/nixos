@@ -61,9 +61,9 @@ in
                       mountpoint = "/nix";
                       mountOptions = [ "subvol=nix" ] ++ btrfsOptions;
                     };
-                    "@persist" = {
-                      mountpoint = "/persist";
-                      mountOptions = [ "subvol=persist" ] ++ btrfsOptions;
+                    "@persistent" = {
+                      mountpoint = "/persistent";
+                      mountOptions = [ "subvol=persistent" ] ++ btrfsOptions;
                     };
                     "@log" = {
                       mountpoint = "/var/log";
