@@ -11,6 +11,7 @@
     disk = {
       main = {
         imageSize = "50G";
+        device = "/dev/vda";
         content = {
           partitions = {
             luks = {
