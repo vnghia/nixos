@@ -1,3 +1,7 @@
+{
+  lib,
+  ...
+}:
 let
   btrfsOptions = [
     "compress=zstd"
@@ -67,7 +71,7 @@ in
                     };
                     "@swap" = {
                       mountpoint = "/swap";
-                      swap.swapfile.size = "64G";
+                      swap.swapfile.size = lib.mkDefault "64G";
                     };
                   };
                 };
