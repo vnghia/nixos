@@ -54,19 +54,19 @@ in
                   subvolumes = {
                     "@root" = {
                       mountpoint = "/";
-                      mountOptions = [ "subvol=root" ] ++ btrfsOptions;
+                      mountOptions = btrfsOptions;
                     };
                     "@home" = {
                       mountpoint = "/home";
-                      mountOptions = [ "subvol=home" ] ++ btrfsOptions;
+                      mountOptions = btrfsOptions;
                     };
                     "@nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "subvol=nix" ] ++ btrfsOptions;
+                      mountOptions = btrfsOptions;
                     };
                     "@persistent" = {
                       mountpoint = "/persistent";
-                      mountOptions = [ "subvol=persistent" ] ++ btrfsOptions;
+                      mountOptions = btrfsOptions;
                     };
                     "@swap" = {
                       mountpoint = "/swap";
