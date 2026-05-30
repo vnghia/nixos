@@ -6,6 +6,7 @@
 
     ../../packages/shell/zsh
     ../../packages/cli/git
+    ../../packages/desktop
 
     ./disk.nix
   ];
