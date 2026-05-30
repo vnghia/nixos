@@ -19,6 +19,8 @@ in
           type = "gpt";
           partitions = {
             esp = {
+              label = "boot";
+              name = "esp";
               size = "1G";
               type = "EF00";
               content = {
@@ -28,7 +30,18 @@ in
                 mountOptions = [ "umask=0077" ];
               };
             };
+            nix = {
+              label = "nix";
+              size = "100G";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/nix";
+                mountOptions = [ "noatime" ];
+              };
+            };
             luks = {
+              label = "luks";
               size = "100%";
               content = {
                 type = "luks";
@@ -57,17 +70,9 @@ in
                       mountpoint = "/home";
                       mountOptions = [ "subvol=home" ] ++ btrfsOptions;
                     };
-                    "@nix" = {
-                      mountpoint = "/nix";
-                      mountOptions = [ "subvol=nix" ] ++ btrfsOptions;
-                    };
                     "@persistent" = {
                       mountpoint = "/persistent";
                       mountOptions = [ "subvol=persistent" ] ++ btrfsOptions;
-                    };
-                    "@log" = {
-                      mountpoint = "/var/log";
-                      mountOptions = [ "subvol=log" ] ++ btrfsOptions;
                     };
                     "@swap" = {
                       mountpoint = "/swap";
@@ -84,5 +89,4 @@ in
   };
 
   fileSystems."/persistent".neededForBoot = true;
-  fileSystems."/var/log".neededForBoot = true;
 }

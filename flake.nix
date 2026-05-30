@@ -11,6 +11,12 @@
       url = "github:nix-community/disko/v1.13.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -19,6 +25,7 @@
       nixpkgs,
       home-manager,
       disko,
+      impermanence,
       ...
     }@inputs:
     {
@@ -28,6 +35,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
+            impermanence.nixosModules.impermanence
             ./hosts/lyoko/host
           ];
         };
@@ -36,6 +44,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
+            impermanence.nixosModules.impermanence
             ./hosts/lyoko/qemu
           ];
         };
