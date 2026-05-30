@@ -7,6 +7,8 @@
 
   users.users.xana.initialPassword = "test";
 
+  disko.memSize = 16;
+
   disko.devices = {
     disk = {
       main = {
@@ -30,5 +32,9 @@
         };
       };
     };
+  };
+
+  virtualisation.vmVariantWithDisko = {
+    virtualisation.fileSystems."/persistent".neededForBoot = true;
   };
 }
