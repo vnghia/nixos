@@ -3,48 +3,36 @@
   ...
 }:
 {
-  boot.initrd.systemd.services.rollback = {
-    description = "Rollback BTRFS subvolumes to a pristine state";
-    wantedBy = [ "initrd.target" ];
-    # make sure it's done after encryption
-    # i.e. LUKS/TPM process
-    after = [ "systemd-cryptsetup@enc.service" ];
-    # mount the root fs before clearing
-    before = [ "sysroot.mount" ];
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      mkdir -p /mnt
+  boot.initrd.postResumeCommands = lib.mkAfter ''
+    mkdir -p /btrfs_root
 
-      # We first mount the btrfs root to /mnt
-      # so we can manipulate btrfs subvolumes.
-      mount -o subvol=/ /dev/disk/by-label/nixos /mnt
+    # We first mount the btrfs root to /btrfs_root
+    # so we can manipulate btrfs subvolumes.
+    mount -o subvol=/ /dev/disk/by-label/nixos /btrfs_root
 
-      # While we're tempted to just delete /root and create
-      # a new snapshot from /root-blank, /root is already
-      # populated at this point with a number of subvolumes,
-      # which makes `btrfs subvolume delete` fail.
-      # So, we remove them first.
-      #
-      # /root contains subvolumes:
-      # - /root/var/lib/portables
-      # - /root/var/lib/machines
+    # We then take a snapshot of the current root
+    # before recreating a blank root.
+    mkdir -p /btrfs_root/@old_roots
+    timestamp=$(date --date="@$(stat -c %Y /btrfs_root/@root)" "+%Y-%m-%-d_%H:%M:%S")
+    btrfs subvolume snapshot -r /btrfs_root/@root "/btrfs_root/@old_roots/$timestamp"
 
-      btrfs subvolume list -o /mnt/root |
-      cut -f9 -d' ' |
-      while read subvolume; do
-        echo "deleting /$subvolume subvolume..."
-        btrfs subvolume delete "/mnt/$subvolume"
-      done &&
-      echo "deleting /root subvolume..." &&
-      btrfs subvolume delete /mnt/root
+    delete_subvolume_recursively() {
+        IFS=$'\n'
+        for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+            delete_subvolume_recursively "/btrfs_root/$i"
+        done
+        echo "deleting /$1 subvolume..."
+        btrfs subvolume delete "$1"
+    }
 
-      echo "restoring blank /root subvolume..."
-      btrfs subvolume snapshot /mnt/root-blank /mnt/root
+    for i in $(find /btrfs_root/@old_roots/ -maxdepth 1 -mtime +30); do
+        delete_subvolume_recursively "$i"
+    done
 
-      # Once we're done rolling back to a blank snapshot,
-      # we can unmount /mnt and continue on the boot process.
-      umount /mnt
-    '';
-  };
+    btrfs subvolume create /btrfs_root/@root
+
+    # Once we're done recreating a blank root.
+    # we can unmount /btrfs_root and continue on the boot process.
+    umount /btrfs_root
+  '';
 }
