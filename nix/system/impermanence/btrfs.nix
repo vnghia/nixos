@@ -19,7 +19,6 @@
       # We first mount the btrfs root to /mnt
       # so we can manipulate btrfs subvolumes.
       mount -o subvol=/ /dev/disk/by-label/nixos /mnt
-      mount -o subvol=/home /dev/disk/by-label/nixos /mnt/home
 
       # While we're tempted to just delete /root and create
       # a new snapshot from /root-blank, /root is already
@@ -42,9 +41,6 @@
 
       echo "restoring blank /root subvolume..."
       btrfs subvolume snapshot /mnt/root-blank /mnt/root
-
-      echo "restoring blank /home subvolume..."
-      mount -o subvol=/home /dev/disk/by-label/nixos /mnt/home
 
       # Once we're done rolling back to a blank snapshot,
       # we can unmount /mnt and continue on the boot process.
