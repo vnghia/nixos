@@ -8,7 +8,7 @@
     wantedBy = [ "initrd.target" ];
     # make sure it's done after encryption
     # i.e. LUKS/TPM process
-    after = [ "systemd-cryptsetup@enc.service" ];
+    after = [ "systemd-cryptsetup@cryptroot.service" ];
     # mount the root fs before clearing
     before = [ "sysroot.mount" ];
     unitConfig.DefaultDependencies = "no";
@@ -18,12 +18,12 @@
 
       # We first mount the btrfs root to /btrfs_root
       # so we can manipulate btrfs subvolumes.
-      mount -o /dev/disk/by-label/nixos /btrfs_root
+      mount -o subvol=/ /dev/mapper/cryptroot /btrfs_root
 
       # We then take a snapshot of the current root
       # before recreating a blank root.
       mkdir -p /btrfs_root/@old_roots
-      timestamp=$(date --date="@$(stat -c %Y /btrfs_root/@root)" "+%Y-%m-%-d_%H:%M:%S")
+      timestamp=$(date --date="@$(stat -c %Y /btrfs_root/@root)" "+%Y-%m-%-d-%H-%M-%S")
       btrfs subvolume snapshot -r /btrfs_root/@root "/btrfs_root/@old_roots/$timestamp"
 
       delete_subvolume_recursively() {
