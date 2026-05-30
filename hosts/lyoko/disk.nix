@@ -83,6 +83,6 @@ in
     };
   };
 
-  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/persistent".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 }
