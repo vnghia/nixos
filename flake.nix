@@ -41,6 +41,13 @@
         };
       };
 
+      homeConfigurations = {
+        "xana" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+          modules = [ ./users/xana/home ];
+        };
+      };
+
       system.stateVersion = "26.05";
     };
 }

@@ -2,10 +2,12 @@
   imports = [
     ../configuration.nix
 
-    ../../../users/alice.nix
+    ../../../users/xana
 
     ./hardware-configuration.nix
   ];
+
+  users.users.xana.initialPassword = "test";
 
   disko.devices = {
     disk = {

@@ -1,7 +1,6 @@
 {
   users.users = {
-    alice = {
-      initialPassword = "test";
+    xana = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
     };
