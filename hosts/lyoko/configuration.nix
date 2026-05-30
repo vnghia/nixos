@@ -4,11 +4,9 @@
     ../../nix/system/impermanence
     ../../nix/system/impermanence/btrfs.nix
 
-    ../common
+    ../../users/xana/desktop
 
-    ../../packages/shell/zsh
-    ../../packages/cli/git
-    ../../packages/desktop
+    ../common
 
     ./disk.nix
   ];

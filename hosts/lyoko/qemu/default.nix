@@ -2,8 +2,6 @@
   imports = [
     ../configuration.nix
 
-    ../../../users/xana
-
     ./hardware-configuration.nix
   ];
 

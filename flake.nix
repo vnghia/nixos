@@ -34,6 +34,13 @@
           specialArgs = { inherit inputs; };
           modules = [
             home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+              };
+            }
             disko.nixosModules.disko
             impermanence.nixosModules.impermanence
             ./hosts/lyoko/host
@@ -43,17 +50,17 @@
           specialArgs = { inherit inputs; };
           modules = [
             home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+              };
+            }
             disko.nixosModules.disko
             impermanence.nixosModules.impermanence
             ./hosts/lyoko/qemu
           ];
-        };
-      };
-
-      homeConfigurations = {
-        "xana" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { system = "x86_64-linux"; };
-          modules = [ ./users/xana/home ];
         };
       };
 
