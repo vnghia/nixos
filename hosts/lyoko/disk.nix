@@ -30,16 +30,6 @@ in
                 mountOptions = [ "umask=0077" ];
               };
             };
-            nix = {
-              label = "nix";
-              size = "100G";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/nix";
-                mountOptions = [ "noatime" ];
-              };
-            };
             luks = {
               label = "luks";
               size = "100%";
@@ -69,6 +59,10 @@ in
                     "@home" = {
                       mountpoint = "/home";
                       mountOptions = [ "subvol=home" ] ++ btrfsOptions;
+                    };
+                    "@nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [ "subvol=nix" ] ++ btrfsOptions;
                     };
                     "@persistent" = {
                       mountpoint = "/persistent";
