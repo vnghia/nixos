@@ -2,6 +2,6 @@
   imports = [
     ../base
 
-    ../../../../packages/desktop/alacritty
+    ../../../packages/desktop/alacritty
   ];
 }

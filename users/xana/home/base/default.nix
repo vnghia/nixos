@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../../../packages/cli/git
+    ../../../packages/cli/git
   ];
 
   home = {
