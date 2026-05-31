@@ -2,7 +2,9 @@
   config = {
     desktop = {
       fonts = {
-        enableJetbrainsMono = true;
+        jetbrainsMono = {
+          enable = true;
+        };
       };
       environment = {
         gnome = {

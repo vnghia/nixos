@@ -4,12 +4,15 @@
   config,
   ...
 }:
+let
+  cfg = config.desktop.fonts.jetbrainsMono;
+in
 {
   options = {
-    desktop.fonts.enableJetbrainsMono = lib.mkEnableOption "Jetbrains Mono";
+    desktop.fonts.jetbrainsMono.enable = lib.mkEnableOption "Jetbrains Mono";
   };
 
-  config = lib.mkIf config.desktop.fonts.enableJetbrainsMono {
+  config = lib.mkIf cfg.enable {
     fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
   };
 }
