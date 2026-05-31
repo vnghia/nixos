@@ -1,8 +1,6 @@
 {
   imports = [
     ../base
-
-    ../../../packages/desktop
   ];
 
   home-manager = {

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  gnomeCfg = osConfig.desktop.gnome;
+  gnomeCfg = osConfig.desktop.environment.gnome;
   cfg = gnomeCfg.extensions.hideTopBar;
 in
 {

@@ -1,5 +1,7 @@
 {
   imports = [
+    ../../users/xana/desktop
+
     ../common
 
     ./desktop.nix

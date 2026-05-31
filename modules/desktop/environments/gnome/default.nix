@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.desktop.gnome;
+  cfg = config.desktop.environment.gnome;
 in
 {
   imports = [
@@ -13,7 +13,7 @@ in
   ];
 
   options = {
-    desktop.gnome.enable = lib.mkEnableOption "Gnome";
+    desktop.environment.gnome.enable = lib.mkEnableOption "Gnome";
   };
 
   config = lib.mkIf cfg.enable {

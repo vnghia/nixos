@@ -5,12 +5,12 @@
   ...
 }:
 let
-  gnomeCfg = config.desktop.gnome;
+  gnomeCfg = config.desktop.environment.gnome;
   cfg = gnomeCfg.extensions.hideTopBar;
 in
 {
   options = {
-    desktop.gnome.extensions.hideTopBar = {
+    desktop.environment.gnome.extensions.hideTopBar = {
       enable = lib.mkEnableOption "Hide top bar";
     };
   };
