@@ -4,13 +4,9 @@
     ../../nix/system/impermanence
     ../../nix/system/impermanence/btrfs.nix
 
-    ../../packages/desktop/gnome
-    ../../packages/desktop/fonts/jetbrains-mono
-
-    ../../users/xana/desktop
-
     ../common
 
+    ./desktop.nix
     ./disk.nix
   ];
 

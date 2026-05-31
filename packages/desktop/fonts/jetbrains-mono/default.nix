@@ -5,9 +5,11 @@
   ...
 }:
 {
-  imports = [ ./options.nix ];
+  options = {
+    desktop.fonts.enableJetbrainsMono = lib.mkEnableOption "Jetbrains Mono";
+  };
 
-  fonts.packages = lib.mkIf config.desktopFonts.enableJetbrainsMono ([
-    pkgs.nerd-fonts.jetbrains-mono
-  ]);
+  config = lib.mkIf config.desktop.fonts.enableJetbrainsMono {
+    fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
+  };
 }

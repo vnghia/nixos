@@ -1,15 +1,11 @@
 {
   lib,
   pkgs,
-  config,
+  osConfig,
   ...
 }:
 {
-  imports = [
-    ../../../../packages/desktop/fonts/jetbrains-mono/options.nix
-  ];
-
-  programs.alacritty = lib.mkIf config.desktopFonts.enableJetbrainsMono {
+  programs.alacritty = lib.mkIf osConfig.desktop.fonts.enableJetbrainsMono {
     settings = {
       font = {
         size = 12;
