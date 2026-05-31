@@ -1,38 +1,57 @@
 {
-  environment.persistence."/persistent" = {
-    enable = true;
-    hideMounts = true;
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.impermanence;
+in
+{
+  imports = [ ./btrfs.nix ];
 
-    directories = [
-      # System state
-      "/var/log"
-      "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
-      "/var/lib/systemd/timers"
-      "/var/lib/systemd/rfkill"
-      "/var/lib/systemd/backlight"
+  options = {
+    impermanence = with lib; {
+      enable = mkEnableOption "Impermanence";
+      path = mkOption { type = lib.types.path; };
+      type = mkOption { type = lib.types.enum [ "btrfs" ]; };
+    };
+  };
 
-      # Networking
-      "/etc/NetworkManager/system-connections"
-      "/var/lib/NetworkManager"
-      "/var/lib/tailscale"
+  config = lib.mkIf cfg.enable {
+    environment.persistence.${cfg.path} = {
+      hideMounts = true;
 
-      # Auth and SSH
-      "/etc/ssh"
+      directories = [
+        # System state
+        "/var/log"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+        "/var/lib/systemd/timers"
+        "/var/lib/systemd/rfkill"
+        "/var/lib/systemd/backlight"
 
-      # Hardware state
-      "/var/lib/bluetooth"
-      "/var/lib/upower"
-      "/var/lib/alsa"
+        # Networking
+        "/etc/NetworkManager/system-connections"
+        "/var/lib/NetworkManager"
+        "/var/lib/tailscale"
 
-      # Desktop session data
-      "/var/lib/AccountsService"
-      "/var/cache/cups"
-    ];
+        # Auth and SSH
+        "/etc/ssh"
 
-    files = [
-      "/etc/machine-id"
-      "/var/lib/dbus/machine-id"
-    ];
+        # Hardware state
+        "/var/lib/bluetooth"
+        "/var/lib/upower"
+        "/var/lib/alsa"
+
+        # Desktop session data
+        "/var/lib/AccountsService"
+        "/var/cache/cups"
+      ];
+
+      files = [
+        "/etc/machine-id"
+        "/var/lib/dbus/machine-id"
+      ];
+    };
   };
 }

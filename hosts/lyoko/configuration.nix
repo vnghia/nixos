@@ -1,8 +1,6 @@
 {
   imports = [
     ../../nix
-    ../../nix/system/impermanence
-    ../../nix/system/impermanence/btrfs.nix
 
     ../common
 
