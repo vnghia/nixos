@@ -39,6 +39,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
+                sharedModules = [ ./modules/home ];
               };
             }
             disko.nixosModules.disko
@@ -56,6 +57,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
+                sharedModules = [ ./modules/home ];
               };
             }
             disko.nixosModules.disko
