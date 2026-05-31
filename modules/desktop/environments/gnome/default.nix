@@ -22,7 +22,7 @@ in
                     default = null;
                   };
                   config = mkOption {
-                    type = types.nullOr types.attrsOf types.any;
+                    type = types.nullOr types.attrs;
                     default = null;
                   };
                 };

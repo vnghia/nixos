@@ -19,8 +19,8 @@ in
         };
       }
       (lib.attrsets.mapAttrs' (
-        name: value: lib.nameValuePair ("org/gnome/shell/extensions/${value.key || name}") (value.config)
-      ) lib.attrsets.filterAttrs (name: value: value.config != null) cfg.extensions)
+        name: value: lib.nameValuePair ("org/gnome/shell/extensions/${value.key or name}") (value.config)
+      ) (lib.attrsets.filterAttrs (name: value: value.config != null) cfg.extensions))
     ];
   };
 }
