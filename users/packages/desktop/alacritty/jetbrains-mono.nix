@@ -4,8 +4,11 @@
   osConfig,
   ...
 }:
+let
+  fontConfig = osConfig.desktop.fonts;
+in
 {
-  programs.alacritty = lib.mkIf osConfig.desktop.fonts.enableJetbrainsMono {
+  programs.alacritty = lib.mkIf fontConfig.enableJetbrainsMono {
     settings = {
       font = {
         size = 12;

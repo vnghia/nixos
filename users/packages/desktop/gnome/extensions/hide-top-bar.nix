@@ -5,10 +5,12 @@
   ...
 }:
 let
-  cfg = osConfig.desktop.gnome.extensions.hideTopBar;
+  gnomeCfg = osConfig.desktop.gnome;
+  cfg = gnomeCfg.extensions.hideTopBar;
 in
 {
-  dconf = lib.mkIf cfg.enable {
+  dconf = lib.mkIf (gnomeCfg.enable && cfg.enable) {
+    enable = true;
     settings = {
       "org/gnome/shell" = {
         enabled-extensions = [

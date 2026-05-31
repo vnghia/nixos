@@ -5,7 +5,8 @@
   ...
 }:
 let
-  cfg = config.desktop.gnome.extensions.hideTopBar;
+  gnomeCfg = config.desktop.gnome;
+  cfg = gnomeCfg.extensions.hideTopBar;
 in
 {
   options = {
@@ -14,7 +15,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (gnomeCfg.enable && cfg.enable) {
     environment.systemPackages = [ pkgs.gnomeExtensions.hide-top-bar ];
   };
 }

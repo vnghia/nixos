@@ -7,7 +7,7 @@ let
   cfg = config.impermanence;
 in
 {
-  config = lib.mkIf (cfg.type == "btrfs") {
+  config = lib.mkIf (cfg.enable && cfg.type == "btrfs") {
     boot.initrd.systemd.services.btrfs-impermanence = {
       description = "Manage btrfs subvolumes impermanence";
       wantedBy = [ "initrd.target" ];
