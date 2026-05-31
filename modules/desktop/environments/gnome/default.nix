@@ -8,12 +8,31 @@ let
   cfg = config.desktop.environment.gnome;
 in
 {
-  imports = [
-    ./extensions
-  ];
-
-  options = {
-    desktop.environment.gnome.enable = lib.mkEnableOption "Gnome";
+  options = with lib; {
+    desktop = {
+      environment = {
+        gnome = {
+          enable = mkEnableOption "Gnome";
+          extensions = mkOption {
+            type = types.attrsOf (
+              types.submodule {
+                options = {
+                  key = mkOption {
+                    type = types.nullOr types.str;
+                    default = null;
+                  };
+                  config = mkOption {
+                    type = types.nullOr types.attrsOf types.any;
+                    default = null;
+                  };
+                };
+              }
+            );
+            default = { };
+          };
+        };
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -29,5 +48,9 @@ in
       gnome-tour
       gnome-user-docs
     ];
+
+    environment.systemPackages = lib.attrsets.mapAttrsToList (
+      name: value: pkgs.gnomeExtensions.${name}
+    ) cfg.extensions;
   };
 }

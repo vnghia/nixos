@@ -8,9 +8,7 @@
         gnome = {
           enable = true;
           extensions = {
-            hideTopBar = {
-              enable = true;
-            };
+            hide-top-bar = { };
           };
         };
       };
