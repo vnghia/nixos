@@ -1,8 +1,5 @@
 {
   imports = [
-    ../../packages/desktop/gnome
-    ../../packages/desktop/fonts/jetbrains-mono
-
     ../../users/xana/desktop
   ];
 
@@ -10,6 +7,14 @@
     desktop = {
       fonts = {
         enableJetbrainsMono = true;
+      };
+      gnome = {
+        enable = true;
+        extensions = {
+          hideTopBar = {
+            enable = true;
+          };
+        };
       };
     };
   };

@@ -3,5 +3,7 @@
     ../base
 
     ../../../packages/desktop/alacritty
+
+    ./gnome
   ];
 }
