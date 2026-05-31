@@ -1,4 +1,8 @@
 {
+  imports = [
+    ./jetbrains-mono.nix
+  ];
+
   programs.alacritty = {
     enable = true;
     settings = {
