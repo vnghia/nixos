@@ -10,10 +10,6 @@ let
   ];
 in
 {
-  imports = [
-    ../../nix/system/impermanence
-  ];
-
   config = {
     impermanence = {
       enable = true;

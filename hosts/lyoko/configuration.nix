@@ -1,7 +1,5 @@
 {
   imports = [
-    ../../nix
-
     ../common
 
     ./desktop.nix

@@ -1,5 +1,5 @@
 {
   imports = [
-    ./feature.nix
+    ./nixos
   ];
 }

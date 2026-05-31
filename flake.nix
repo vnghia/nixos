@@ -43,6 +43,7 @@
             }
             disko.nixosModules.disko
             impermanence.nixosModules.impermanence
+            ./modules/system
             ./hosts/lyoko/host
           ];
         };
@@ -59,6 +60,7 @@
             }
             disko.nixosModules.disko
             impermanence.nixosModules.impermanence
+            ./modules/system
             ./hosts/lyoko/qemu
           ];
         };
