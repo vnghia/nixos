@@ -15,18 +15,20 @@ in
           enable = mkEnableOption "Gnome";
           extensions = mkOption {
             type = types.attrsOf (
-              types.submodule {
-                options = {
-                  key = mkOption {
-                    type = types.nullOr types.str;
-                    default = null;
+              types.nullOr (
+                types.submodule {
+                  options = {
+                    key = mkOption {
+                      type = types.nullOr types.str;
+                      default = null;
+                    };
+                    config = mkOption {
+                      type = types.nullOr types.attrs;
+                      default = null;
+                    };
                   };
-                  config = mkOption {
-                    type = types.nullOr types.attrs;
-                    default = null;
-                  };
-                };
-              }
+                }
+              )
             );
             default = { };
           };
@@ -36,6 +38,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    desktop = {
+      environment = {
+        gnome = {
+          extensions = {
+            hide-top-bar = {
+              key = "hidetopbar";
+              config = {
+                enable-active-window = false;
+                enable-intellihide = false;
+                mouse-sensitive = true;
+              };
+            };
+          };
+        };
+      };
+    };
+
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
 
@@ -51,6 +70,6 @@ in
 
     environment.systemPackages = lib.attrsets.mapAttrsToList (
       name: value: pkgs.gnomeExtensions.${name}
-    ) cfg.extensions;
+    ) (lib.attrsets.filterAttrs (name: value: value != null) cfg.extensions);
   };
 }
