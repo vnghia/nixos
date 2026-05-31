@@ -42,6 +42,12 @@ in
       environment = {
         gnome = {
           extensions = {
+            appindicator = {
+              config = {
+                legacy-tray-enabled = false;
+                tray-pos = "right";
+              };
+            };
             hide-top-bar = {
               key = "hidetopbar";
               config = {

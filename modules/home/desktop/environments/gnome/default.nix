@@ -12,14 +12,31 @@ in
     enable = true;
     settings = lib.mkMerge [
       {
+        "org/gnome/desktop/calendar" = {
+          show-weekdate = false;
+          week-start-day = "monday";
+        };
+
+        "org/gnome/mutter" = {
+          experimental-features = [
+            "scale-monitor-framebuffer"
+            "variable-refresh-rate"
+            "xwayland-native-scaling"
+            "autoclose-xwayland"
+          ];
+        };
+
         "org/gnome/shell" = {
           enabled-extensions = lib.attrsets.mapAttrsToList (
             name: value: pkgs.gnomeExtensions.${name}.extensionUuid
-          ) cfg.extensions;
+          ) (lib.attrsets.filterAttrs (name: value: value != null) cfg.extensions);
         };
       }
       (lib.attrsets.mapAttrs' (
-        name: value: lib.nameValuePair ("org/gnome/shell/extensions/${value.key or name}") (value.config)
+        name: value:
+        lib.nameValuePair ("org/gnome/shell/extensions/${if value.key != null then value.key else name}") (
+          value.config
+        )
       ) (lib.attrsets.filterAttrs (name: value: value != null && value.config != null) cfg.extensions))
     ];
   };
