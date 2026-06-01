@@ -1,15 +1,25 @@
 { pkgs, ... }:
 {
-  imports = [
-    ../../../packages/cli/git
-  ];
+  config = {
+    home = {
+      username = "xana";
+      homeDirectory = "/home/xana";
+    };
 
-  home = {
-    username = "xana";
-    homeDirectory = "/home/xana";
+    programs.home-manager.enable = true;
+
+    cli = {
+      packages = {
+        git = {
+          enable = true;
+          user = {
+            name = "Vo Van Nghia";
+            email = "git@vnghia.com";
+          }
+        };
+      };
+    };
+
+    home.stateVersion = "26.05";
   };
-
-  programs.home-manager.enable = true;
-
-  home.stateVersion = "26.05";
 }
