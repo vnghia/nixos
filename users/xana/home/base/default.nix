@@ -9,10 +9,13 @@
             email = "git@vnghia.com";
           };
         };
-        vim = {
+        starship = {
           enable = true;
         };
-        starship = {
+        uv = {
+          enable = true;
+        };
+        vim = {
           enable = true;
         };
         zellij = {
