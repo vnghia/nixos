@@ -9,6 +9,9 @@
             email = "git@vnghia.com";
           };
         };
+        vim = {
+          enable = true;
+        };
       };
     };
 
