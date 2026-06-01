@@ -2,6 +2,9 @@
   config = {
     cli = {
       packages = {
+        eza = {
+          enable = true;
+        };
         git = {
           enable = true;
           user = {

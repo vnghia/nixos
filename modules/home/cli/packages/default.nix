@@ -1,5 +1,6 @@
 {
   imports = [
+    ./eza
     ./git
     ./starship
     ./uv
