@@ -11,5 +11,9 @@
         };
       };
     };
+
+    impermanence.directories = [
+      "code"
+    ];
   };
 }
