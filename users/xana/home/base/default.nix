@@ -18,6 +18,9 @@
         zellij = {
           enable = true;
         };
+        zoxide = {
+          enable = true;
+        };
       };
     };
 

@@ -4,5 +4,6 @@
     ./starship
     ./vim
     ./zellij
+    ./zoxide
   ];
 }
