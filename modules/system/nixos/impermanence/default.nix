@@ -10,8 +10,10 @@ in
   options = {
     impermanence = with lib; {
       enable = mkEnableOption "Impermanence";
-      path = mkOption { type = lib.types.path; };
-      type = mkOption { type = lib.types.enum [ "btrfs" ]; };
+      path = mkOption { type = types.path; };
+      type = mkOption { type = types.enum [ "btrfs" ]; };
+      directories = mkOption { type = types.listOf types.path; };
+      files = mkOption { type = types.listOf types.path; };
     };
   };
 
@@ -20,7 +22,11 @@ in
       {
         environment.persistence.${cfg.path} = {
           hideMounts = true;
+          directories = cfg.directories;
+          files = cfg.files;
+        };
 
+        impermanence = {
           directories = [
             # System state
             "/var/log"
@@ -30,11 +36,6 @@ in
             "/var/lib/systemd/rfkill"
             "/var/lib/systemd/backlight"
 
-            # Networking
-            "/etc/NetworkManager/system-connections"
-            "/var/lib/NetworkManager"
-            "/var/lib/tailscale"
-
             # Auth and SSH
             "/etc/ssh"
 
@@ -42,10 +43,6 @@ in
             "/var/lib/bluetooth"
             "/var/lib/upower"
             "/var/lib/alsa"
-
-            # Desktop session data
-            "/var/lib/AccountsService"
-            "/var/cache/cups"
           ];
 
           files = [
