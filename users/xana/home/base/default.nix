@@ -15,7 +15,7 @@
           user = {
             name = "Vo Van Nghia";
             email = "git@vnghia.com";
-          }
+          };
         };
       };
     };

@@ -69,34 +69,50 @@ in
                 mods = "Control|Shift";
                 action = "Quit";
               }
+              {
+                key = "PageUp";
+                action = "ScrollLineUp";
+              }
+              {
+                key = "PageDown";
+                action = "ScrollLineDown";
+              }
+              {
+                key = "PageUp";
+                mods = "Shift";
+                action = "ScrollPageUp";
+              }
+              {
+                key = "PageDown";
+                mods = "Shift";
+                action = "ScrollPageDown";
+              }
             ];
           };
         }
         (lib.mkIf fontCfg.jetbrainsMono.enable {
-          settings = {
-            font = {
-              size = 12;
-              builtin_box_drawing = false;
+          font = {
+            size = 12;
+            builtin_box_drawing = false;
 
-              normal = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Regular";
-              };
+            normal = {
+              family = "JetBrainsMono Nerd Font";
+              style = "Regular";
+            };
 
-              bold = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Bold";
-              };
+            bold = {
+              family = "JetBrainsMono Nerd Font";
+              style = "Bold";
+            };
 
-              italic = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Italic";
-              };
+            italic = {
+              family = "JetBrainsMono Nerd Font";
+              style = "Italic";
+            };
 
-              bold_italic = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Bold Italic";
-              };
+            bold_italic = {
+              family = "JetBrainsMono Nerd Font";
+              style = "Bold Italic";
             };
           };
         })

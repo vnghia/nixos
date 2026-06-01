@@ -23,8 +23,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
-      config.user = cfg.user;
       settings = {
+        user = cfg.user // {
+          useConfigOnly = true;
+        };
         init = {
           defaultBranch = "main";
         };
