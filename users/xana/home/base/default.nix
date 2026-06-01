@@ -12,6 +12,9 @@
         vim = {
           enable = true;
         };
+        starship = {
+          enable = true;
+        };
       };
     };
 

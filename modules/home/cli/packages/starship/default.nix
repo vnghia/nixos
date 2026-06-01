@@ -1,0 +1,130 @@
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  cfg = config.cli.packages.starship;
+in
+{
+  options = with lib; {
+    cli.packages.starship = {
+      enable = mkEnableOption "Starship";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.starship = {
+      enable = true;
+      settings = {
+        format = ''
+          [⟨](bracket) [λ](bold lambda) [⟩](bracket) $directory [⟩](path) $git_branch$git_commit$git_status$git_state$fill$cmd_duration
+          $character
+        '';
+        add_newline = false;
+        palette = "starship";
+
+        character = {
+          success_symbol = "[⟩](bold prompt)";
+          error_symbol = "[⟩](bold error_prompt)";
+        };
+
+        directory = {
+          format = "[$read_only]($read_only_style)[$path]($style)";
+          truncation_length = 3;
+          style = "path";
+          read_only = " ";
+          read_only_style = "lock";
+          home_symbol = "~";
+          repo_root_format = "[$read_only]($read_only_style)[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)";
+          before_repo_root_style = "truncate";
+          repo_root_style = "repo";
+          fish_style_pwd_dir_length = 2;
+        };
+
+        git_branch = {
+          format = "[$symbol$branch(:$remote_branch)]($style)";
+          style = "commit";
+          symbol = " ";
+          only_attached = true;
+        };
+
+        git_commit = {
+          format = "[($hash)](commit)[( $tag)](tag)";
+          tag_symbol = "";
+          only_detached = true;
+          tag_disabled = false;
+        };
+
+        git_status = {
+          format = "( $stashed)( $ahead_behind)( $conflicted)( $untracked)( $modified)( $staged)( $renamed)( $deleted)";
+          stashed = "[~](bold stashed)[$count](stashed)";
+          ahead = "[⇡](bold ahead_behind)[$count](ahead_behind)";
+          behind = "[⇣](bold ahead_behind)[$count](ahead_behind)";
+          diverged = "[⇡](bold ahead_behind)[$ahead_count](ahead_behind) [⇣](bold ahead_behind)[$behind_count](ahead_behind)";
+          conflicted = "[≠](bold conflicted)[$count](conflicted)";
+          untracked = "[?](bold untracked)[$count](untracked)";
+          modified = "[!](bold modified)[$count](modified)";
+          staged = "[+](bold staged)[$count](staged)";
+          renamed = "[⤹](bold renamed)[$count](renamed)";
+          deleted = "[x](bold deleted)[$count](deleted)";
+          ignore_submodules = true;
+        };
+
+        git_state = {
+          format = " [$state( $progress_current/$progress_total)]($style)";
+          style = "state";
+          rebase = "rebase";
+          merge = "merge";
+          revert = "revert";
+          cherry_pick = "cherry-pick";
+          bisect = "bisect";
+          am = "am";
+          am_or_rebase = "am/rebase";
+        };
+
+        fill = {
+          symbol = " ";
+        };
+
+        cmd_duration = {
+          format = "[⟨]($style) [$duration]($style)";
+          style = "duration";
+        };
+
+        palettes = {
+          starship = {
+            # prompt
+            lambda = "196";
+            bracket = "124";
+            prompt = "196";
+            error_prompt = "220";
+
+            # directory
+            path = "45";
+            truncate = "24";
+            repo = "219";
+            lock = "227";
+
+            # git
+            commit = "208";
+            tag = "213";
+            state = "203";
+            stashed = "224";
+            ahead_behind = "118";
+            conflicted = "203";
+            untracked = "81";
+            modified = "220";
+            staged = "121";
+            renamed = "147";
+            deleted = "9";
+
+            # duration
+            duration = "214";
+          };
+        };
+      };
+    };
+  };
+}

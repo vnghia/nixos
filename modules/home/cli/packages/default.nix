@@ -1,6 +1,7 @@
 {
   imports = [
     ./git
+    ./starship
     ./vim
   ];
 }
