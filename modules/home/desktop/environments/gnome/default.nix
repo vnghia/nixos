@@ -37,7 +37,7 @@ in
         lib.nameValuePair ("org/gnome/shell/extensions/${if value.key != null then value.key else name}") (
           value.config
         )
-      ) (lib.attrsets.filterAttrs (name: value: value != null && value.config != null) cfg.extensions))
+      ) (lib.attrsets.filterAttrs (name: value: value.enable && value.config != null) cfg.extensions))
     ];
   };
 }

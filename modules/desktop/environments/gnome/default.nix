@@ -15,20 +15,22 @@ in
           enable = mkEnableOption "Gnome";
           extensions = mkOption {
             type = types.attrsOf (
-              types.nullOr (
-                types.submodule {
-                  options = {
-                    key = mkOption {
-                      type = types.nullOr types.str;
-                      default = null;
-                    };
-                    config = mkOption {
-                      type = types.nullOr types.attrs;
-                      default = null;
-                    };
+              types.submodule {
+                options = {
+                  enable = mkOption {
+                    type = types.bool;
+                    default = true;
                   };
-                }
-              )
+                  key = mkOption {
+                    type = types.nullOr types.str;
+                    default = null;
+                  };
+                  config = mkOption {
+                    type = types.nullOr types.attrs;
+                    default = null;
+                  };
+                };
+              }
             );
             default = { };
           };
@@ -76,6 +78,6 @@ in
 
     environment.systemPackages = lib.attrsets.mapAttrsToList (
       name: value: pkgs.gnomeExtensions.${name}
-    ) (lib.attrsets.filterAttrs (name: value: value != null) cfg.extensions);
+    ) (lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions);
   };
 }
