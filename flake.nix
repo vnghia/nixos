@@ -28,45 +28,42 @@
       impermanence,
       ...
     }@inputs:
+    let
+      lib = nixpkgs.lib;
+    in
     {
-      nixosConfigurations = {
-        lyoko = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                sharedModules = [ ./modules/home ];
-              };
-            }
-            disko.nixosModules.disko
-            impermanence.nixosModules.impermanence
-            ./modules
-            ./hosts/lyoko/host
-          ];
-        };
-        lyoko-qemu = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                sharedModules = [ ./modules/home ];
-              };
-            }
-            disko.nixosModules.disko
-            impermanence.nixosModules.impermanence
-            ./modules
-            ./hosts/lyoko/qemu
-          ];
-        };
-      };
+      nixosConfigurations =
+        lib.attrsets.concatMapAttrs
+          (
+            name: value:
+            builtins.listToAttrs (
+              lib.lists.forEach value.flavors (
+                flavor:
+                lib.attrsets.nameValuePair ("${name}${lib.optionalString (flavor != null) "-${flavor}"}") (
+                  lib.nixosSystem {
+                    specialArgs = { inherit inputs; };
+                    modules = [
+                      home-manager.nixosModules.home-manager
+                      disko.nixosModules.disko
+                      impermanence.nixosModules.impermanence
+
+                      ./modules
+
+                      ./hosts/${name}/${if flavor != null then flavor else "host"}
+                    ];
+                  }
+                )
+              )
+            )
+          )
+          {
+            lyoko = {
+              flavors = [
+                null
+                "qemu"
+              ];
+            };
+          };
 
       system.stateVersion = "26.05";
     };

@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
@@ -37,6 +38,10 @@ in
 
     home-manager = {
       users.${cfg.name} = cfg.home;
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      extraSpecialArgs = { inherit inputs; };
+      sharedModules = [ ../../home ];
     };
   };
 }
