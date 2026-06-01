@@ -1,13 +1,5 @@
-{ pkgs, ... }:
 {
   config = {
-    home = {
-      username = "xana";
-      homeDirectory = "/home/xana";
-    };
-
-    programs.home-manager.enable = true;
-
     cli = {
       packages = {
         git = {
@@ -19,7 +11,5 @@
         };
       };
     };
-
-    home.stateVersion = "26.05";
   };
 }
