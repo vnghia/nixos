@@ -51,8 +51,58 @@ in
         share = true;
       };
 
-      antidote = {
+      autosuggestion = {
         enable = true;
+      };
+
+      historySubstringSearch = {
+        enable = true;
+        searchUpKey = "^[[A";
+        searchDownKey = "^[[B";
+      };
+
+      syntaxHighlighting = {
+        enable = true;
+        styles = {
+          unknown-token = "fg=160";
+          reserved-word = "fg=130";
+          alias = "fg=84";
+          builtin = "fg=84";
+          command = "fg=84";
+          function = "fg=84";
+
+          commandseparator = "fg=250";
+          redirection = "fg=250";
+
+          path = "fg=45";
+          globbing = "fg=33";
+
+          command-substitution-delimiter = "fg=78";
+          process-substitution-delimiter = "fg=78";
+          back-quoted-argument-delimiter = "fg=78";
+
+          single-quoted-argument = "fg=178";
+          double-quoted-argument = "fg=178";
+          dollar-quoted-argument = "fg=178";
+          dollar-double-quoted-argument = "fg=178";
+
+          single-quoted-argument-unclosed = "fg=248";
+          double-quoted-argument-unclosed = "fg=248";
+          dollar-quoted-argument-unclosed = "fg=248";
+          dollar-double-quoted-argument-unclosed = "fg=248";
+
+          single-hyphen-option = "fg=180";
+          double-hyphen-option = "fg=228";
+
+          default = "fg=253";
+        };
+      };
+
+      antidote = {
+        enable =
+          builtins.length (
+            builtins.attrNames (lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins)
+          ) != 0;
         plugins = [
           (lib.strings.concatLines (
             lib.attrsets.mapAttrsToList (
@@ -67,12 +117,6 @@ in
         "INC_APPEND_HISTORY"
         "NO_HIST_SAVE_BY_COPY"
       ];
-    };
-
-    shell.zsh.plugins = {
-      "zsh-users/zsh-autosuggestions" = { };
-      "zsh-users/zsh-history-substring-search" = { };
-      "zsh-users/zsh-syntax-highlighting" = { };
     };
 
     impermanence.files = [
