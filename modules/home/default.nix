@@ -3,6 +3,7 @@
     ./base
     ./cli
     ./desktop
+    ./shell
     ./system
   ];
 }

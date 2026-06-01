@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -9,7 +10,8 @@ in
 {
   options = with lib; {
     user = {
-      username = mkOption { type = types.str; };
+      name = mkOption { type = types.str; };
+      shell = mkOption { type = types.enum [ "zsh" ]; };
       groups = {
         wheel = mkEnableOption "Wheel";
         networkManager = mkEnableOption "Network Manager";
@@ -22,8 +24,9 @@ in
     users.mutableUsers = false;
 
     users.users = {
-      ${cfg.username} = {
+      ${cfg.name} = {
         isNormalUser = true;
+        shell = if cfg.shell == "zsh" then pkgs.zsh else null;
         extraGroups =
           (if cfg.groups.wheel then [ "wheel" ] else [ ])
           ++ (if cfg.groups.wheel && config.network.networkManager.enable then [ "networkmanager" ] else [ ]);
@@ -31,7 +34,7 @@ in
     };
 
     home-manager = {
-      users.${cfg.username} = cfg.home;
+      users.${cfg.name} = cfg.home;
     };
   };
 }

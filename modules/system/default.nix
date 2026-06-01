@@ -2,5 +2,6 @@
   imports = [
     ./network
     ./nixos
+    ./shell
   ];
 }

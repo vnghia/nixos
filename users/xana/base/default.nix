@@ -6,7 +6,8 @@
 {
   config = {
     user = {
-      username = "xana";
+      name = "xana";
+      shell = "zsh";
       groups = {
         wheel = true;
         networkManager = true;

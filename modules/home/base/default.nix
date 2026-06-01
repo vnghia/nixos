@@ -9,8 +9,8 @@ in
 {
   config = {
     home = {
-      username = osCfg.username;
-      homeDirectory = "/home/${osCfg.username}";
+      username = osCfg.name;
+      homeDirectory = "/home/${osCfg.name}";
     };
 
     programs.home-manager.enable = true;
