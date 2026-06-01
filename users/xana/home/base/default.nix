@@ -15,6 +15,9 @@
         starship = {
           enable = true;
         };
+        zellij = {
+          enable = true;
+        };
       };
     };
 

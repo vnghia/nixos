@@ -3,5 +3,6 @@
     ./git
     ./starship
     ./vim
+    ./zellij
   ];
 }
