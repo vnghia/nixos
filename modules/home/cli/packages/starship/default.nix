@@ -19,7 +19,7 @@ in
       enable = true;
       settings = {
         format = ''
-          [⟨](bracket) [λ](bold lambda) [⟩](bracket) $directory [⟩](path) $git_branch$git_commit$git_status$git_state$fill$cmd_duration
+          [⟨](bracket) [λ](bold lambda) [⟩](bracket) $directory$git_branch$git_commit$git_status$git_state$fill$hostname$cmd_duration
           $character
         '';
         add_newline = false;
@@ -31,13 +31,13 @@ in
         };
 
         directory = {
-          format = "[$read_only]($read_only_style)[$path]($style)";
+          format = "[$read_only]($read_only_style)[$path]($style) [⟩]($style) ";
           truncation_length = 3;
           style = "path";
           read_only = " ";
           read_only_style = "lock";
           home_symbol = "~";
-          repo_root_format = "[$read_only]($read_only_style)[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)";
+          repo_root_format = "[$read_only]($read_only_style)[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style) [⟩]($repo_root_style) ";
           before_repo_root_style = "truncate";
           repo_root_style = "repo";
           fish_style_pwd_dir_length = 2;
@@ -88,8 +88,14 @@ in
           symbol = " ";
         };
 
+        hostname = {
+          format = " [⟨]($style) [$hostname]($style)";
+          ssh_only = false;
+          style = "hostname";
+        };
+
         cmd_duration = {
-          format = "[⟨]($style) [$duration]($style)";
+          format = " [⟨]($style) [$duration]($style)";
           style = "duration";
         };
 
@@ -119,6 +125,9 @@ in
             staged = "121";
             renamed = "147";
             deleted = "9";
+
+            # hostname
+            hostname = "121";
 
             # duration
             duration = "214";
