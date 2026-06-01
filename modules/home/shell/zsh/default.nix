@@ -77,7 +77,6 @@ in
 
     impermanence.files = [
       (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
-      (lib.strings.removePrefix "${config.home.homeDirectory}/" "${xdgCfg.cacheHome}/antidote")
     ];
   };
 }
