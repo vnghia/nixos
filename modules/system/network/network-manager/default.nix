@@ -17,7 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     networking.networkmanager.enable = true;
 
-    impermanence.directories = [
+    system.nixos.impermanence.directories = [
       "/etc/NetworkManager/system-connections"
       "/var/lib/NetworkManager"
     ];

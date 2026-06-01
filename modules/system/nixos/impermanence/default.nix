@@ -4,15 +4,15 @@
   ...
 }:
 let
-  cfg = config.impermanence;
+  cfg = config.system.nixos.impermanence;
+  filesystemCfg = config.system.filesystem;
 in
 {
   options = {
-    impermanence = with lib; {
+    system.nixos.impermanence = with lib; {
       enable = mkEnableOption "Impermanence";
       home = mkEnableOption "Impermanence home";
       path = mkOption { type = types.path; };
-      type = mkOption { type = types.enum [ "btrfs" ]; };
       directories = mkOption {
         type = types.listOf (types.either types.path types.attrs);
         default = [ ];
@@ -33,7 +33,7 @@ in
           files = cfg.files;
         };
 
-        impermanence = {
+        system.nixos.impermanence = {
           directories = [
             # System state
             "/var/log"
@@ -58,17 +58,19 @@ in
           ];
         };
 
-        fileSystems."/".neededForBoot = true;
         fileSystems.${cfg.path}.neededForBoot = true;
+
+        fileSystems."/".neededForBoot = true;
         fileSystems."/home".neededForBoot = cfg.home;
 
         virtualisation.vmVariantWithDisko = {
-          virtualisation.fileSystems."/".neededForBoot = true;
           virtualisation.fileSystems.${cfg.path}.neededForBoot = true;
+
+          virtualisation.fileSystems."/".neededForBoot = true;
           virtualisation.fileSystems."/home".neededForBoot = cfg.home;
         };
       }
-      (lib.mkIf (cfg.type == "btrfs") {
+      (lib.mkIf (filesystemCfg.root.type == "btrfs") {
         boot.initrd.systemd.services.btrfs-impermanence = {
           description = "Manage btrfs subvolumes impermanence";
           wantedBy = [ "initrd.target" ];

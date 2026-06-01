@@ -11,11 +11,14 @@ let
 in
 {
   config = {
-    impermanence = {
-      enable = true;
-      home = true;
-      path = "/persistent";
-      type = "btrfs";
+    system = {
+      filesystem.root.type = "btrfs";
+
+      nixos.impermanence = {
+        enable = true;
+        home = true;
+        path = "/persistent";
+      };
     };
 
     disko.devices = {

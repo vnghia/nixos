@@ -24,7 +24,7 @@
       };
     };
 
-    impermanence.directories = [
+    system.nixos.impermanence.directories = [
       "code"
     ];
   };

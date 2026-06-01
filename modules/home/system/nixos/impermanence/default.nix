@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.impermanence;
-  osCfg = osConfig.impermanence;
+  cfg = config.system.nixos.impermanence;
+  osCfg = osConfig.system.nixos.impermanence;
 in
 {
   options = {
-    impermanence = with lib; {
+    system.nixos.impermanence = with lib; {
       directories = mkOption {
         type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
         default = [ ];
@@ -28,7 +28,7 @@ in
       files = cfg.files;
     };
 
-    impermanence = {
+    system.nixos.impermanence = {
       directories = [
         "Documents"
         "Downloads"

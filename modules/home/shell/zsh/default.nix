@@ -118,7 +118,7 @@ in
       ];
     };
 
-    impermanence.files = [
+    system.nixos.impermanence.files = [
       (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
     ];
   };
