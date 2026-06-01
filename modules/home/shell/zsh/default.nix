@@ -62,9 +62,11 @@ in
         ];
       };
 
-      sessionVariables = {
-        HISTFILE = historyPath;
-      };
+      # Fix can't rename $HISTFILE.new to $HISTFILE
+      setOptions = [
+        "INC_APPEND_HISTORY"
+        "NO_HIST_SAVE_BY_COPY"
+      ];
     };
 
     shell.zsh.plugins = {
