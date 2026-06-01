@@ -5,13 +5,11 @@
 }:
 {
   config = {
-    users.users = {
-      xana = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel"
-        ]
-        ++ (if config.network.networkManager.enable then [ "networkmanager" ] else [ ]);
+    user = {
+      username = "xana";
+      groups = {
+        wheel = true;
+        networkManager = true;
       };
     };
   };

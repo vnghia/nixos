@@ -3,7 +3,9 @@
     ../base
   ];
 
-  home-manager = {
-    users.xana = import ../home/desktop;
+  config = {
+    user = {
+      home = import ../home/desktop;
+    };
   };
 }
