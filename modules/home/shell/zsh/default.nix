@@ -10,6 +10,7 @@ let
   osCfg = osConfig.shell.zsh;
   xdgCfg = config.xdg;
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
+  enabledPlugins = lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins;
 in
 {
   options = with lib; {
@@ -98,15 +99,12 @@ in
       };
 
       antidote = {
-        enable =
-          builtins.length (
-            builtins.attrNames (lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins)
-          ) != 0;
+        enable = builtins.length (builtins.attrNames enabledPlugins) != 0;
         plugins = [
           (lib.strings.concatLines (
             lib.attrsets.mapAttrsToList (
               name: value: "${name}${lib.optionalString (value.path != null) " path:${value.path}"}"
-            ) (lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins)
+            ) enabledPlugins
           ))
         ];
       };
