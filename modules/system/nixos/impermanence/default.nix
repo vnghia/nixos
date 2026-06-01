@@ -10,10 +10,17 @@ in
   options = {
     impermanence = with lib; {
       enable = mkEnableOption "Impermanence";
+      home = mkEnableOption "Impermanence home";
       path = mkOption { type = types.path; };
       type = mkOption { type = types.enum [ "btrfs" ]; };
-      directories = mkOption { type = types.listOf types.path; };
-      files = mkOption { type = types.listOf types.path; };
+      directories = mkOption {
+        type = types.listOf (types.either types.path types.attrs);
+        default = [ ];
+      };
+      files = mkOption {
+        type = types.listOf (types.either types.path types.attrs);
+        default = [ ];
+      };
     };
   };
 
@@ -50,6 +57,16 @@ in
             "/var/lib/dbus/machine-id"
           ];
         };
+
+        fileSystems."/".neededForBoot = true;
+        fileSystems.${cfg.path}.neededForBoot = true;
+        fileSystems."/home".neededForBoot = cfg.home;
+
+        virtualisation.vmVariantWithDisko = {
+          virtualisation.fileSystems."/".neededForBoot = true;
+          virtualisation.fileSystems.${cfg.path}.neededForBoot = true;
+          virtualisation.fileSystems."/home".neededForBoot = cfg.home;
+        };
       }
       (lib.mkIf (cfg.type == "btrfs") {
         boot.initrd.systemd.services.btrfs-impermanence = {
@@ -75,6 +92,14 @@ in
             timestamp=$(date --date="@$(stat -c %Y /btrfs/@root)" "+%Y-%m-%-d-%H-%M-%S")
             btrfs subvolume snapshot -r /btrfs/@root "/btrfs/@snapshots/@root/$timestamp"
 
+
+            ${lib.optionalString cfg.home ''
+              # Also do the same thing for the current home
+              mkdir -p /btrfs/@snapshots/@home
+              timestamp=$(date --date="@$(stat -c %Y /btrfs/@home)" "+%Y-%m-%-d-%H-%M-%S")
+              btrfs subvolume snapshot -r /btrfs/@home "/btrfs/@snapshots/@home/$timestamp"
+            ''}
+
             delete_subvolume_recursively() {
                 IFS=$'\n'
                 for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
@@ -91,7 +116,16 @@ in
             delete_subvolume_recursively /btrfs/@root
             btrfs subvolume create /btrfs/@root
 
-            # Once we're done recreating a blank root.
+            ${lib.optionalString cfg.home ''
+              for i in $(find /btrfs/@snapshots/@home/ -maxdepth 1 -mtime +30); do
+                  delete_subvolume_recursively "$i"
+              done
+
+              delete_subvolume_recursively /btrfs/@home
+              btrfs subvolume create /btrfs/@home
+            ''}
+
+            # Once we're done recreating blank subvolumes.
             # we can unmount /btrfs and continue on the boot process.
             umount /btrfs
           '';

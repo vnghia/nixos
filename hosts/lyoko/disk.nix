@@ -13,6 +13,7 @@ in
   config = {
     impermanence = {
       enable = true;
+      home = true;
       path = "/persistent";
       type = "btrfs";
     };
@@ -88,7 +89,5 @@ in
         };
       };
     };
-
-    fileSystems."/persistent".neededForBoot = true;
   };
 }
