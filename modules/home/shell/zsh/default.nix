@@ -116,6 +116,10 @@ in
         "INC_APPEND_HISTORY"
         "NO_HIST_SAVE_BY_COPY"
       ];
+
+      sessionVariables = {
+        ZSH_COMPDUMP = "${xdgCfg.cacheHome}/zsh/zcompdump";
+      };
     };
 
     system.nixos.impermanence.files = [
