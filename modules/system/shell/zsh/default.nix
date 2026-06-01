@@ -6,14 +6,13 @@
 }:
 let
   cfg = config.shell.zsh;
-  userCfg = config.user;
 in
 {
   options = {
     shell.zsh.enable = lib.mkEnableOption "Zsh";
   };
 
-  config = lib.mkIf (cfg.enable || userCfg.shell == "zsh") {
+  config = lib.mkIf cfg.enable {
     programs.zsh.enable = true;
   };
 }

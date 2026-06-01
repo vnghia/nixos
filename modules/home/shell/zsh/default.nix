@@ -8,7 +8,6 @@
 let
   cfg = config.shell.zsh;
   osCfg = osConfig.shell.zsh;
-  userCfg = osConfig.user;
   xdgCfg = config.xdg;
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
 in
@@ -34,7 +33,7 @@ in
     };
   };
 
-  config = lib.mkIf (osCfg.enable || userCfg.shell == "zsh") {
+  config = lib.mkIf osCfg.enable {
     programs.zsh = {
       enable = true;
 

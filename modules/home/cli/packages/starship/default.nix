@@ -8,7 +8,6 @@
 let
   cfg = config.cli.packages.starship;
   shellCfg = osConfig.shell;
-  userCfg = osConfig.user;
 in
 {
   options = with lib; {
@@ -20,7 +19,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;
-      enableZshIntegration = shellCfg.zsh.enable || userCfg.shell == "zsh";
+      enableZshIntegration = shellCfg.zsh.enable;
       settings = {
         format = ''
           [⟨](bracket) [λ](bold lambda) [⟩](bracket) $directory$git_branch$git_commit$git_status$git_state$fill$hostname$cmd_duration

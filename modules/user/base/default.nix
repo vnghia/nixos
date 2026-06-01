@@ -33,6 +33,8 @@ in
       };
     };
 
+    shell.zsh.enable = lib.mkIf (cfg.shell == "zsh") true;
+
     home-manager = {
       users.${cfg.name} = cfg.home;
     };
