@@ -140,5 +140,7 @@ in
         };
       };
     };
+
+    stylix.targets.starship.enable = false;
   };
 }
