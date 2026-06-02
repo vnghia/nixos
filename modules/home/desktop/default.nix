@@ -1,6 +1,6 @@
 {
   imports = [
-    ./environments
+    ./managers
     ./packages
   ];
 }

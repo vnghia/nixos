@@ -7,7 +7,7 @@
             enable = true;
           };
         };
-        environment = {
+        managers = {
           gnome = {
             enable = true;
           };

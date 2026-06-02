@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config._.desktop.environment.gnome;
+  cfg = config._.desktop.managers.gnome;
 in
 {
   options = with lib; {
     _ = {
       desktop = {
-        environment = {
+        managers = {
           gnome = {
             enable = mkEnableOption "Gnome";
             extensions = mkOption {
@@ -44,7 +44,7 @@ in
   config = lib.mkIf cfg.enable {
     _ = {
       desktop = {
-        environment = {
+        managers = {
           gnome = {
             extensions = {
               appindicator = {
