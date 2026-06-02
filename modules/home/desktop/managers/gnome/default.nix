@@ -38,13 +38,39 @@ in
             week-start-day = "monday";
           };
 
+          "org/gnome/desktop/interface" = {
+            accent-color = "slate";
+            clock-format = "24h";
+            clock-show-weekday = false;
+            color-scheme = "default";
+            enable-animations = true;
+            enable-hot-corners = false;
+            font-antialiasing = "rgba";
+            font-hinting = "slight";
+            gtk-theme = "Adwaita";
+            show-battery-percentage = true;
+            text-scaling-factor = 1.0;
+          };
+
           "org/gnome/mutter" = {
+            dynamic-workspaces = true;
+            edge-tiling = true;
             experimental-features = [
               "scale-monitor-framebuffer"
               "variable-refresh-rate"
               "xwayland-native-scaling"
               "autoclose-xwayland"
             ];
+            workspaces-only-on-primary = true;
+          };
+
+          "org/gnome/settings-daemon/plugins/power" = {
+            ambient-enabled = false;
+            power-button-action = "interactive";
+            sleep-inactive-ac-timeout = 3600;
+            sleep-inactive-ac-type = "suspend";
+            sleep-inactive-battery-timeout = 1800;
+            sleep-inactive-battery-type = "suspend";
           };
 
           "org/gnome/shell" = {
@@ -53,6 +79,18 @@ in
               name: value: pkgs.gnomeExtensions.${name}.extensionUuid
             ) (lib.attrsets.filterAttrs (name: value: value != null) osCfg.extensions);
             favorite-apps = cfg.favorites;
+          };
+
+          "org/gnome/shell/app-switcher" = {
+            current-workspace-only = false;
+          };
+
+          "org/gnome/shell/keybindings" = {
+            show-screenshot-ui = [ "<Shift><Control>s" ];
+          };
+
+          "org/gnome/tweaks" = {
+            show-extensions-notice = false;
           };
         }
         (lib.attrsets.concatMapAttrs (
