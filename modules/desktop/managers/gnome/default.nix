@@ -120,6 +120,11 @@ in
                   user-enabled = true;
                 };
               };
+              clipboard-indicator = {
+                config = {
+                  excluded-apps = [ "KeePassXC" ];
+                };
+              };
               dash-to-dock = {
                 config = {
                   always-center-icons = true;
@@ -158,6 +163,12 @@ in
                   unity-backlit-items = false;
                 };
               };
+              disable-unredirect = { };
+              emoji-copy = {
+                config = {
+                  emoji-keybind = [ "<Super>E" ];
+                };
+              };
               hide-top-bar = {
                 key = "hidetopbar";
                 config = {
@@ -166,6 +177,62 @@ in
                   mouse-sensitive = true;
                 };
               };
+              just-perfection = {
+                config = {
+                  accessibility-menu = false;
+                  activities-button = false;
+                  background-menu = true;
+                  clock-menu = true;
+                  controls-manager-spacing-size = 0;
+                  dash = true;
+                  dash-app-running = true;
+                  dash-icon-size = 0;
+                  dash-separator = true;
+                  double-super-to-appgrid = true;
+                  keyboard-layout = true;
+                  max-displayed-search-results = 0;
+                  osd = true;
+                  overlay-key = true;
+                  panel = true;
+                  panel-in-overview = true;
+                  panel-notification-icon = true;
+                  power-icon = true;
+                  quick-settings = true;
+                  ripple-box = false;
+                  search = false;
+                  show-apps-button = false;
+                  startup-status = 0;
+                  support-notifier-showed-version = 34;
+                  support-notifier-type = 0;
+                  theme = true;
+                  type-to-search = true;
+                  window-demands-attention-focus = true;
+                  window-maximized-on-create = false;
+                  window-picker-icon = false;
+                  window-preview-caption = true;
+                  window-preview-close-button = false;
+                  workspace = false;
+                  workspace-background-corner-size = 0;
+                  workspace-peek = false;
+                  workspace-popup = true;
+                  workspace-switcher-should-show = false;
+                  workspace-thumbnail-to-main-view = false;
+                  workspace-wrap-around = true;
+                  workspaces-in-app-grid = false;
+                };
+              };
+              maximize-window-into-new-workspace = { };
+              night-theme-switcher = {
+                key = "nightthemeswitcher";
+                namespace = true;
+                config = {
+                  time = {
+                    nightthemeswitcher-ondemand-keybinding = [ "<Shift><Super>t" ];
+                  };
+                };
+              };
+              no-overview = { };
+              quick-settings-audio-panel = { };
             };
           };
         };
