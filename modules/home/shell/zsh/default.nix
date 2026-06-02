@@ -126,11 +126,11 @@ in
 
     _ = {
       system.nixos.impermanence = {
-        directories = if enabledAntidote then [ ".cache/antidote" ] else [ ];
+        directories = if enabledAntidote then [ "${xdgCfg.cacheHome}/antidote" ] else [ ];
 
         files = [
-          (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
-          (lib.strings.removePrefix "${config.home.homeDirectory}/" compdumpPath)
+          historyPath
+          compdumpPath
         ];
       };
     };

@@ -7,17 +7,21 @@
 let
   cfg = config._.system.nixos.impermanence;
   osCfg = osConfig._.system.nixos.impermanence;
+  homePrefix = "${config.home.homeDirectory}/";
+  removeHomePrefix = (
+    path: if (lib.strings.isString path) then lib.strings.removePrefix homePrefix path else path
+  );
 in
 {
   options = with lib; {
     _ = {
       system.nixos.impermanence = {
         directories = mkOption {
-          type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
+          type = types.listOf (types.either (types.pathWith { absolute = null; }) types.attrs);
           default = [ ];
         };
         files = mkOption {
-          type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
+          type = types.listOf (types.either (types.pathWith { absolute = null; }) types.attrs);
           default = [ ];
         };
       };
@@ -26,8 +30,8 @@ in
 
   config = lib.mkIf (osCfg.enable && osCfg.home) {
     home.persistence.${osCfg.path} = {
-      directories = cfg.directories;
-      files = cfg.files;
+      directories = lib.lists.forEach cfg.directories removeHomePrefix;
+      files = lib.lists.forEach cfg.files removeHomePrefix;
     };
 
     _ = {

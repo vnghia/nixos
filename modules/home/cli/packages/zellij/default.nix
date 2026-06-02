@@ -8,6 +8,7 @@
 let
   cfg = config._.cli.packages.zellij;
   shellCfg = osConfig._.shell;
+  xdgCfg = config.xdg;
 in
 {
   options = with lib; {
@@ -28,6 +29,10 @@ in
 
         pane_frames = false;
       };
+    };
+
+    _ = {
+      system.nixos.impermanence.directories = [ "${xdgCfg.cacheHome}/zellij" ];
     };
   };
 }
