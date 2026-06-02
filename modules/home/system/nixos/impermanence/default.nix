@@ -52,8 +52,6 @@ in
             directory = ".local/share/keyrings";
             mode = "0700";
           }
-
-          ".cache"
         ];
       };
     };

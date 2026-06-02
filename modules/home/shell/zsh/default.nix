@@ -10,7 +10,9 @@ let
   osCfg = osConfig._.shell.zsh;
   xdgCfg = config.xdg;
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
+  compdumpPath = "${xdgCfg.cacheHome}/zsh/zcompdump";
   enabledPlugins = lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins;
+  enabledAntidote = builtins.length (builtins.attrNames enabledPlugins) != 0;
 in
 {
   options = with lib; {
@@ -101,7 +103,7 @@ in
       };
 
       antidote = {
-        enable = builtins.length (builtins.attrNames enabledPlugins) != 0;
+        enable = enabledAntidote;
         plugins = [
           (lib.strings.concatLines (
             lib.attrsets.mapAttrsToList (
@@ -118,14 +120,19 @@ in
       ];
 
       sessionVariables = {
-        ZSH_COMPDUMP = "${xdgCfg.cacheHome}/zsh/zcompdump";
+        ZSH_COMPDUMP = compdumpPath;
       };
     };
 
     _ = {
-      system.nixos.impermanence.files = [
-        (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
-      ];
+      system.nixos.impermanence = {
+        directories = if enabledAntidote then [ ".cache/antidote" ] else [ ];
+
+        files = [
+          (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
+          (lib.strings.removePrefix "${config.home.homeDirectory}/" compdumpPath)
+        ];
+      };
     };
   };
 }
