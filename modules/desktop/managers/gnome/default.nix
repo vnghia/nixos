@@ -51,7 +51,6 @@ in
         managers = {
           gnome = {
             extensions = {
-              always-show-workspace-thumbnails = { };
               appindicator = {
                 config = {
                   legacy-tray-enabled = false;
@@ -211,11 +210,11 @@ in
                   window-picker-icon = false;
                   window-preview-caption = true;
                   window-preview-close-button = false;
-                  workspace = false;
+                  workspace = true;
                   workspace-background-corner-size = 0;
                   workspace-peek = false;
                   workspace-popup = true;
-                  workspace-switcher-should-show = false;
+                  workspace-switcher-should-show = true;
                   workspace-thumbnail-to-main-view = false;
                   workspace-wrap-around = true;
                   workspaces-in-app-grid = false;
@@ -231,7 +230,6 @@ in
                   };
                 };
               };
-              no-overview = { };
               quick-settings-audio-panel = { };
             };
           };
