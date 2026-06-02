@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    stylix = {
+      url = "github:nix-community/stylix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +31,7 @@
       home-manager,
       disko,
       impermanence,
+      stylix,
       ...
     }@inputs:
     let
@@ -47,6 +53,7 @@
                       home-manager.nixosModules.home-manager
                       disko.nixosModules.disko
                       impermanence.nixosModules.impermanence
+                      stylix.nixosModules.stylix
 
                       ./modules
 

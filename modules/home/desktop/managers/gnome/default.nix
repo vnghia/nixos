@@ -39,15 +39,12 @@ in
           };
 
           "org/gnome/desktop/interface" = {
-            accent-color = "slate";
             clock-format = "24h";
             clock-show-weekday = false;
-            color-scheme = "default";
             enable-animations = true;
             enable-hot-corners = false;
             font-antialiasing = "rgba";
             font-hinting = "slight";
-            gtk-theme = "Adwaita";
             show-battery-percentage = true;
             text-scaling-factor = 1.0;
           };
