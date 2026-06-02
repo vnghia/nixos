@@ -36,10 +36,11 @@
         lib.attrsets.concatMapAttrs
           (
             name: value:
-            builtins.listToAttrs (
+            lib.attrsets.mergeAttrsList (
               lib.lists.forEach value.flavors (
                 flavor:
-                lib.attrsets.nameValuePair ("${name}${lib.optionalString (flavor != null) "-${flavor}"}") (
+                lib.attrsets.genAttrs [ "${name}${lib.optionalString (flavor != null) "-${flavor}"}" ] (
+                  hostName:
                   lib.nixosSystem {
                     specialArgs = { inherit inputs; };
                     modules = [
@@ -49,6 +50,7 @@
 
                       ./modules
 
+                      { networking.hostName = hostName; }
                       ./hosts/${name}/${if flavor != null then flavor else "host"}
                     ];
                   }
