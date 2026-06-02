@@ -6,13 +6,15 @@
   ...
 }:
 let
-  cfg = config.cli.packages.starship;
-  shellCfg = osConfig.shell;
+  cfg = config._.cli.packages.starship;
+  shellCfg = osConfig._.shell;
 in
 {
   options = with lib; {
-    cli.packages.starship = {
-      enable = mkEnableOption "Starship";
+    _ = {
+      cli.packages.starship = {
+        enable = mkEnableOption "Starship";
+      };
     };
   };
 

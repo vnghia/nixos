@@ -4,7 +4,7 @@
   ...
 }:
 let
-  osCfg = osConfig.user;
+  osCfg = osConfig._.user;
 in
 {
   config = {

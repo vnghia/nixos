@@ -4,12 +4,14 @@
   ...
 }:
 let
-  cfg = config.system.boot;
+  cfg = config._.system.boot;
 in
 {
-  options = {
-    system.boot = with lib; {
-      type = mkOption { type = types.enum [ "systemd" ]; };
+  options = with lib; {
+    _ = {
+      system.boot = {
+        type = mkOption { type = types.enum [ "systemd" ]; };
+      };
     };
   };
 

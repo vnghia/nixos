@@ -6,30 +6,32 @@
   ...
 }:
 let
-  cfg = config.shell.zsh;
-  osCfg = osConfig.shell.zsh;
+  cfg = config._.shell.zsh;
+  osCfg = osConfig._.shell.zsh;
   xdgCfg = config.xdg;
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
   enabledPlugins = lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins;
 in
 {
   options = with lib; {
-    shell.zsh = {
-      plugins = mkOption {
-        type = types.attrsOf (
-          types.submodule {
-            options = {
-              enable = mkOption {
-                type = lib.types.bool;
-                default = true;
+    _ = {
+      shell.zsh = {
+        plugins = mkOption {
+          type = types.attrsOf (
+            types.submodule {
+              options = {
+                enable = mkOption {
+                  type = lib.types.bool;
+                  default = true;
+                };
+                path = mkOption {
+                  type = types.nullOr types.str;
+                  default = null;
+                };
               };
-              path = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-              };
-            };
-          }
-        );
+            }
+          );
+        };
       };
     };
   };
@@ -120,8 +122,10 @@ in
       };
     };
 
-    system.nixos.impermanence.files = [
-      (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
-    ];
+    _ = {
+      system.nixos.impermanence.files = [
+        (lib.strings.removePrefix "${config.home.homeDirectory}/" historyPath)
+      ];
+    };
   };
 }

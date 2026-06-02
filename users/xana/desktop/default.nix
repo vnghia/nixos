@@ -4,8 +4,10 @@
   ];
 
   config = {
-    user = {
-      home = import ../home/desktop;
+    _ = {
+      user = {
+        home = import ../home/desktop;
+      };
     };
   };
 }

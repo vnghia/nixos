@@ -4,14 +4,16 @@
   ...
 }:
 let
-  cfg = config.system.nixos.feature;
+  cfg = config._.system.nixos.feature;
 in
 {
-  options = {
-    system.nixos.feature = with lib; {
-      experimental = {
-        common = {
-          enable = mkEnableOption "Common experimental features";
+  options = with lib; {
+    _ = {
+      system.nixos.feature = {
+        experimental = {
+          common = {
+            enable = mkEnableOption "Common experimental features";
+          };
         };
       };
     };

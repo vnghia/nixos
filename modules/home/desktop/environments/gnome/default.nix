@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = osConfig.desktop.environment.gnome;
+  cfg = osConfig._.desktop.environment.gnome;
 in
 {
   dconf = lib.mkIf cfg.enable {

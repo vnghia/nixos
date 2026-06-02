@@ -3,10 +3,12 @@
   ...
 }:
 {
-  options = {
-    system.filesystem = with lib; {
-      root = {
-        type = mkOption { type = types.enum [ "btrfs" ]; };
+  options = with lib; {
+    _ = {
+      system.filesystem = {
+        root = {
+          type = mkOption { type = types.enum [ "btrfs" ]; };
+        };
       };
     };
   };

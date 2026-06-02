@@ -6,13 +6,15 @@
   ...
 }:
 let
-  cfg = config.cli.packages.zoxide;
-  shellCfg = osConfig.shell;
+  cfg = config._.cli.packages.zoxide;
+  shellCfg = osConfig._.shell;
 in
 {
   options = with lib; {
-    cli.packages.zoxide = {
-      enable = mkEnableOption "Zoxide";
+    _ = {
+      cli.packages.zoxide = {
+        enable = mkEnableOption "Zoxide";
+      };
     };
   };
 

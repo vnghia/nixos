@@ -5,11 +5,13 @@
   ...
 }:
 let
-  cfg = config.shell.zsh;
+  cfg = config._.shell.zsh;
 in
 {
-  options = {
-    shell.zsh.enable = lib.mkEnableOption "Zsh";
+  options = with lib; {
+    _ = {
+      shell.zsh.enable = mkEnableOption "Zsh";
+    };
   };
 
   config = lib.mkIf cfg.enable {

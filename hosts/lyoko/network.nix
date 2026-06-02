@@ -1,8 +1,10 @@
 {
   config = {
-    network = {
-      networkManager = {
-        enable = true;
+    _ = {
+      network = {
+        networkManager = {
+          enable = true;
+        };
       };
     };
   };

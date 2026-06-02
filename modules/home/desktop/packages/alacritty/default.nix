@@ -6,12 +6,14 @@
   ...
 }:
 let
-  cfg = config.desktop.packages.alacritty;
-  fontCfg = osConfig.desktop.fonts;
+  cfg = config._.desktop.packages.alacritty;
+  fontCfg = osConfig._.desktop.fonts;
 in
 {
-  options = {
-    desktop.packages.alacritty.enable = lib.mkEnableOption "Alacritty";
+  options = with lib; {
+    _ = {
+      desktop.packages.alacritty.enable = mkEnableOption "Alacritty";
+    };
   };
 
   config = lib.mkIf cfg.enable {

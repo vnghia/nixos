@@ -5,34 +5,36 @@
   ...
 }:
 let
-  cfg = config.desktop.environment.gnome;
+  cfg = config._.desktop.environment.gnome;
 in
 {
   options = with lib; {
-    desktop = {
-      environment = {
-        gnome = {
-          enable = mkEnableOption "Gnome";
-          extensions = mkOption {
-            type = types.attrsOf (
-              types.submodule {
-                options = {
-                  enable = mkOption {
-                    type = types.bool;
-                    default = true;
+    _ = {
+      desktop = {
+        environment = {
+          gnome = {
+            enable = mkEnableOption "Gnome";
+            extensions = mkOption {
+              type = types.attrsOf (
+                types.submodule {
+                  options = {
+                    enable = mkOption {
+                      type = types.bool;
+                      default = true;
+                    };
+                    key = mkOption {
+                      type = types.nullOr types.str;
+                      default = null;
+                    };
+                    config = mkOption {
+                      type = types.nullOr types.attrs;
+                      default = null;
+                    };
                   };
-                  key = mkOption {
-                    type = types.nullOr types.str;
-                    default = null;
-                  };
-                  config = mkOption {
-                    type = types.nullOr types.attrs;
-                    default = null;
-                  };
-                };
-              }
-            );
-            default = { };
+                }
+              );
+              default = { };
+            };
           };
         };
       };
@@ -40,22 +42,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    desktop = {
-      environment = {
-        gnome = {
-          extensions = {
-            appindicator = {
-              config = {
-                legacy-tray-enabled = false;
-                tray-pos = "right";
+    _ = {
+      desktop = {
+        environment = {
+          gnome = {
+            extensions = {
+              appindicator = {
+                config = {
+                  legacy-tray-enabled = false;
+                  tray-pos = "right";
+                };
               };
-            };
-            hide-top-bar = {
-              key = "hidetopbar";
-              config = {
-                enable-active-window = false;
-                enable-intellihide = false;
-                mouse-sensitive = true;
+              hide-top-bar = {
+                key = "hidetopbar";
+                config = {
+                  enable-active-window = false;
+                  enable-intellihide = false;
+                  mouse-sensitive = true;
+                };
               };
             };
           };

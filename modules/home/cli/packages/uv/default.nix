@@ -6,13 +6,15 @@
   ...
 }:
 let
-  cfg = config.cli.packages.uv;
-  nixLdCfg = osConfig.system.packages.nixLd;
+  cfg = config._.cli.packages.uv;
+  nixLdCfg = osConfig._.system.packages.nixLd;
 in
 {
   options = with lib; {
-    cli.packages.uv = {
-      enable = mkEnableOption "Uv";
+    _ = {
+      cli.packages.uv = {
+        enable = mkEnableOption "Uv";
+      };
     };
   };
 

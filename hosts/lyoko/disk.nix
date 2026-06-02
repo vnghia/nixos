@@ -11,13 +11,15 @@ let
 in
 {
   config = {
-    system = {
-      filesystem.root.type = "btrfs";
+    _ = {
+      system = {
+        filesystem.root.type = "btrfs";
 
-      nixos.impermanence = {
-        enable = true;
-        home = true;
-        path = "/persistent";
+        nixos.impermanence = {
+          enable = true;
+          home = true;
+          path = "/persistent";
+        };
       };
     };
 

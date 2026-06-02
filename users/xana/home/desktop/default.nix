@@ -4,10 +4,12 @@
   ];
 
   config = {
-    desktop = {
-      packages = {
-        alacritty = {
-          enable = true;
+    _ = {
+      desktop = {
+        packages = {
+          alacritty = {
+            enable = true;
+          };
         };
       };
     };

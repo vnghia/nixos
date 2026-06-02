@@ -5,12 +5,14 @@
   ...
 }:
 let
-  cfg = config.system.packages.nixLd;
+  cfg = config._.system.packages.nixLd;
 in
 {
   options = with lib; {
-    system.packages.nixLd = {
-      enable = mkEnableOption "Nix-ld";
+    _ = {
+      system.packages.nixLd = {
+        enable = mkEnableOption "Nix-ld";
+      };
     };
   };
 

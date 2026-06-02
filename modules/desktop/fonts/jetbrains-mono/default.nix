@@ -5,11 +5,13 @@
   ...
 }:
 let
-  cfg = config.desktop.fonts.jetbrainsMono;
+  cfg = config._.desktop.fonts.jetbrainsMono;
 in
 {
-  options = {
-    desktop.fonts.jetbrainsMono.enable = lib.mkEnableOption "Jetbrains Mono";
+  options = with lib; {
+    _ = {
+      desktop.fonts.jetbrainsMono.enable = mkEnableOption "Jetbrains Mono";
+    };
   };
 
   config = lib.mkIf cfg.enable {

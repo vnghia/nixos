@@ -5,19 +5,21 @@
   ...
 }:
 let
-  cfg = config.system.nixos.impermanence;
-  osCfg = osConfig.system.nixos.impermanence;
+  cfg = config._.system.nixos.impermanence;
+  osCfg = osConfig._.system.nixos.impermanence;
 in
 {
-  options = {
-    system.nixos.impermanence = with lib; {
-      directories = mkOption {
-        type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
-        default = [ ];
-      };
-      files = mkOption {
-        type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
-        default = [ ];
+  options = with lib; {
+    _ = {
+      system.nixos.impermanence = {
+        directories = mkOption {
+          type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
+          default = [ ];
+        };
+        files = mkOption {
+          type = types.listOf (types.either (types.pathWith { absolute = false; }) types.attrs);
+          default = [ ];
+        };
       };
     };
   };
@@ -28,30 +30,32 @@ in
       files = cfg.files;
     };
 
-    system.nixos.impermanence = {
-      directories = [
-        "Documents"
-        "Downloads"
-        "Music"
-        "Pictures"
-        "Projects"
-        "Videos"
+    _ = {
+      system.nixos.impermanence = {
+        directories = [
+          "Documents"
+          "Downloads"
+          "Music"
+          "Pictures"
+          "Projects"
+          "Videos"
 
-        {
-          directory = ".gnupg";
-          mode = "0700";
-        }
-        {
-          directory = ".ssh";
-          mode = "0700";
-        }
-        {
-          directory = ".local/share/keyrings";
-          mode = "0700";
-        }
+          {
+            directory = ".gnupg";
+            mode = "0700";
+          }
+          {
+            directory = ".ssh";
+            mode = "0700";
+          }
+          {
+            directory = ".local/share/keyrings";
+            mode = "0700";
+          }
 
-        ".cache"
-      ];
+          ".cache"
+        ];
+      };
     };
   };
 }

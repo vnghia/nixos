@@ -5,12 +5,14 @@
   ...
 }:
 let
-  cfg = config.cli.packages.vim;
+  cfg = config._.cli.packages.vim;
 in
 {
   options = with lib; {
-    cli.packages.vim = {
-      enable = mkEnableOption "Vim";
+    _ = {
+      cli.packages.vim = {
+        enable = mkEnableOption "Vim";
+      };
     };
   };
 

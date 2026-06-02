@@ -6,14 +6,16 @@
   ...
 }:
 let
-  cfg = config.cli.packages.eza;
-  shellCfg = osConfig.shell;
-  gitCfg = config.cli.packages.git;
+  cfg = config._.cli.packages.eza;
+  shellCfg = osConfig._.shell;
+  gitCfg = config._.cli.packages.git;
 in
 {
   options = with lib; {
-    cli.packages.eza = {
-      enable = mkEnableOption "Eza";
+    _ = {
+      cli.packages.eza = {
+        enable = mkEnableOption "Eza";
+      };
     };
   };
 

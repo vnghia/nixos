@@ -6,13 +6,15 @@
   ...
 }:
 let
-  cfg = config.cli.packages.zellij;
-  shellCfg = osConfig.shell;
+  cfg = config._.cli.packages.zellij;
+  shellCfg = osConfig._.shell;
 in
 {
   options = with lib; {
-    cli.packages.zellij = {
-      enable = mkEnableOption "Zellij";
+    _ = {
+      cli.packages.zellij = {
+        enable = mkEnableOption "Zellij";
+      };
     };
   };
 

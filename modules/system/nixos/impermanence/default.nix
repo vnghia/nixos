@@ -4,23 +4,25 @@
   ...
 }:
 let
-  cfg = config.system.nixos.impermanence;
-  bootCfg = config.system.boot;
-  filesystemCfg = config.system.filesystem;
+  cfg = config._.system.nixos.impermanence;
+  bootCfg = config._.system.boot;
+  filesystemCfg = config._.system.filesystem;
 in
 {
-  options = {
-    system.nixos.impermanence = with lib; {
-      enable = mkEnableOption "Impermanence";
-      home = mkEnableOption "Impermanence home";
-      path = mkOption { type = types.path; };
-      directories = mkOption {
-        type = types.listOf (types.either types.path types.attrs);
-        default = [ ];
-      };
-      files = mkOption {
-        type = types.listOf (types.either types.path types.attrs);
-        default = [ ];
+  options = with lib; {
+    _ = {
+      system.nixos.impermanence = {
+        enable = mkEnableOption "Impermanence";
+        home = mkEnableOption "Impermanence home";
+        path = mkOption { type = types.path; };
+        directories = mkOption {
+          type = types.listOf (types.either types.path types.attrs);
+          default = [ ];
+        };
+        files = mkOption {
+          type = types.listOf (types.either types.path types.attrs);
+          default = [ ];
+        };
       };
     };
   };
@@ -34,29 +36,31 @@ in
           files = cfg.files;
         };
 
-        system.nixos.impermanence = {
-          directories = [
-            # System state
-            "/var/log"
-            "/var/lib/nixos"
-            "/var/lib/systemd/coredump"
-            "/var/lib/systemd/timers"
-            "/var/lib/systemd/rfkill"
-            "/var/lib/systemd/backlight"
+        _ = {
+          system.nixos.impermanence = {
+            directories = [
+              # System state
+              "/var/log"
+              "/var/lib/nixos"
+              "/var/lib/systemd/coredump"
+              "/var/lib/systemd/timers"
+              "/var/lib/systemd/rfkill"
+              "/var/lib/systemd/backlight"
 
-            # Auth and SSH
-            "/etc/ssh"
+              # Auth and SSH
+              "/etc/ssh"
 
-            # Hardware state
-            "/var/lib/bluetooth"
-            "/var/lib/upower"
-            "/var/lib/alsa"
-          ];
+              # Hardware state
+              "/var/lib/bluetooth"
+              "/var/lib/upower"
+              "/var/lib/alsa"
+            ];
 
-          files = [
-            "/etc/machine-id"
-            "/var/lib/dbus/machine-id"
-          ];
+            files = [
+              "/etc/machine-id"
+              "/var/lib/dbus/machine-id"
+            ];
+          };
         };
 
         fileSystems.${cfg.path}.neededForBoot = true;

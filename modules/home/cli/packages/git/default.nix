@@ -6,16 +6,18 @@
   ...
 }:
 let
-  cfg = config.cli.packages.git;
-  fontCfg = osConfig.desktop.fonts;
+  cfg = config._.cli.packages.git;
+  fontCfg = osConfig._.desktop.fonts;
 in
 {
   options = with lib; {
-    cli.packages.git = {
-      enable = mkEnableOption "Git";
-      user = {
-        name = mkOption { type = types.str; };
-        email = mkOption { type = types.str; };
+    _ = {
+      cli.packages.git = {
+        enable = mkEnableOption "Git";
+        user = {
+          name = mkOption { type = types.str; };
+          email = mkOption { type = types.str; };
+        };
       };
     };
   };
