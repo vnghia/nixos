@@ -51,6 +51,7 @@ in
         managers = {
           gnome = {
             extensions = {
+              always-show-workspace-thumbnails = { };
               appindicator = {
                 config = {
                   legacy-tray-enabled = false;
@@ -110,6 +111,51 @@ in
                     brightness = 1.0;
                     sigma = 0;
                   };
+                };
+              };
+              caffeine = {
+                config = {
+                  cli-toggle = false;
+                  indicator-position-max = 1;
+                  user-enabled = true;
+                };
+              };
+              dash-to-dock = {
+                config = {
+                  always-center-icons = true;
+                  animate-show-apps = true;
+                  apply-custom-theme = true;
+                  apply-glossy-effect = false;
+                  autohide = true;
+                  background-opacity = 0.5;
+                  custom-background-color = false;
+                  custom-theme-shrink = false;
+                  dash-max-icon-size = 44;
+                  disable-overview-on-startup = true;
+                  dock-fixed = false;
+                  dock-position = "BOTTOM";
+                  extend-height = false;
+                  height-fraction = 0.9;
+                  hide-tooltip = false;
+                  icon-size-fixed = false;
+                  intellihide = false;
+                  intellihide-mode = "FOCUS_APPLICATION_WINDOWS";
+                  isolate-monitors = false;
+                  isolate-workspaces = false;
+                  max-alpha = 0.8;
+                  middle-click-action = "launch";
+                  multi-monitor = true;
+                  preview-size-scale = 0.0;
+                  running-indicator-dominant-color = false;
+                  running-indicator-style = "DOTS";
+                  scroll-action = "do-nothing";
+                  shift-click-action = "minimize";
+                  shift-middle-click-action = "launch";
+                  show-apps-always-in-the-edge = true;
+                  show-show-apps-button = false;
+                  show-trash = true;
+                  transparency-mode = "FIXED";
+                  unity-backlit-items = false;
                 };
               };
               hide-top-bar = {
