@@ -2,6 +2,6 @@
   imports = [
     ./managers
     ./packages
-    ./stylix
+    ./theming
   ];
 }

@@ -1,11 +1,15 @@
 {
   lib,
   config,
+  osConfig,
   pkgs,
   ...
 }:
+let
+  osCfg = osConfig._.desktop.theming.stylix;
+in
 {
-  config = {
+  config = lib.mkIf osCfg.enable {
     stylix.fonts = {
       serif = {
         package = pkgs.ubuntu-sans;

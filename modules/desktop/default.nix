@@ -2,6 +2,6 @@
   imports = [
     ./fonts
     ./managers
-    ./stylix
+    ./theming
   ];
 }
