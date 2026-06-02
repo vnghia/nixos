@@ -6,6 +6,7 @@
 }:
 let
   cfg = osConfig._.desktop.managers.gnome;
+  extensionPrefix = "org/gnome/shell/extensions/";
 in
 {
   dconf = lib.mkIf cfg.enable {
@@ -32,11 +33,21 @@ in
           ) (lib.attrsets.filterAttrs (name: value: value != null) cfg.extensions);
         };
       }
-      (lib.attrsets.mapAttrs' (
+      (lib.attrsets.concatMapAttrs (
         name: value:
-        lib.nameValuePair ("org/gnome/shell/extensions/${if value.key != null then value.key else name}") (
-          value.config
-        )
+        if value.namespace then
+          lib.attrsets.mapAttrs' (
+            namespaceAttr: namespaceValue:
+            lib.attrsets.nameValuePair (
+              extensionPrefix
+              + (if value.key != null then value.key else name)
+              + (lib.optionalString (namespaceAttr != "") "/${namespaceAttr}")
+            ) namespaceValue
+          ) value.config
+        else
+          {
+            "${extensionPrefix}${if value.key != null then value.key else name}" = value.config;
+          }
       ) (lib.attrsets.filterAttrs (name: value: value.enable && value.config != null) cfg.extensions))
     ];
   };

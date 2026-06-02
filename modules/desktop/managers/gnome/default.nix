@@ -26,6 +26,10 @@ in
                       type = types.nullOr types.str;
                       default = null;
                     };
+                    namespace = mkOption {
+                      type = types.bool;
+                      default = false;
+                    };
                     config = mkOption {
                       type = types.nullOr types.attrs;
                       default = null;
@@ -51,6 +55,61 @@ in
                 config = {
                   legacy-tray-enabled = false;
                   tray-pos = "right";
+                };
+              };
+              blur-my-shell = {
+                namespace = true;
+                config = {
+                  "" = {
+                    hacks-level = 1;
+                    rounded-blur-found = false;
+                    settings-version = 2;
+                  };
+                  appfolder = {
+                    blur = true;
+                    brightness = 1.0;
+                    sigma = 0;
+                  };
+                  applications = {
+                    pipeline = "pipeline_default";
+                  };
+                  coverflow-alt-tab = {
+                    pipeline = "pipeline_default";
+                  };
+                  dash-to-dock = {
+                    blur = true;
+                    brightness = 1.0;
+                    pipeline = "pipeline_default_rounded";
+                    sigma = 100;
+                    static-blur = true;
+                    style-dash-to-dock = 0;
+                    unblur-in-overview = false;
+                  };
+                  hidetopbar = {
+                    compatibility = false;
+                  };
+                  lockscreen = {
+                    pipeline = "pipeline_default";
+                  };
+                  overview = {
+                    blur = true;
+                    pipeline = "pipeline_default";
+                    style-components = 1;
+                  };
+                  panel = {
+                    brightness = 1.0;
+                    force-light-text = false;
+                    pipeline = "pipeline_default";
+                    sigma = 0;
+                    unblur-in-overview = true;
+                  };
+                  screenshot = {
+                    pipeline = "pipeline_default";
+                  };
+                  window-list = {
+                    brightness = 1.0;
+                    sigma = 0;
+                  };
                 };
               };
               hide-top-bar = {
