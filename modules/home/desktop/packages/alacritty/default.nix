@@ -12,7 +12,13 @@ in
 {
   options = with lib; {
     _ = {
-      desktop.packages.alacritty.enable = mkEnableOption "Alacritty";
+      desktop.packages.alacritty = {
+        enable = mkEnableOption "Alacritty";
+        favorite = mkOption {
+          type = types.nullOr types.int;
+          default = null;
+        };
+      };
     };
   };
 
@@ -119,6 +125,16 @@ in
           };
         })
       ];
+    };
+
+    _ = {
+      desktop.managers.gnome.favorites =
+        if (cfg.favorite != null) then
+          [
+            (lib.mkOverride cfg.favorite "Alacritty.desktop")
+          ]
+        else
+          [ ];
     };
   };
 }

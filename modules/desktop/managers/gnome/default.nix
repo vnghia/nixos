@@ -242,8 +242,6 @@ in
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
 
-    # To disable installing GNOME's suite of applications
-    # and only be left with GNOME shell.
     services.gnome.core-apps.enable = false;
     services.gnome.core-developer-tools.enable = false;
     services.gnome.games.enable = false;
@@ -252,8 +250,13 @@ in
       gnome-user-docs
     ];
 
-    environment.systemPackages = lib.attrsets.mapAttrsToList (
-      name: value: pkgs.gnomeExtensions.${name}
-    ) (lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions);
+    services.gvfs.enable = true;
+
+    environment.systemPackages = [
+      pkgs.nautilus
+    ]
+    ++ lib.attrsets.mapAttrsToList (name: value: pkgs.gnomeExtensions.${name}) (
+      lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions
+    );
   };
 }

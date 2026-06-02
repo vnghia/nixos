@@ -9,6 +9,7 @@
         packages = {
           alacritty = {
             enable = true;
+            favorite = 10;
           };
         };
       };
