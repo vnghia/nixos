@@ -48,6 +48,7 @@ in
           };
 
           "org/gnome/shell" = {
+            disable-extension-version-validation = true;
             enabled-extensions = lib.attrsets.mapAttrsToList (
               name: value: pkgs.gnomeExtensions.${name}.extensionUuid
             ) (lib.attrsets.filterAttrs (name: value: value != null) osCfg.extensions);
