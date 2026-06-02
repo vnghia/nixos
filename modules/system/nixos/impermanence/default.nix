@@ -5,6 +5,7 @@
 }:
 let
   cfg = config.system.nixos.impermanence;
+  bootCfg = config.system.boot;
   filesystemCfg = config.system.filesystem;
 in
 {
@@ -71,6 +72,13 @@ in
         };
       }
       (lib.mkIf (filesystemCfg.root.type == "btrfs") {
+        assertions = [
+          {
+            assertion = bootCfg.type == "systemd";
+            message = "btrfs impermanence requires systemd boot type";
+          }
+        ];
+
         boot.initrd.systemd.services.btrfs-impermanence = {
           description = "Manage btrfs subvolumes impermanence";
           wantedBy = [ "initrd.target" ];
