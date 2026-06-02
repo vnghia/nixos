@@ -8,6 +8,7 @@
 let
   cfg = config._.desktop.packages.alacritty;
   fontCfg = osConfig._.desktop.fonts;
+  fontFamily = "JetBrainsMono Nerd Font";
 in
 {
   options = with lib; {
@@ -104,22 +105,22 @@ in
             builtin_box_drawing = false;
 
             normal = {
-              family = "JetBrainsMono Nerd Font";
+              family = fontFamily;
               style = "Regular";
             };
 
             bold = {
-              family = "JetBrainsMono Nerd Font";
+              family = fontFamily;
               style = "Bold";
             };
 
             italic = {
-              family = "JetBrainsMono Nerd Font";
+              family = fontFamily;
               style = "Italic";
             };
 
             bold_italic = {
-              family = "JetBrainsMono Nerd Font";
+              family = fontFamily;
               style = "Bold Italic";
             };
           };
