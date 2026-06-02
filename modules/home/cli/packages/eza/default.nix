@@ -26,6 +26,10 @@ in
       colors = "auto";
       git = gitCfg.enable;
       icons = "auto";
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
       theme = {
         colourful = true;
         filekinds = {
