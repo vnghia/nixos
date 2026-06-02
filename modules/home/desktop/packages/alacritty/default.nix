@@ -128,8 +128,6 @@ in
       ];
     };
 
-    stylix.targets.alacritty.enable = false;
-
     _ = {
       desktop.managers.gnome.favorites =
         if (cfg.favorite != null) then

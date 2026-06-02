@@ -22,6 +22,7 @@ in
   config = lib.mkIf cfg.enable {
     stylix = {
       enable = true;
+      autoEnable = false;
       image = cfg.image;
     };
   };
