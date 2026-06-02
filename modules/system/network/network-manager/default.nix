@@ -12,18 +12,50 @@ in
     _ = {
       network.networkManager = {
         enable = mkEnableOption "Network Manager";
+        wifi = {
+          backend = mkOption types.nullOr (types.enum [ "iwd" ]);
+        };
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    networking.networkmanager.enable = true;
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        networking.networkmanager.enable = true;
 
-    _ = {
-      system.nixos.impermanence.directories = [
-        "/etc/NetworkManager/system-connections"
-        "/var/lib/NetworkManager"
-      ];
-    };
-  };
+        _ = {
+          system.nixos.impermanence.directories = [
+            "/etc/NetworkManager/system-connections"
+            "/var/lib/NetworkManager"
+          ];
+        };
+      }
+      (lib.mkIf (cfg.wifi.backend == "iwd") {
+        networking = {
+          wireless.iwd = {
+            enable = true;
+            settings = {
+              Settings = {
+                AutoConnect = true;
+              };
+              General = {
+                EnableNetworkConfiguration = true;
+                AddressRandomization = "network";
+                AddressRandomizationRange = "full";
+              };
+              Network = {
+                EnableIPv6 = true;
+              };
+              Blacklist = {
+                InitialTimeout = 5;
+              };
+            };
+          };
+
+          networkmanager.wifi.backend = "iwd";
+        };
+      })
+    ]
+  );
 }

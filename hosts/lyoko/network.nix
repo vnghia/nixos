@@ -4,6 +4,9 @@
       network = {
         networkManager = {
           enable = true;
+          wifi = {
+            backend = "iwd";
+          };
         };
       };
     };
