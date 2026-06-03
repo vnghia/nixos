@@ -7,6 +7,7 @@ let
   cfg = config._.system.nixos.impermanence;
   bootCfg = config._.system.boot;
   filesystemCfg = config._.system.filesystem;
+  timezoneFile = "${cfg.path}/timezone";
 in
 {
   options = with lib; {
@@ -57,6 +58,7 @@ in
             ];
 
             files = [
+              # Machine id
               "/etc/machine-id"
               "/var/lib/dbus/machine-id"
             ];
@@ -73,6 +75,20 @@ in
 
           virtualisation.fileSystems."/".neededForBoot = true;
           virtualisation.fileSystems."/home".neededForBoot = cfg.home;
+        };
+
+        systemd.services.set-timezone = {
+          enable = true;
+          description = "Set system timezone to ${timezoneFile}";
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig.Type = "oneshot";
+          script = ''
+            if [ -e "${timezoneFile}" ]; then
+              timezone=$(cat ${timezoneFile})
+              echo "setting timezone to $timezone"
+              timedatectl set-timezone $timezone
+            fi
+          '';
         };
       }
       (lib.mkIf (filesystemCfg.root.type == "btrfs") {
