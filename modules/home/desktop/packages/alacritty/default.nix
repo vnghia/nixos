@@ -129,13 +129,9 @@ in
     };
 
     _ = {
-      desktop.managers.gnome.favorites =
-        if (cfg.favorite != null) then
-          [
-            (lib.mkOverride cfg.favorite "Alacritty.desktop")
-          ]
-        else
-          [ ];
+      desktop.managers.gnome.favorites = lib.mkIf (cfg.favorite != null) [
+        (lib.mkOverride cfg.favorite "Alacritty.desktop")
+      ];
     };
   };
 }

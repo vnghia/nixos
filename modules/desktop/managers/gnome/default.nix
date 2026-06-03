@@ -14,6 +14,7 @@ in
         managers = {
           gnome = {
             enable = mkEnableOption "Gnome";
+            gvfs = mkEnableOption "Gvfs";
             extensions = mkOption {
               type = types.attrsOf (
                 types.submodule {
@@ -249,13 +250,10 @@ in
       gnome-user-docs
     ];
 
-    services.gvfs.enable = true;
+    services.gvfs.enable = lib.mkForce cfg.gvfs;
 
-    environment.systemPackages = [
-      pkgs.nautilus
-    ]
-    ++ lib.attrsets.mapAttrsToList (name: value: pkgs.gnomeExtensions.${name}) (
-      lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions
-    );
+    environment.systemPackages = lib.attrsets.mapAttrsToList (
+      name: value: pkgs.gnomeExtensions.${name}
+    ) (lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions);
   };
 }

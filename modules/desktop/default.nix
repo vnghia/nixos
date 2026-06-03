@@ -3,5 +3,6 @@
     ./fonts
     ./managers
     ./theming
+    ./packages
   ];
 }

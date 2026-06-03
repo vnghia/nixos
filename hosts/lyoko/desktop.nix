@@ -10,6 +10,12 @@
         managers = {
           gnome = {
             enable = true;
+            gvfs = true;
+          };
+        };
+        packages = {
+          nautilus = {
+            enable = true;
           };
         };
         theming = {

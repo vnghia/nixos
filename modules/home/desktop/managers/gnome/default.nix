@@ -23,12 +23,6 @@ in
   };
 
   config = {
-    _ = {
-      desktop.managers.gnome = {
-        favorites = [ (lib.mkOverride 50 "org.gnome.Nautilus.desktop") ];
-      };
-    };
-
     dconf = lib.mkIf osCfg.enable {
       enable = true;
       settings = lib.mkMerge [
