@@ -10,7 +10,6 @@ in
   options = with lib; {
     _ = {
       desktop.theming.stylix = {
-        enable = mkEnableOption "Stylix";
         image = mkOption {
           type = types.nullOr types.path;
           default = null;
@@ -19,7 +18,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     stylix = {
       enable = true;
       autoEnable = false;

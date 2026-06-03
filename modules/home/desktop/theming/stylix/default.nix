@@ -9,7 +9,7 @@ let
   osCfg = osConfig._.desktop.theming.stylix;
 in
 {
-  config = lib.mkIf osCfg.enable {
+  config = {
     stylix.fonts = {
       serif = {
         package = pkgs.ubuntu-sans;
