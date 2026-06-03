@@ -47,7 +47,10 @@ in
       users.${cfg.name} = cfg.home;
       useGlobalPkgs = true;
       useUserPackages = true;
-      extraSpecialArgs = { inherit inputs; };
+      extraSpecialArgs = {
+        inherit inputs;
+        customLib = (import ../../../lib/home { inherit lib; });
+      };
       sharedModules = [ ../../home ];
     };
   };

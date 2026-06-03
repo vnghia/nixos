@@ -3,6 +3,7 @@
   pkgs,
   config,
   osConfig,
+  customLib,
   ...
 }:
 let
@@ -15,11 +16,8 @@ in
     _ = {
       desktop.packages.alacritty = {
         enable = mkEnableOption "Alacritty";
-        favorite = mkOption {
-          type = types.nullOr types.int;
-          default = null;
-        };
-      };
+      }
+      // customLib.desktop.packages.favorite.mkOption;
     };
   };
 
@@ -128,10 +126,6 @@ in
       ];
     };
 
-    _ = {
-      desktop.managers.gnome.favorites = lib.mkIf (cfg.favorite != null) [
-        (lib.mkOverride cfg.favorite "Alacritty.desktop")
-      ];
-    };
+    _ = customLib.desktop.packages.favorite.mkConfig cfg "Alacritty.desktop";
   };
 }

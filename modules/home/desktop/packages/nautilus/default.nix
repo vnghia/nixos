@@ -1,8 +1,8 @@
 {
   lib,
-  pkgs,
   config,
   osConfig,
+  customLib,
   ...
 }:
 let
@@ -12,20 +12,11 @@ in
 {
   options = with lib; {
     _ = {
-      desktop.packages.nautilus = {
-        favorite = mkOption {
-          type = types.nullOr types.int;
-          default = null;
-        };
-      };
+      desktop.packages.nautilus = customLib.desktop.packages.favorite.mkOption;
     };
   };
 
   config = lib.mkIf osCfg.enable {
-    _ = {
-      desktop.managers.gnome.favorites = lib.mkIf (cfg.favorite != null) [
-        (lib.mkOverride cfg.favorite "org.gnome.Nautilus.desktop")
-      ];
-    };
+    _ = customLib.desktop.packages.favorite.mkConfig cfg "org.gnome.Nautilus.desktop";
   };
 }
