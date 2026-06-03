@@ -6,6 +6,13 @@
   config = {
     _ = {
       desktop = {
+        managers = {
+          gnome = {
+            stylix = {
+              enable = true;
+            };
+          };
+        };
         packages = {
           alacritty = {
             enable = true;
