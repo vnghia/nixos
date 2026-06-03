@@ -3,6 +3,7 @@
     ../../users/xana/desktop
 
     ./disk.nix
+    ./network.nix
     ./system.nix
   ];
 

@@ -13,7 +13,7 @@ in
       network.networkManager = {
         enable = mkEnableOption "Network Manager";
         wifi = {
-          backend = mkOption types.nullOr (types.enum [ "iwd" ]);
+          backend = mkOption { type = types.nullOr (types.enum [ "iwd" ]); };
         };
       };
     };
