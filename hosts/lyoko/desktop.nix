@@ -15,6 +15,7 @@
           gnome = {
             enable = true;
             gvfs = true;
+            stylix = true;
           };
         };
         packages = {
