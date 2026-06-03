@@ -22,6 +22,7 @@ in
     stylix = {
       enable = true;
       autoEnable = false;
+      overlays.enable = true;
       image = cfg.image;
     };
   };
