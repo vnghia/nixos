@@ -2,6 +2,7 @@
   imports = [
     ./eza
     ./git
+    ./nh
     ./starship
     ./uv
     ./vim

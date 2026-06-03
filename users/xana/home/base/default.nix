@@ -1,4 +1,8 @@
 {
+  config,
+  ...
+}:
+{
   config = {
     _ = {
       cli = {
@@ -12,6 +16,13 @@
               name = "Vo Van Nghia";
               email = "git@vnghia.com";
             };
+          };
+          nh = {
+            enable = true;
+            clean = {
+              enable = true;
+            };
+            flake = "${config.home.homeDirectory}/code/nixos";
           };
           starship = {
             enable = true;
