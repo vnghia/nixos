@@ -31,7 +31,7 @@ in
                       default = false;
                     };
                     config = mkOption {
-                      type = types.nullOr types.attrs;
+                      type = types.nullOr (types.attrsOf types.anything);
                       default = null;
                     };
                   };
@@ -226,6 +226,7 @@ in
                 namespace = true;
                 config = {
                   time = {
+                    manual-schedule = false;
                     nightthemeswitcher-ondemand-keybinding = [ "<Shift><Super>t" ];
                   };
                 };

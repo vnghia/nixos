@@ -1,4 +1,8 @@
 {
+  lib,
+  ...
+}:
+{
   imports = [
     ../configuration.nix
 
@@ -41,10 +45,9 @@
           gnome = {
             extensions = {
               night-theme-switcher = {
-                key = "nightthemeswitcher";
                 config = {
                   time = {
-                    manual-schedule = true;
+                    manual-schedule = lib.mkForce true;
                   };
                 };
               };
