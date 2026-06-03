@@ -107,7 +107,7 @@ in
           ];
         };
       }
-      (customLib.desktop.theming.stylix.mkConfig "gnome" cfg)
+      (lib.mkIf osCfg.stylix (customLib.desktop.theming.stylix.mkConfig "gnome" cfg))
       {
         _ = {
           desktop.managers.gnome.stylix.config = {

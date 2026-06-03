@@ -15,6 +15,7 @@ in
           gnome = {
             enable = mkEnableOption "Gnome";
             gvfs = mkEnableOption "Gvfs";
+            stylix = mkEnableOption "Stylix";
             extensions = mkOption {
               type = types.attrsOf (
                 types.submodule {
@@ -251,6 +252,8 @@ in
     ];
 
     services.gvfs.enable = lib.mkForce cfg.gvfs;
+
+    stylix.targets.gnome.enable = cfg.stylix;
 
     environment.systemPackages = lib.attrsets.mapAttrsToList (
       name: value: pkgs.gnomeExtensions.${name}
