@@ -18,7 +18,6 @@
         };
         theming = {
           stylix = {
-            enable = true;
             image = ../../../wallpapers/kde-breeze/light.png;
           };
         };

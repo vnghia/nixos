@@ -2,7 +2,6 @@
   imports = [
     ../../users/xana/desktop
 
-    ./desktop.nix
     ./disk.nix
     ./system.nix
   ];
