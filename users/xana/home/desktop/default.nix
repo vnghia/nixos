@@ -16,6 +16,9 @@
         packages = {
           alacritty = {
             enable = true;
+            stylix = {
+              enable = true;
+            };
             favorite = 10;
           };
           nautilus = {

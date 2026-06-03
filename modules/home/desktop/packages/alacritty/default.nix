@@ -2,14 +2,11 @@
   lib,
   pkgs,
   config,
-  osConfig,
   customLib,
   ...
 }:
 let
   cfg = config._.desktop.packages.alacritty;
-  fontCfg = osConfig._.desktop.fonts;
-  fontFamily = "JetBrainsMono Nerd Font";
 in
 {
   options = with lib; {
@@ -17,7 +14,8 @@ in
       desktop.packages.alacritty = {
         enable = mkEnableOption "Alacritty";
       }
-      // customLib.desktop.packages.favorite.mkOption;
+      // customLib.desktop.packages.favorite.mkOption
+      // customLib.desktop.theming.stylix.mkOption;
     };
   };
 
@@ -30,7 +28,6 @@ in
             {
               window = {
                 blur = true;
-                opacity = 0.65;
                 decorations = "none";
                 startup_mode = "Maximized";
               };
@@ -99,36 +96,20 @@ in
                 ];
               };
             }
-            (lib.mkIf fontCfg.jetbrainsMono.enable {
-              font = {
-                size = 12;
-                builtin_box_drawing = false;
-
-                normal = {
-                  family = fontFamily;
-                  style = "Regular";
-                };
-
-                bold = {
-                  family = fontFamily;
-                  style = "Bold";
-                };
-
-                italic = {
-                  family = fontFamily;
-                  style = "Italic";
-                };
-
-                bold_italic = {
-                  family = fontFamily;
-                  style = "Bold Italic";
-                };
-              };
-            })
           ];
         };
       }
       (customLib.desktop.packages.favorite.mkConfig "Alacritty.desktop" cfg)
+      (customLib.desktop.theming.stylix.mkConfig "alacritty" cfg)
+      {
+        _ = {
+          desktop.packages.alacritty.stylix.config = {
+            colors.enable = true;
+            fonts.enable = true;
+            opacity.enable = true;
+          };
+        };
+      }
     ]
   );
 }
