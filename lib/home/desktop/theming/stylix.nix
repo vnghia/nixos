@@ -18,7 +18,7 @@
       stylix.targets.${target} = lib.mkIf cfg.stylix.enable (
         lib.mkMerge [
           {
-            enable = true;
+            enable = lib.attrByPath [ "enable" ] true cfg;
           }
           cfg.stylix.config
         ]
