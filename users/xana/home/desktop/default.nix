@@ -1,4 +1,8 @@
 {
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../base
   ];
@@ -23,6 +27,36 @@
           };
           nautilus = {
             favorite = 50;
+          };
+        };
+        theming = {
+          stylix = {
+            scheme = "humanoid-light";
+            fonts = {
+              fonts = {
+                serif = {
+                  package = pkgs.ubuntu-sans;
+                  name = "Ubuntu";
+                };
+                sansSerif = {
+                  package = pkgs.ubuntu-sans;
+                  name = "Ubuntu";
+                };
+                monospace = {
+                  package = pkgs.nerd-fonts.jetbrains-mono;
+                  name = "JetBrainsMono Nerd Font";
+                };
+              };
+              sizes = {
+                applications = 10;
+                desktop = 10;
+                popups = 10;
+                terminal = 12;
+              };
+            };
+            opacity = {
+              terminal = 0.65;
+            };
           };
         };
       };

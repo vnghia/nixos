@@ -18,6 +18,6 @@ in
   };
 
   config = {
-    fonts.packages = cfg.fonts;
+    fonts.packages = cfg;
   };
 }
