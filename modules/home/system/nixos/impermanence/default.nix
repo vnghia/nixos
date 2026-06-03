@@ -17,11 +17,15 @@ in
     _ = {
       system.nixos.impermanence = {
         directories = mkOption {
-          type = types.listOf (types.either (types.pathWith { absolute = null; }) types.attrs);
+          type = types.listOf (
+            types.either (types.pathWith { absolute = null; }) (types.attrsOf types.anything)
+          );
           default = [ ];
         };
         files = mkOption {
-          type = types.listOf (types.either (types.pathWith { absolute = null; }) types.attrs);
+          type = types.listOf (
+            types.either (types.pathWith { absolute = null; }) (types.attrsOf types.anything)
+          );
           default = [ ];
         };
       };

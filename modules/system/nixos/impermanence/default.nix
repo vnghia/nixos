@@ -16,11 +16,11 @@ in
         home = mkEnableOption "Impermanence home";
         path = mkOption { type = types.path; };
         directories = mkOption {
-          type = types.listOf (types.either types.path types.attrs);
+          type = types.listOf (types.either types.path (types.attrsOf types.anything));
           default = [ ];
         };
         files = mkOption {
-          type = types.listOf (types.either types.path types.attrs);
+          type = types.listOf (types.either types.path (types.attrsOf types.anything));
           default = [ ];
         };
       };

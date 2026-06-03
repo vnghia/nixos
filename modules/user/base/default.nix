@@ -19,7 +19,7 @@ in
           wheel = mkEnableOption "Wheel";
           networkManager = mkEnableOption "Network Manager";
         };
-        home = mkOption { type = types.attrs; };
+        home = mkOption { type = (types.attrsOf types.anything); };
       };
     };
   };
