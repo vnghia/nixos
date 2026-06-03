@@ -7,7 +7,6 @@
 }:
 let
   cfg = config._.cli.packages.git;
-  fontCfg = osConfig._.desktop.fonts;
 in
 {
   options = with lib; {

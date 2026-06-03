@@ -11,7 +11,7 @@ in
 {
   config = {
     stylix = {
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/one-light.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/measured-light.yaml";
 
       fonts = {
         serif = {
