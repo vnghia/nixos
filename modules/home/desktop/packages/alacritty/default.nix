@@ -104,7 +104,7 @@ in
       {
         _ = {
           desktop.packages.alacritty.stylix.config = {
-            colors.enable = true;
+            colors.enable = false;
             fonts.enable = true;
             opacity.enable = true;
           };
