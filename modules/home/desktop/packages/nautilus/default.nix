@@ -16,7 +16,5 @@ in
     };
   };
 
-  config = lib.mkIf osCfg.enable {
-    _ = customLib.desktop.packages.favorite.mkConfig cfg "org.gnome.Nautilus.desktop";
-  };
+  config = customLib.desktop.packages.favorite.mkConfig "org.gnome.Nautilus.desktop" cfg;
 }

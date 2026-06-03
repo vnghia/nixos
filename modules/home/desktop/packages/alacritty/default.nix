@@ -21,111 +21,114 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    programs.alacritty = {
-      enable = true;
-      settings = lib.mkMerge [
-        {
-          window = {
-            blur = true;
-            opacity = 0.65;
-            decorations = "none";
-            startup_mode = "Maximized";
-          };
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        programs.alacritty = {
+          enable = true;
+          settings = lib.mkMerge [
+            {
+              window = {
+                blur = true;
+                opacity = 0.65;
+                decorations = "none";
+                startup_mode = "Maximized";
+              };
 
-          colors = {
-            draw_bold_text_with_bright_colors = true;
-          };
+              colors = {
+                draw_bold_text_with_bright_colors = true;
+              };
 
-          cursor = {
-            style = {
-              shape = "Beam";
-              blinking = "On";
-            };
-            unfocused_hollow = false;
-          };
-
-          hints = {
-            enabled = [
-              {
-                regex = ''(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>"\\s{-}\\^⟨⟩`\\\\]+'';
-                command = "xdg-open";
-                hyperlinks = true;
-                post_processing = true;
-                persist = false;
-                binding = {
-                  key = "O";
-                  mods = "Control|Shift";
+              cursor = {
+                style = {
+                  shape = "Beam";
+                  blinking = "On";
                 };
-                mouse = {
-                  enabled = true;
+                unfocused_hollow = false;
+              };
+
+              hints = {
+                enabled = [
+                  {
+                    regex = ''(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>"\\s{-}\\^⟨⟩`\\\\]+'';
+                    command = "xdg-open";
+                    hyperlinks = true;
+                    post_processing = true;
+                    persist = false;
+                    binding = {
+                      key = "O";
+                      mods = "Control|Shift";
+                    };
+                    mouse = {
+                      enabled = true;
+                    };
+                  }
+                ];
+              };
+
+              keyboard = {
+                bindings = [
+                  {
+                    key = "Return";
+                    mods = "Control|Shift";
+                    action = "SpawnNewInstance";
+                  }
+                  {
+                    key = "Q";
+                    mods = "Control|Shift";
+                    action = "Quit";
+                  }
+                  {
+                    key = "PageUp";
+                    action = "ScrollLineUp";
+                  }
+                  {
+                    key = "PageDown";
+                    action = "ScrollLineDown";
+                  }
+                  {
+                    key = "PageUp";
+                    mods = "Shift";
+                    action = "ScrollPageUp";
+                  }
+                  {
+                    key = "PageDown";
+                    mods = "Shift";
+                    action = "ScrollPageDown";
+                  }
+                ];
+              };
+            }
+            (lib.mkIf fontCfg.jetbrainsMono.enable {
+              font = {
+                size = 12;
+                builtin_box_drawing = false;
+
+                normal = {
+                  family = fontFamily;
+                  style = "Regular";
                 };
-              }
-            ];
-          };
 
-          keyboard = {
-            bindings = [
-              {
-                key = "Return";
-                mods = "Control|Shift";
-                action = "SpawnNewInstance";
-              }
-              {
-                key = "Q";
-                mods = "Control|Shift";
-                action = "Quit";
-              }
-              {
-                key = "PageUp";
-                action = "ScrollLineUp";
-              }
-              {
-                key = "PageDown";
-                action = "ScrollLineDown";
-              }
-              {
-                key = "PageUp";
-                mods = "Shift";
-                action = "ScrollPageUp";
-              }
-              {
-                key = "PageDown";
-                mods = "Shift";
-                action = "ScrollPageDown";
-              }
-            ];
-          };
-        }
-        (lib.mkIf fontCfg.jetbrainsMono.enable {
-          font = {
-            size = 12;
-            builtin_box_drawing = false;
+                bold = {
+                  family = fontFamily;
+                  style = "Bold";
+                };
 
-            normal = {
-              family = fontFamily;
-              style = "Regular";
-            };
+                italic = {
+                  family = fontFamily;
+                  style = "Italic";
+                };
 
-            bold = {
-              family = fontFamily;
-              style = "Bold";
-            };
-
-            italic = {
-              family = fontFamily;
-              style = "Italic";
-            };
-
-            bold_italic = {
-              family = fontFamily;
-              style = "Bold Italic";
-            };
-          };
-        })
-      ];
-    };
-
-    _ = customLib.desktop.packages.favorite.mkConfig cfg "Alacritty.desktop";
-  };
+                bold_italic = {
+                  family = fontFamily;
+                  style = "Bold Italic";
+                };
+              };
+            })
+          ];
+        };
+      }
+      (customLib.desktop.packages.favorite.mkConfig "Alacritty.desktop" cfg)
+    ]
+  );
 }

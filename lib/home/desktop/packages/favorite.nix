@@ -11,8 +11,8 @@
       };
     };
 
-    mkConfig = cfg: desktop: {
-      desktop.managers.gnome.favorites = lib.mkIf (cfg.favorite != null) [
+    mkConfig = desktop: cfg: {
+      _.desktop.managers.gnome.favorites = lib.mkIf (cfg.favorite != null) [
         (lib.mkOverride cfg.favorite desktop)
       ];
     };
