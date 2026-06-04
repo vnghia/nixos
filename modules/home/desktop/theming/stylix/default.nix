@@ -88,10 +88,19 @@ in
       }
     ];
 
-    specialisation = lib.attrsets.concatMapAttrs (name: theme: {
-      ${name} = {
-        configuration.stylix = mkThemeConfig theme true;
-      };
-    }) (lib.attrsets.filterAttrs (name: theme: name != cfg.default) cfg.themes);
+    specialisation = lib.attrsets.concatMapAttrs (
+      name: theme:
+      let
+        specialisationName = "${name}-theme";
+      in
+      {
+        ${specialisationName} = {
+          configuration = {
+            xdg.dataFile."home-manager/specialisation".text = specialisationName;
+            stylix = mkThemeConfig theme true;
+          };
+        };
+      }
+    ) (lib.attrsets.filterAttrs (name: theme: name != cfg.default) cfg.themes);
   };
 }
