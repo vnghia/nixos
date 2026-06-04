@@ -22,6 +22,11 @@ in
           type = types.nullOr types.str;
           default = null;
         };
+        polarity = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
+
         fonts = {
           fonts = mkOption {
             type = types.attrsOf (
@@ -54,9 +59,12 @@ in
     }) cfg.fonts.fonts;
 
     stylix = {
+      image = lib.mkIf (cfg.image != null) cfg.image;
       base16Scheme = lib.mkIf (
         cfg.scheme != null
       ) "${pkgs.base16-schemes}/share/themes/${cfg.scheme}.yaml";
+      polarity = lib.mkIf (cfg.polarity != null) cfg.polarity;
+
       fonts = lib.mkMerge [
         cfg.fonts.fonts
         { sizes = cfg.fonts.sizes; }
