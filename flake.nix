@@ -35,6 +35,8 @@
       ...
     }@inputs:
     let
+      stateVersion = "26.05";
+
       lib = nixpkgs.lib;
       hosts = {
         lyoko = {
@@ -49,19 +51,17 @@
       };
 
       mkHostName = name: flavor: "${name}${lib.optionalString (flavor != null) "-${flavor}"}";
-    in
-    {
-      nixosConfigurations = lib.attrsets.concatMapAttrs (
+
+      outputs = lib.attrsets.concatMapAttrs (
         name: value:
         lib.attrsets.mergeAttrsList (
           lib.lists.forEach value.flavors (
             flavor:
-            lib.attrsets.genAttrs [ (mkHostName name flavor) ] (
-              hostName:
-              lib.nixosSystem {
+            let
+              hostName = mkHostName name flavor;
+              hostSystem = lib.nixosSystem {
                 specialArgs = { inherit inputs; };
                 modules = [
-                  home-manager.nixosModules.home-manager
                   disko.nixosModules.disko
                   impermanence.nixosModules.impermanence
                   stylix.nixosModules.stylix
@@ -72,16 +72,48 @@
                   { networking.hostName = hostName; }
                   {
                     imports = lib.attrsets.mapAttrsToList (
-                      userName: userFalvor: ./users/${userName}/${userFalvor}
+                      userName: userFlavor: ./users/${userName}/${userFlavor}
                     ) value.users;
                   }
                 ];
-              }
-            )
+              };
+            in
+            {
+              nixosConfigurations = {
+                ${hostName} = hostSystem;
+              };
+
+              homeConfigurations = lib.attrsets.concatMapAttrs (userName: userFlavor: {
+                "${userName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
+                  pkgs = hostSystem.pkgs;
+                  extraSpecialArgs = {
+                    inherit inputs;
+                    osConfig = hostSystem.config;
+                    customLib = (import ./lib/home { inherit lib; });
+                  };
+                  modules = [
+                    (import "${inputs.impermanence}/home-manager.nix")
+                    stylix.homeModules.stylix
+
+                    ./modules/home
+
+                    ./users/${userName}/home/${userFlavor}
+                    {
+                      home = {
+                        _nixosModuleImported = true;
+                        stateVersion = stateVersion;
+                      };
+                    }
+                  ];
+                };
+              }) value.users;
+            }
           )
         )
       ) hosts;
-
-      system.stateVersion = "26.05";
+    in
+    outputs
+    // {
+      system.stateVersion = stateVersion;
     };
 }

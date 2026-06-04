@@ -7,6 +7,7 @@
 let
   cfg = config._.system.nixos.impermanence;
   osCfg = osConfig._.system.nixos.impermanence;
+  xdgCfg = config.xdg;
   homePrefix = "${config.home.homeDirectory}/";
   removeHomePrefix = (
     path: if (lib.strings.isString path) then lib.strings.removePrefix homePrefix path else path
@@ -62,6 +63,10 @@ in
             directory = ".local/share/keyrings";
             mode = "0700";
           }
+
+          # Home-manager
+          "${xdgCfg.stateHome}/home-manager"
+          "${xdgCfg.stateHome}/nix"
         ];
       };
     };

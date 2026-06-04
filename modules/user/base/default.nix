@@ -19,7 +19,6 @@ in
           wheel = mkEnableOption "Wheel";
           networkManager = mkEnableOption "Network Manager";
         };
-        home = mkOption { type = (types.attrsOf types.anything); };
       };
     };
   };
@@ -41,17 +40,6 @@ in
 
     _ = {
       shell.zsh.enable = lib.mkIf (cfg.shell == "zsh") true;
-    };
-
-    home-manager = {
-      users.${cfg.name} = cfg.home;
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      extraSpecialArgs = {
-        inherit inputs;
-        customLib = (import ../../../lib/home { inherit lib; });
-      };
-      sharedModules = [ ../../home ];
     };
   };
 }
