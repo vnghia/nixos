@@ -9,6 +9,9 @@
 let
   cfg = config._.desktop.managers.gnome;
   osCfg = osConfig._.desktop.managers.gnome;
+  enabledPlugins = lib.attrsets.filterAttrs (
+    name: value: value.enable && (lib.attrsets.attrByPath [ name "enable" ] true cfg.extensions)
+  ) osCfg.extensions;
   dumpDconf =
     attrs:
     lib.attrsets.concatMapAttrs (
@@ -46,6 +49,23 @@ in
         favorites = mkOption {
           type = types.listOf types.str;
           default = [ ];
+        };
+        extensions = mkOption {
+          type = types.attrsOf (
+            types.submodule {
+              options = {
+                enable = mkOption {
+                  type = types.bool;
+                  default = true;
+                };
+                config = mkOption {
+                  type = types.nullOr (types.attrsOf types.anything);
+                  default = null;
+                };
+              };
+            }
+          );
+          default = { };
         };
         dconf = mkOption { type = types.attrsOf types.anything; };
       }
@@ -109,8 +129,8 @@ in
                   shell = {
                     disable-extension-version-validation = true;
                     enabled-extensions = lib.attrsets.mapAttrsToList (
-                      name: value: pkgs.gnomeExtensions.${name}.extensionUuid
-                    ) (lib.attrsets.filterAttrs (name: value: value != null) osCfg.extensions);
+                      name: _: pkgs.gnomeExtensions.${name}.extensionUuid
+                    ) enabledPlugins;
                     favorite-apps = cfg.favorites;
 
                     app-switcher = {
@@ -127,8 +147,11 @@ in
                 }
                 {
                   shell.extensions = lib.attrsets.concatMapAttrs (name: value: {
-                    ${if value.key != null then value.key else name} = value.config;
-                  }) (lib.attrsets.filterAttrs (name: value: value.enable && value.config != null) osCfg.extensions);
+                    ${if value.key != null then value.key else name} = lib.mkMerge [
+                      (if value.config != null then value.config else { })
+                      (lib.attrsets.attrByPath [ name "config" ] { } cfg.extensions)
+                    ];
+                  }) enabledPlugins;
                 }
               ];
             };
