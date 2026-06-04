@@ -80,6 +80,8 @@ in
     stylix = lib.mkMerge [
       (mkThemeConfig cfg.themes.${cfg.default} false)
       {
+        enable = true;
+        autoEnable = false;
         fonts = lib.mkMerge [
           cfg.fonts.fonts
           { sizes = cfg.fonts.sizes; }
