@@ -247,8 +247,11 @@ in
 
     stylix.targets.gnome.enable = cfg.stylix;
 
-    environment.systemPackages = lib.attrsets.mapAttrsToList (
-      name: value: pkgs.gnomeExtensions.${name}
-    ) (lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions);
+    environment.systemPackages = [
+      pkgs.gnome-terminal
+    ]
+    ++ lib.attrsets.mapAttrsToList (name: value: pkgs.gnomeExtensions.${name}) (
+      lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions
+    );
   };
 }
