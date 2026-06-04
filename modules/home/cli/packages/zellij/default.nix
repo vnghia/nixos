@@ -7,6 +7,7 @@
 }:
 let
   cfg = config._.cli.packages.zellij;
+  shellCfg = osConfig._.shell;
   xdgCfg = config.xdg;
 in
 {
@@ -21,6 +22,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zellij = {
       enable = true;
+      enableZshIntegration = shellCfg.zsh.enable;
       settings = {
         on_force_close = "quit";
         show_startup_tips = false;
