@@ -15,6 +15,8 @@ in
       shell = {
         enableZshIntegration = shellCfg.zsh.enable;
       };
+
+      stateVersion = "26.05";
     };
 
     programs = {
@@ -22,7 +24,5 @@ in
         enable = true;
       };
     };
-
-    home.stateVersion = "26.05";
   };
 }

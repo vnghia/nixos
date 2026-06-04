@@ -35,45 +35,61 @@
       ...
     }@inputs:
     let
+      stateVersion = "26.05";
+
       lib = nixpkgs.lib;
-    in
-    {
-      nixosConfigurations =
-        lib.attrsets.concatMapAttrs
-          (
-            name: value:
-            lib.attrsets.mergeAttrsList (
-              lib.lists.forEach value.flavors (
-                flavor:
-                lib.attrsets.genAttrs [ "${name}${lib.optionalString (flavor != null) "-${flavor}"}" ] (
-                  hostName:
-                  lib.nixosSystem {
-                    specialArgs = { inherit inputs; };
-                    modules = [
-                      home-manager.nixosModules.home-manager
-                      disko.nixosModules.disko
-                      impermanence.nixosModules.impermanence
-                      stylix.nixosModules.stylix
-
-                      ./modules
-
-                      { networking.hostName = hostName; }
-                      ./hosts/${name}/${if flavor != null then flavor else "host"}
-                    ];
-                  }
-                )
-              )
-            )
-          )
-          {
-            lyoko = {
-              flavors = [
-                null
-                "qemu"
-              ];
-            };
+      hosts = {
+        lyoko = {
+          flavors = [
+            null
+            "qemu"
+          ];
+          users = {
+            xana = "desktop";
           };
+        };
+      };
 
-      system.stateVersion = "26.05";
+      mkHostName = name: flavor: "${name}${lib.optionalString (flavor != null) "-${flavor}"}";
+
+      outputs = lib.attrsets.concatMapAttrs (
+        name: value:
+        lib.attrsets.mergeAttrsList (
+          lib.lists.forEach value.flavors (
+            flavor:
+            let
+              hostName = mkHostName name flavor;
+              hostSystem = lib.nixosSystem {
+                specialArgs = { inherit inputs; };
+                modules = [
+                  home-manager.nixosModules.home-manager
+                  disko.nixosModules.disko
+                  impermanence.nixosModules.impermanence
+                  stylix.nixosModules.stylix
+
+                  ./modules
+
+                  ./hosts/${name}/${if flavor != null then flavor else "host"}
+                  { networking.hostName = hostName; }
+                  {
+                    imports = lib.attrsets.mapAttrsToList (
+                      userName: userFlavor: ./users/${userName}/${userFlavor}
+                    ) value.users;
+                  }
+                ];
+              };
+            in
+            {
+              nixosConfigurations = {
+                ${hostName} = hostSystem;
+              };
+            }
+          )
+        )
+      ) hosts;
+    in
+    outputs
+    // {
+      system.stateVersion = stateVersion;
     };
 }
