@@ -28,10 +28,6 @@ in
                       type = types.nullOr types.str;
                       default = null;
                     };
-                    namespace = mkOption {
-                      type = types.bool;
-                      default = false;
-                    };
                     config = mkOption {
                       type = types.nullOr (types.attrsOf types.anything);
                       default = null;
@@ -60,13 +56,10 @@ in
                 };
               };
               blur-my-shell = {
-                namespace = true;
                 config = {
-                  "" = {
-                    hacks-level = 1;
-                    rounded-blur-found = false;
-                    settings-version = 2;
-                  };
+                  hacks-level = 1;
+                  rounded-blur-found = false;
+                  settings-version = 2;
                   appfolder = {
                     blur = true;
                     brightness = 1.0;
@@ -225,7 +218,6 @@ in
               maximize-window-into-new-workspace = { };
               night-theme-switcher = {
                 key = "nightthemeswitcher";
-                namespace = true;
                 config = {
                   time = {
                     manual-schedule = false;

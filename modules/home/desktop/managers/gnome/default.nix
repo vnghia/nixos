@@ -9,7 +9,6 @@
 let
   cfg = config._.desktop.managers.gnome;
   osCfg = osConfig._.desktop.managers.gnome;
-  extensionPrefix = "org/gnome/shell/extensions/";
   dumpDconf =
     attrs:
     lib.attrsets.concatMapAttrs (
@@ -59,25 +58,7 @@ in
       {
         dconf = {
           enable = true;
-          settings = lib.mkMerge [
-            (dumpDconf cfg.dconf)
-            (lib.attrsets.concatMapAttrs (
-              name: value:
-              if value.namespace then
-                lib.attrsets.mapAttrs' (
-                  namespaceAttr: namespaceValue:
-                  lib.attrsets.nameValuePair (
-                    extensionPrefix
-                    + (if value.key != null then value.key else name)
-                    + (lib.optionalString (namespaceAttr != "") "/${namespaceAttr}")
-                  ) namespaceValue
-                ) value.config
-              else
-                {
-                  "${extensionPrefix}${if value.key != null then value.key else name}" = value.config;
-                }
-            ) (lib.attrsets.filterAttrs (name: value: value.enable && value.config != null) osCfg.extensions))
-          ];
+          settings = dumpDconf cfg.dconf;
         };
       }
       (customLib.desktop.theming.stylix.mkConfig "gnome" (cfg // { enable = osCfg.stylix; }))
@@ -85,64 +66,71 @@ in
         _ = {
           desktop.managers.gnome = {
             dconf = {
-              org.gnome = {
-                desktop = {
-                  calendar = {
-                    show-weekdate = false;
-                    week-start-day = "monday";
+              org.gnome = lib.mkMerge [
+                {
+                  desktop = {
+                    calendar = {
+                      show-weekdate = false;
+                      week-start-day = "monday";
+                    };
+                    interface = {
+                      clock-format = "24h";
+                      clock-show-weekday = false;
+                      enable-animations = true;
+                      enable-hot-corners = false;
+                      font-antialiasing = "rgba";
+                      font-hinting = "slight";
+                      show-battery-percentage = true;
+                      text-scaling-factor = 1.0;
+                    };
                   };
-                  interface = {
-                    clock-format = "24h";
-                    clock-show-weekday = false;
-                    enable-animations = true;
-                    enable-hot-corners = false;
-                    font-antialiasing = "rgba";
-                    font-hinting = "slight";
-                    show-battery-percentage = true;
-                    text-scaling-factor = 1.0;
+
+                  mutter = {
+                    dynamic-workspaces = true;
+                    edge-tiling = true;
+                    experimental-features = [
+                      "scale-monitor-framebuffer"
+                      "variable-refresh-rate"
+                      "xwayland-native-scaling"
+                      "autoclose-xwayland"
+                    ];
+                    workspaces-only-on-primary = true;
                   };
-                };
 
-                mutter = {
-                  dynamic-workspaces = true;
-                  edge-tiling = true;
-                  experimental-features = [
-                    "scale-monitor-framebuffer"
-                    "variable-refresh-rate"
-                    "xwayland-native-scaling"
-                    "autoclose-xwayland"
-                  ];
-                  workspaces-only-on-primary = true;
-                };
-
-                settings-daemon.plugins.power = {
-                  ambient-enabled = false;
-                  power-button-action = "interactive";
-                  sleep-inactive-ac-timeout = 3600;
-                  sleep-inactive-ac-type = "suspend";
-                  sleep-inactive-battery-timeout = 1800;
-                  sleep-inactive-battery-type = "suspend";
-                };
-
-                shell = {
-                  disable-extension-version-validation = true;
-                  enabled-extensions = lib.attrsets.mapAttrsToList (
-                    name: value: pkgs.gnomeExtensions.${name}.extensionUuid
-                  ) (lib.attrsets.filterAttrs (name: value: value != null) osCfg.extensions);
-                  favorite-apps = cfg.favorites;
-
-                  app-switcher = {
-                    current-workspace-only = false;
+                  settings-daemon.plugins.power = {
+                    ambient-enabled = false;
+                    power-button-action = "interactive";
+                    sleep-inactive-ac-timeout = 3600;
+                    sleep-inactive-ac-type = "suspend";
+                    sleep-inactive-battery-timeout = 1800;
+                    sleep-inactive-battery-type = "suspend";
                   };
-                  keybindings = {
-                    show-screenshot-ui = [ "<Shift><Control>s" ];
-                  };
-                };
 
-                tweaks = {
-                  show-extensions-notice = false;
-                };
-              };
+                  shell = {
+                    disable-extension-version-validation = true;
+                    enabled-extensions = lib.attrsets.mapAttrsToList (
+                      name: value: pkgs.gnomeExtensions.${name}.extensionUuid
+                    ) (lib.attrsets.filterAttrs (name: value: value != null) osCfg.extensions);
+                    favorite-apps = cfg.favorites;
+
+                    app-switcher = {
+                      current-workspace-only = false;
+                    };
+                    keybindings = {
+                      show-screenshot-ui = [ "<Shift><Control>s" ];
+                    };
+                  };
+
+                  tweaks = {
+                    show-extensions-notice = false;
+                  };
+                }
+                {
+                  shell.extensions = lib.attrsets.concatMapAttrs (name: value: {
+                    ${if value.key != null then value.key else name} = value.config;
+                  }) (lib.attrsets.filterAttrs (name: value: value.enable && value.config != null) osCfg.extensions);
+                }
+              ];
             };
 
             stylix.config = {
