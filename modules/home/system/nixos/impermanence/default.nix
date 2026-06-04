@@ -34,6 +34,8 @@ in
 
   config = lib.mkIf (osCfg.enable && osCfg.home) {
     home.persistence.${osCfg.path} = {
+      enable = true;
+      allowTrash = true;
       directories = lib.lists.forEach cfg.directories removeHomePrefix;
       files = lib.lists.forEach cfg.files removeHomePrefix;
     };
