@@ -7,7 +7,6 @@
 }:
 let
   cfg = config._.cli.packages.eza;
-  shellCfg = osConfig._.shell;
   gitCfg = config._.cli.packages.git;
 in
 {
@@ -22,7 +21,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.eza = {
       enable = true;
-      enableZshIntegration = shellCfg.zsh.enable;
       colors = "auto";
       git = gitCfg.enable;
       icons = "auto";

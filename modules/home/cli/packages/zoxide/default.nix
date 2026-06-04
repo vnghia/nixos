@@ -7,7 +7,6 @@
 }:
 let
   cfg = config._.cli.packages.zoxide;
-  shellCfg = osConfig._.shell;
   xdgCfg = config.xdg;
 in
 {
@@ -22,7 +21,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.zoxide = {
       enable = true;
-      enableZshIntegration = shellCfg.zsh.enable;
       options = [ "--cmd cd" ];
     };
 
