@@ -18,7 +18,7 @@ in
         nixos.impermanence = {
           enable = true;
           home = true;
-          path = "/persistent";
+          path = "/persist";
         };
       };
     };
@@ -77,8 +77,8 @@ in
                         mountpoint = "/nix";
                         mountOptions = btrfsOptions;
                       };
-                      "@persistent" = {
-                        mountpoint = "/persistent";
+                      "@persist" = {
+                        mountpoint = "/persist";
                         mountOptions = btrfsOptions;
                       };
                       "@swap" = {
