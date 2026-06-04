@@ -31,9 +31,19 @@
         };
         theming = {
           stylix = {
-            image = ../../../../wallpapers/kde-breeze/light.png;
-            scheme = "humanoid-light";
-            polarity = "light";
+            default = "light";
+            themes = {
+              light = {
+                image = ../../../../wallpapers/kde-breeze/light.png;
+                scheme = "humanoid-light";
+                polarity = "light";
+              };
+              dark = {
+                image = ../../../../wallpapers/kde-breeze/dark.png;
+                scheme = "humanoid-dark";
+                polarity = "dark";
+              };
+            };
 
             fonts = {
               fonts = {

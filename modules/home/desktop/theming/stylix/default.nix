@@ -9,22 +9,41 @@ let
   cfg = config._.desktop.theming.stylix;
   osCfg = osConfig._.desktop.theming.stylix;
   fontCfg = osConfig._.desktop.fonts;
+  mkThemeConfig = theme: force: {
+    image = lib.mkIf (theme.image != null) (if force then (lib.mkForce theme.image) else theme.image);
+    base16Scheme = lib.mkIf (theme.scheme != null) (
+      if force then
+        (lib.mkForce "${pkgs.base16-schemes}/share/themes/${theme.scheme}.yaml")
+      else
+        "${pkgs.base16-schemes}/share/themes/${theme.scheme}.yaml"
+    );
+    polarity = (if force then (lib.mkForce theme.polarity) else theme.polarity);
+  };
 in
 {
   options = with lib; {
     _ = {
       desktop.theming.stylix = {
-        image = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-        };
-        scheme = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-        };
-        polarity = mkOption {
-          type = types.nullOr types.str;
-          default = null;
+        default = mkOption { type = types.str; };
+        themes = mkOption {
+          type = types.attrsOf (
+            types.submodule {
+              options = {
+                image = mkOption {
+                  type = types.nullOr types.path;
+                  default = null;
+                };
+                scheme = mkOption {
+                  type = types.nullOr types.str;
+                  default = null;
+                };
+                polarity = mkOption {
+                  type = types.nullOr types.str;
+                  default = null;
+                };
+              };
+            }
+          );
         };
 
         fonts = {
@@ -58,18 +77,21 @@ in
       message = "font package ${value.name} is not included in system font packages";
     }) cfg.fonts.fonts;
 
-    stylix = {
-      image = lib.mkIf (cfg.image != null) cfg.image;
-      base16Scheme = lib.mkIf (
-        cfg.scheme != null
-      ) "${pkgs.base16-schemes}/share/themes/${cfg.scheme}.yaml";
-      polarity = lib.mkIf (cfg.polarity != null) cfg.polarity;
+    stylix = lib.mkMerge [
+      (mkThemeConfig cfg.themes.${cfg.default} false)
+      {
+        fonts = lib.mkMerge [
+          cfg.fonts.fonts
+          { sizes = cfg.fonts.sizes; }
+        ];
+        opacity = cfg.opacity;
+      }
+    ];
 
-      fonts = lib.mkMerge [
-        cfg.fonts.fonts
-        { sizes = cfg.fonts.sizes; }
-      ];
-      opacity = cfg.opacity;
-    };
+    specialisation = lib.attrsets.concatMapAttrs (name: theme: {
+      ${name} = {
+        configuration.stylix = mkThemeConfig theme true;
+      };
+    }) (lib.attrsets.filterAttrs (name: theme: name != cfg.default) cfg.themes);
   };
 }
