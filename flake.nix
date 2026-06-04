@@ -36,43 +36,51 @@
     }@inputs:
     let
       lib = nixpkgs.lib;
+      hosts = {
+        lyoko = {
+          flavors = [
+            null
+            "qemu"
+          ];
+          users = {
+            xana = "desktop";
+          };
+        };
+      };
+
+      mkHostName = name: flavor: "${name}${lib.optionalString (flavor != null) "-${flavor}"}";
     in
     {
-      nixosConfigurations =
-        lib.attrsets.concatMapAttrs
-          (
-            name: value:
-            lib.attrsets.mergeAttrsList (
-              lib.lists.forEach value.flavors (
-                flavor:
-                lib.attrsets.genAttrs [ "${name}${lib.optionalString (flavor != null) "-${flavor}"}" ] (
-                  hostName:
-                  lib.nixosSystem {
-                    specialArgs = { inherit inputs; };
-                    modules = [
-                      home-manager.nixosModules.home-manager
-                      disko.nixosModules.disko
-                      impermanence.nixosModules.impermanence
-                      stylix.nixosModules.stylix
+      nixosConfigurations = lib.attrsets.concatMapAttrs (
+        name: value:
+        lib.attrsets.mergeAttrsList (
+          lib.lists.forEach value.flavors (
+            flavor:
+            lib.attrsets.genAttrs [ (mkHostName name flavor) ] (
+              hostName:
+              lib.nixosSystem {
+                specialArgs = { inherit inputs; };
+                modules = [
+                  home-manager.nixosModules.home-manager
+                  disko.nixosModules.disko
+                  impermanence.nixosModules.impermanence
+                  stylix.nixosModules.stylix
 
-                      ./modules
+                  ./modules
 
-                      { networking.hostName = hostName; }
-                      ./hosts/${name}/${if flavor != null then flavor else "host"}
-                    ];
+                  ./hosts/${name}/${if flavor != null then flavor else "host"}
+                  { networking.hostName = hostName; }
+                  {
+                    imports = lib.attrsets.mapAttrsToList (
+                      userName: userFalvor: ./users/${userName}/${userFalvor}
+                    ) value.users;
                   }
-                )
-              )
+                ];
+              }
             )
           )
-          {
-            lyoko = {
-              flavors = [
-                null
-                "qemu"
-              ];
-            };
-          };
+        )
+      ) hosts;
 
       system.stateVersion = "26.05";
     };
