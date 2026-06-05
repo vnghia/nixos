@@ -53,9 +53,15 @@ in
                     "--type luks2"
                     "--pbkdf argon2id"
                   ];
+                  passwordFile = "/tmp/disko-main-password";
                   settings = {
                     allowDiscards = true;
                     bypassWorkqueues = true;
+                    crypttabExtraOpts = [
+                      "fido2-device=auto"
+                      "tpm2-device=auto"
+                      "token-timeout=5"
+                    ];
                   };
                   content = {
                     type = "btrfs";

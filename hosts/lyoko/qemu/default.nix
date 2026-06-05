@@ -23,7 +23,6 @@
             partitions = {
               luks = {
                 content = {
-                  passwordFile = "/tmp/password";
                   content = {
                     subvolumes = {
                       "@swap" = {
