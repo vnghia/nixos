@@ -40,15 +40,13 @@ in
     {
       users.mutableUsers = false;
 
-      users.users = lib.attrsets.concatMapAttrs (userName: userCfg: {
-        ${userName} = {
-          isNormalUser = true;
-          shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
-          hashedPasswordFile = "${cfg.hashedPasswordDirectory}/${userName}";
-          extraGroups =
-            (if userCfg.groups.wheel then [ "wheel" ] else [ ])
-            ++ (if userCfg.groups.wheel && networkCfg.networkManager.enable then [ "networkmanager" ] else [ ]);
-        };
+      users.users = lib.attrsets.mapAttrs (userName: userCfg: {
+        isNormalUser = true;
+        shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
+        hashedPasswordFile = "${cfg.hashedPasswordDirectory}/${userName}";
+        extraGroups =
+          (if userCfg.groups.wheel then [ "wheel" ] else [ ])
+          ++ (if userCfg.groups.wheel && networkCfg.networkManager.enable then [ "networkmanager" ] else [ ]);
       }) cfg.users;
 
       systemd.tmpfiles.settings = {
@@ -71,9 +69,7 @@ in
         sharedModules = [ ../../home ];
       };
 
-      home-manager.users = lib.attrsets.concatMapAttrs (userName: userCfg: {
-        ${userName} = userCfg.home;
-      }) cfg.users;
+      home-manager.users = lib.attrsets.mapAttrs (userName: userCfg: userCfg.home) cfg.users;
 
       _ = {
         shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (
