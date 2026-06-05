@@ -6,12 +6,15 @@
 {
   config = {
     _ = {
-      user = {
-        name = "xana";
-        shell = "zsh";
-        groups = {
-          wheel = true;
-          networkManager = true;
+      users = {
+        users = {
+          xana = {
+            shell = "zsh";
+            groups = {
+              wheel = true;
+              networkManager = true;
+            };
+          };
         };
       };
     };

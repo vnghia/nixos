@@ -1,23 +1,39 @@
 {
   lib,
+  config,
   osConfig,
   ...
 }:
 let
-  osCfg = osConfig._.user;
+  cfg = config._.user;
   shellCfg = osConfig._.shell;
 in
 {
-  config = {
-    home = {
-      username = osCfg.name;
-      homeDirectory = "/home/${osCfg.name}";
-      shell = {
-        enableZshIntegration = shellCfg.zsh.enable;
+  options = with lib; {
+    _ = {
+      user = {
+        name = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
       };
-
-      stateVersion = "26.05";
     };
+  };
+
+  config = {
+    home = lib.mkMerge [
+      {
+        shell = {
+          enableZshIntegration = shellCfg.zsh.enable;
+        };
+
+        stateVersion = "26.05";
+      }
+      (lib.mkIf (cfg.name != null) {
+        username = cfg.name;
+        homeDirectory = "/home/${cfg.name}";
+      })
+    ];
 
     programs = {
       home-manager = {

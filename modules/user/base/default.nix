@@ -6,52 +6,77 @@
   ...
 }:
 let
-  cfg = config._.user;
-  rootCfg = config._;
+  cfg = config._.users;
+  networkCfg = config._.network;
+  impermanenceCfg = config._.system.nixos.impermanence;
 in
 {
   options = with lib; {
     _ = {
-      user = {
-        name = mkOption { type = types.str; };
-        shell = mkOption { type = types.enum [ "zsh" ]; };
-        groups = {
-          wheel = mkEnableOption "Wheel";
-          networkManager = mkEnableOption "Network Manager";
+      users = {
+        hashedPasswordDirectory = mkOption {
+          type = types.path;
+          default = "/etc/hashed-passwords";
         };
-        home = mkOption { type = (types.attrsOf types.anything); };
-      };
-    };
-  };
-
-  config = {
-    users.mutableUsers = false;
-
-    users.users = {
-      ${cfg.name} = {
-        isNormalUser = true;
-        shell = if cfg.shell == "zsh" then pkgs.zsh else null;
-        extraGroups =
-          (if cfg.groups.wheel then [ "wheel" ] else [ ])
-          ++ (
-            if cfg.groups.wheel && rootCfg.network.networkManager.enable then [ "networkmanager" ] else [ ]
+        users = mkOption {
+          type = types.attrsOf (
+            types.submodule {
+              options = {
+                shell = mkOption { type = types.enum [ "zsh" ]; };
+                groups = {
+                  wheel = mkEnableOption "Wheel";
+                  networkManager = mkEnableOption "Network Manager";
+                };
+                home = mkOption { type = types.attrsOf types.anything; };
+              };
+            }
           );
+        };
       };
-    };
-
-    _ = {
-      shell.zsh.enable = lib.mkIf (cfg.shell == "zsh") true;
-    };
-
-    home-manager = {
-      users.${cfg.name} = cfg.home;
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      extraSpecialArgs = {
-        inherit inputs;
-        customLib = (import ../../../lib/home { inherit lib; });
-      };
-      sharedModules = [ ../../home ];
     };
   };
+
+  config = lib.mkMerge [
+    {
+      users.mutableUsers = false;
+
+      users.users = lib.attrsets.concatMapAttrs (userName: userCfg: {
+        ${userName} = {
+          isNormalUser = true;
+          shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
+          hashedPasswordFile = "${lib.optionalString impermanenceCfg.enable impermanenceCfg.path}/${cfg.hashedPasswordDirectory}/${userName}";
+          extraGroups =
+            (if userCfg.groups.wheel then [ "wheel" ] else [ ])
+            ++ (if userCfg.groups.wheel && networkCfg.networkManager.enable then [ "networkmanager" ] else [ ]);
+        };
+      }) cfg.users;
+
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = {
+          inherit inputs;
+          customLib = (import ../../../lib/home { inherit lib; });
+        };
+        sharedModules = [ ../../home ];
+      };
+
+      home-manager.users = lib.attrsets.concatMapAttrs (userName: userCfg: {
+        ${userName} = userCfg.home;
+      }) cfg.users;
+
+      _ = {
+        shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (
+          lib.attrsets.attrValues cfg.users
+        );
+
+        system.nixos.impermanence.directories = [
+          {
+            directory = cfg.hashedPasswordDirectory;
+            mode = "u=rw,g=,o=";
+          }
+        ];
+      };
+    }
+  ];
 }

@@ -25,9 +25,12 @@ in
     programs.git = {
       enable = true;
       settings = {
-        user = cfg.user // {
-          useConfigOnly = true;
-        };
+        user = lib.mkMerge [
+          cfg.user
+          {
+            useConfigOnly = true;
+          }
+        ];
         init = {
           defaultBranch = "main";
         };
