@@ -29,4 +29,4 @@ disko-install host path name="main" mode="mount" prefix="":
         --flake '.#{{ host }}' \
         --disk {{ name }} {{ path }} \
         --mode {{ mode }} \
-        --extra-files {{ prefix }}/etc/hashed-passwords /etc/hashed-passwords
+        --extra-files {{ prefix }}/etc/hashed-passwords {{ prefix }}/etc/hashed-passwords

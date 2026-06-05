@@ -63,6 +63,8 @@ in
               "/var/lib/dbus/machine-id"
             ];
           };
+
+          users.hashedPasswordDirectory = "${cfg.path}/etc/hashed-passwords";
         };
 
         fileSystems.${cfg.path}.neededForBoot = true;

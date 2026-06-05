@@ -44,12 +44,22 @@ in
         ${userName} = {
           isNormalUser = true;
           shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
-          hashedPasswordFile = "${lib.optionalString impermanenceCfg.enable impermanenceCfg.path}/${cfg.hashedPasswordDirectory}/${userName}";
+          hashedPasswordFile = "${cfg.hashedPasswordDirectory}/${userName}";
           extraGroups =
             (if userCfg.groups.wheel then [ "wheel" ] else [ ])
             ++ (if userCfg.groups.wheel && networkCfg.networkManager.enable then [ "networkmanager" ] else [ ]);
         };
       }) cfg.users;
+
+      systemd.tmpfiles.settings = {
+        "10-hashed-password" = {
+          ${cfg.hashedPasswordDirectory} = {
+            Z = {
+              mode = "0600";
+            };
+          };
+        };
+      };
 
       home-manager = {
         useGlobalPkgs = true;
@@ -69,13 +79,6 @@ in
         shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (
           lib.attrsets.attrValues cfg.users
         );
-
-        system.nixos.impermanence.directories = [
-          {
-            directory = cfg.hashedPasswordDirectory;
-            mode = "u=rw,g=,o=";
-          }
-        ];
       };
     }
   ];
