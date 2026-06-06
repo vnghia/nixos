@@ -103,6 +103,6 @@ in
           };
         };
       }
-    ) (lib.attrsets.filterAttrs (name: theme: name != cfg.default) cfg.themes);
+    ) cfg.themes;
   };
 }
