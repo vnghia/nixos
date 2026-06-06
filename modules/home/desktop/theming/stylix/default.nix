@@ -10,15 +10,12 @@ let
   cfg = config._.desktop.theming.stylix;
   osCfg = osConfig._.desktop.theming.stylix;
   fontCfg = osConfig._.desktop.fonts;
-  mkThemeConfig = theme: force: {
-    image = lib.mkIf (theme.image != null) (if force then (lib.mkForce theme.image) else theme.image);
+  mkThemeConfig = theme: {
+    image = lib.mkIf (theme.image != null) theme.image;
     base16Scheme = lib.mkIf (theme.scheme != null) (
-      if force then
-        (lib.mkForce (customLib.desktop.theming.stylix.mkScheme theme.scheme))
-      else
-        (customLib.desktop.theming.stylix.mkScheme theme.scheme)
+      customLib.desktop.theming.stylix.mkScheme theme.scheme
     );
-    polarity = (if force then (lib.mkForce theme.polarity) else theme.polarity);
+    polarity = lib.mkIf (theme.polarity != null) theme.polarity;
   };
 in
 {
@@ -79,7 +76,7 @@ in
     }) cfg.fonts.fonts;
 
     stylix = lib.mkMerge [
-      (mkThemeConfig cfg.themes.${cfg.default} false)
+      (mkThemeConfig cfg.themes.${cfg.default})
       {
         enable = true;
         autoEnable = false;
@@ -91,19 +88,12 @@ in
       }
     ];
 
-    specialisation = lib.attrsets.concatMapAttrs (
-      name: theme:
-      let
-        specialisationName = "${name}-theme";
-      in
-      {
-        ${specialisationName} = {
-          configuration = {
-            xdg.dataFile."home-manager/specialisation".text = specialisationName;
-            stylix = mkThemeConfig theme true;
-          };
-        };
-      }
-    ) cfg.themes;
+    _ = {
+      specialisation = {
+        theme = lib.attrsets.mapAttrs (name: theme: {
+          stylix = mkThemeConfig theme;
+        }) cfg.themes;
+      };
+    };
   };
 }

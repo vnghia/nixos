@@ -4,6 +4,7 @@
     ./cli
     ./desktop
     ./shell
+    ./specialisation
     ./system
   ];
 }
