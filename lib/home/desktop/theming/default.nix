@@ -1,7 +1,13 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
-  theming = (import ./stylix.nix { inherit lib; });
+  theming = (
+    import ./stylix.nix {
+      inherit lib;
+      inherit pkgs;
+    }
+  );
 }

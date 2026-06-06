@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
@@ -24,5 +25,7 @@
         ]
       );
     };
+
+    mkScheme = scheme: "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
   };
 }

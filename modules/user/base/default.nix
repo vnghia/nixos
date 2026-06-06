@@ -64,7 +64,12 @@ in
         useUserPackages = true;
         extraSpecialArgs = {
           inherit inputs;
-          customLib = (import ../../../lib/home { inherit lib; });
+          customLib = (
+            import ../../../lib/home {
+              inherit lib;
+              inherit pkgs;
+            }
+          );
         };
         sharedModules = [ ../../home ];
       };

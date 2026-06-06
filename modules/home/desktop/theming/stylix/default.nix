@@ -3,6 +3,7 @@
   config,
   osConfig,
   pkgs,
+  customLib,
   ...
 }:
 let
@@ -13,9 +14,9 @@ let
     image = lib.mkIf (theme.image != null) (if force then (lib.mkForce theme.image) else theme.image);
     base16Scheme = lib.mkIf (theme.scheme != null) (
       if force then
-        (lib.mkForce "${pkgs.base16-schemes}/share/themes/${theme.scheme}.yaml")
+        (lib.mkForce (customLib.desktop.theming.stylix.mkScheme theme.scheme))
       else
-        "${pkgs.base16-schemes}/share/themes/${theme.scheme}.yaml"
+        (customLib.desktop.theming.stylix.mkScheme theme.scheme)
     );
     polarity = (if force then (lib.mkForce theme.polarity) else theme.polarity);
   };

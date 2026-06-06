@@ -18,11 +18,6 @@
             stylix = true;
           };
         };
-        theming = {
-          stylix = {
-            image = ../../wallpapers/kde-breeze/light.png;
-          };
-        };
       };
     };
   };

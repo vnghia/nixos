@@ -1,5 +1,9 @@
 {
   lib,
+  pkgs,
   ...
 }:
-(import ./desktop { inherit lib; })
+(import ./desktop {
+  inherit lib;
+  inherit pkgs;
+})

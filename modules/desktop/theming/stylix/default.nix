@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -10,9 +11,9 @@ in
   options = with lib; {
     _ = {
       desktop.theming.stylix = {
-        image = mkOption {
-          type = types.nullOr types.path;
-          default = null;
+        scheme = mkOption {
+          type = types.str;
+          default = "blueish";
         };
       };
     };
@@ -23,7 +24,7 @@ in
       enable = true;
       autoEnable = false;
       overlays.enable = true;
-      image = cfg.image;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/${cfg.scheme}.yaml";
     };
   };
 }
