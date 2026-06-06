@@ -18,11 +18,6 @@
             stylix = true;
           };
         };
-        packages = {
-          nautilus = {
-            enable = true;
-          };
-        };
         theming = {
           stylix = {
             image = ../../wallpapers/kde-breeze/light.png;

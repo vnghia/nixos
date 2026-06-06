@@ -26,6 +26,7 @@
             favorite = 10;
           };
           nautilus = {
+            enable = true;
             favorite = 50;
           };
         };
