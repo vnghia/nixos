@@ -17,6 +17,9 @@
               email = "git@vnghia.com";
             };
           };
+          just = {
+            enable = true;
+          };
           nh = {
             enable = true;
             clean = {
