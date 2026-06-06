@@ -9,8 +9,8 @@
 let
   cfg = config._.specialisation;
   xdgCfg = config.xdg;
-  homeSpecialisationDirectory = "${xdgCfg.stateHome}/home-manager/gcroots/current-home/specialisation";
-  specialisationDirectory = "${xdgCfg.stateHome}/specialisation";
+  homeCfg = config.home;
+  specialisationDirectory = "${homeCfg.homeDirectory}/.local/specialisation";
 in
 {
   options = with lib; {
@@ -23,26 +23,21 @@ in
   };
 
   config = {
-    systemd.user.services.link-specialisation = {
-      Unit = {
-        Description = "Link specialisation to ${specialisationDirectory}";
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.writeShellScript "link-specialisation" ''
-          mkdir -p ${specialisationDirectory}
-          for specialisation in $(find ${homeSpecialisationDirectory} -mindepth 1 -maxdepth 1 -type l); do
-            name=${specialisationDirectory}/$(basename $specialisation)
-            echo "Linking $specialisation to $name ..."
-            rm $name
-            ln -s $(realpath $specialisation) $name
-          done
-        ''}";
-      };
-    };
+    home.activation.linkSpecialisation =
+      lib.hm.dag.entryBetween [ "installPackages" ] [ "writeBoundary" ]
+        ''
+          homeSpecialisationDirectory="$newGenPath/specialisation"
+          if [ -d "$homeSpecialisationDirectory" ]; then
+            run mkdir -p ${specialisationDirectory}
+
+            for specialisation in $(find $homeSpecialisationDirectory -mindepth 1 -maxdepth 1 -type l); do
+              name=${specialisationDirectory}/$(basename $specialisation)
+              verboseEcho "Linking $specialisation to $name ..."
+              run rm -f $name
+              run ln -s $(realpath $specialisation) $name
+            done
+          fi
+        '';
 
     specialisation = lib.attrsets.concatMapAttrs (
       typeName: typeSpecialisation:

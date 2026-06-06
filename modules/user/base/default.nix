@@ -62,6 +62,8 @@ in
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
+        verbose = false;
+
         extraSpecialArgs = {
           inherit inputs;
           customLib = (
