@@ -22,6 +22,11 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -32,6 +37,7 @@
       disko,
       impermanence,
       stylix,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -66,6 +72,7 @@
                   disko.nixosModules.disko
                   impermanence.nixosModules.impermanence
                   stylix.nixosModules.stylix
+                  lanzaboote.nixosModules.lanzaboote
 
                   ./modules
 

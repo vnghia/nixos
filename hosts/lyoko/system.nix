@@ -3,7 +3,7 @@
     _ = {
       system = {
         boot = {
-          type = "systemd";
+          type = "lanzaboote";
         };
         nixos = {
           feature = {
