@@ -71,6 +71,10 @@ in
           default = { };
         };
         dconf = mkOption { type = types.attrsOf types.anything; };
+        themes = {
+          light = mkOption { type = types.str; };
+          dark = mkOption { type = types.str; };
+        };
       }
       // customLib.home.desktop.theming.stylix.mkOption;
     };
@@ -296,6 +300,11 @@ in
                   time = {
                     manual-schedule = false;
                     nightthemeswitcher-ondemand-keybinding = [ "<Shift><Super>t" ];
+                  };
+                  commands = {
+                    enabled = true;
+                    sunrise = "${config._.activateSpecialisationPackage} theme ${cfg.themes.light}";
+                    sunset = "${config._.activateSpecialisationPackage} theme ${cfg.themes.dark}";
                   };
                 };
               };

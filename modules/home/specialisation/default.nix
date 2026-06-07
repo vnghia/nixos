@@ -11,6 +11,13 @@ let
   xdgCfg = config.xdg;
   homeCfg = config.home;
   specialisationDirectory = "${homeCfg.homeDirectory}/.local/specialisation";
+
+  activateSpecialisationPackage = pkgs.writeShellApplication {
+    name = customLib.home.specialisation.activateScript;
+    text = ''
+      ${specialisationDirectory}/"$1"-"$2"/activate
+    '';
+  };
 in
 {
   options = with lib; {
@@ -18,6 +25,9 @@ in
       specialisation = mkOption {
         type = types.attrsOf (types.attrsOf (types.attrsOf types.anything));
         default = { };
+      };
+      activateSpecialisationPackage = mkOption {
+        type = types.package;
       };
     };
   };
@@ -40,13 +50,12 @@ in
         '';
 
     home.packages = [
-      (pkgs.writeShellApplication {
-        name = customLib.home.specialisation.activateScript;
-        text = ''
-          ${specialisationDirectory}/"$1"-"$2"/activate
-        '';
-      })
+      activateSpecialisationPackage
     ];
+
+    _ = {
+      activateSpecialisationPackage = activateSpecialisationPackage;
+    };
 
     specialisation = lib.attrsets.concatMapAttrs (
       typeName: typeSpecialisation:

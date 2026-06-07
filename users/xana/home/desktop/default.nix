@@ -15,6 +15,10 @@
             stylix = {
               enable = true;
             };
+            themes = {
+              light = "light";
+              dark = "dark";
+            };
           };
         };
         packages = {
