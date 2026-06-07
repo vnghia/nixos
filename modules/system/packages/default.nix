@@ -1,5 +1,6 @@
 {
   imports = [
+    ./gvfs
     ./nix-ld
   ];
 }

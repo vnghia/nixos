@@ -14,7 +14,6 @@
         managers = {
           gnome = {
             enable = true;
-            gvfs = true;
             stylix = true;
           };
         };

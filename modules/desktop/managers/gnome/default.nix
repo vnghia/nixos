@@ -14,7 +14,6 @@ in
         managers = {
           gnome = {
             enable = mkEnableOption "Gnome";
-            gvfs = mkEnableOption "Gvfs";
             stylix = mkEnableOption "Stylix";
             extensions = mkOption {
               type = types.attrsOf (
@@ -46,8 +45,6 @@ in
       gnome-tour
       gnome-user-docs
     ];
-
-    services.gvfs.enable = lib.mkForce cfg.gvfs;
 
     stylix.targets.gnome.enable = cfg.stylix;
 
