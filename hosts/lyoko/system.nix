@@ -22,6 +22,11 @@
             enable = true;
           };
         };
+        security = {
+          tpm2 = {
+            enable = true;
+          };
+        };
       };
     };
   };

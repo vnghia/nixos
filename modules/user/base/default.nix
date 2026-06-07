@@ -10,6 +10,7 @@ let
   cfg = config._.users;
   networkCfg = config._.network;
   impermanenceCfg = config._.system.nixos.impermanence;
+  tpm2Cfg = config._.system.security.tpm2;
 in
 {
   options = with lib; {
@@ -27,6 +28,7 @@ in
                 groups = {
                   wheel = mkEnableOption "Wheel";
                   networkManager = mkEnableOption "Network Manager";
+                  tpm2 = mkEnableOption "TPM2";
                 };
                 home = mkOption { type = types.attrsOf types.anything; };
               };
@@ -47,7 +49,8 @@ in
         hashedPasswordFile = "${cfg.hashedPasswordDirectory}/${userName}";
         extraGroups =
           (if userCfg.groups.wheel then [ "wheel" ] else [ ])
-          ++ (if userCfg.groups.wheel && networkCfg.networkManager.enable then [ "networkmanager" ] else [ ]);
+          ++ (if networkCfg.networkManager.enable then [ "networkmanager" ] else [ ])
+          ++ (if tpm2Cfg.enable then [ "tss" ] else [ ]);
       }) cfg.users;
 
       systemd.tmpfiles.settings = {

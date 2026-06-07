@@ -5,6 +5,7 @@
     ./packages
     ./network
     ./nixos
+    ./security
     ./shell
   ];
 }

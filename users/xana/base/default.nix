@@ -13,6 +13,7 @@
             groups = {
               wheel = true;
               networkManager = true;
+              tpm2 = true;
             };
           };
         };
