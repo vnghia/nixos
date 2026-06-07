@@ -6,6 +6,11 @@
   config = {
     _ = {
       desktop = {
+        frameworks = {
+          gtk = {
+            stylix = true;
+          };
+        };
         fonts = [
           pkgs.ubuntu-sans
           pkgs.nerd-fonts.jetbrains-mono

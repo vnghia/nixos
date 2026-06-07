@@ -10,6 +10,13 @@
   config = {
     _ = {
       desktop = {
+        frameworks = {
+          gtk = {
+            stylix = {
+              enable = true;
+            };
+          };
+        };
         managers = {
           gnome = {
             stylix = {
