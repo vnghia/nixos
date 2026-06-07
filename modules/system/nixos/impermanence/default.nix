@@ -32,6 +32,8 @@ in
     lib.mkMerge [
       {
         environment.persistence.${cfg.path} = {
+          enable = true;
+          allowTrash = true;
           hideMounts = true;
           directories = cfg.directories;
           files = cfg.files;

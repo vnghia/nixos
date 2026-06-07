@@ -36,6 +36,7 @@ in
     home.persistence.${osCfg.path} = {
       enable = true;
       allowTrash = true;
+      hideMounts = true;
       directories = lib.lists.forEach cfg.directories removeHomePrefix;
       files = lib.lists.forEach cfg.files removeHomePrefix;
     };
