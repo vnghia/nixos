@@ -14,8 +14,8 @@ in
       desktop.packages.alacritty = {
         enable = mkEnableOption "Alacritty";
       }
-      // customLib.desktop.packages.favorite.mkOption
-      // customLib.desktop.theming.stylix.mkOption;
+      // customLib.home.desktop.packages.favorite.mkOption
+      // customLib.home.desktop.theming.stylix.mkOption;
     };
   };
 
@@ -99,8 +99,8 @@ in
           ];
         };
       }
-      (customLib.desktop.packages.favorite.mkConfig "Alacritty.desktop" cfg)
-      (customLib.desktop.theming.stylix.mkConfig "alacritty" cfg)
+      (customLib.home.desktop.packages.favorite.mkConfig "Alacritty.desktop" cfg)
+      (customLib.home.desktop.theming.stylix.mkConfig "alacritty" cfg)
       {
         _ = {
           desktop.packages.alacritty.stylix.config = {

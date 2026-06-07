@@ -1,5 +1,6 @@
 {
   lib,
+  customLib,
   config,
   pkgs,
   ...
@@ -24,7 +25,7 @@ in
       enable = true;
       autoEnable = false;
       overlays.enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/${cfg.scheme}.yaml";
+      base16Scheme = customLib.desktop.theming.stylix.mkScheme pkgs cfg.scheme;
     };
   };
 }

@@ -16,14 +16,14 @@ in
       desktop.packages.nautilus = {
         enable = mkEnableOption "Nautilus";
       }
-      // customLib.desktop.packages.favorite.mkOption;
+      // customLib.home.desktop.packages.favorite.mkOption;
     };
   };
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       { home.packages = [ pkgs.nautilus ]; }
-      (customLib.desktop.packages.favorite.mkConfig "org.gnome.Nautilus.desktop" cfg)
+      (customLib.home.desktop.packages.favorite.mkConfig "org.gnome.Nautilus.desktop" cfg)
     ]
   );
 }

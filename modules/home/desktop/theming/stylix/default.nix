@@ -13,7 +13,7 @@ let
   mkThemeConfig = theme: {
     image = lib.mkIf (theme.image != null) theme.image;
     base16Scheme = lib.mkIf (theme.scheme != null) (
-      customLib.desktop.theming.stylix.mkScheme theme.scheme
+      customLib.desktop.theming.stylix.mkScheme pkgs theme.scheme
     );
     polarity = lib.mkIf (theme.polarity != null) theme.polarity;
   };

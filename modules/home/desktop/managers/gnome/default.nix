@@ -72,7 +72,7 @@ in
         };
         dconf = mkOption { type = types.attrsOf types.anything; };
       }
-      // customLib.desktop.theming.stylix.mkOption;
+      // customLib.home.desktop.theming.stylix.mkOption;
     };
   };
 
@@ -118,7 +118,7 @@ in
           ];
         };
       }
-      (customLib.desktop.theming.stylix.mkConfig "gnome" (cfg // { enable = osCfg.stylix; }))
+      (customLib.home.desktop.theming.stylix.mkConfig "gnome" (cfg // { enable = osCfg.stylix; }))
       {
         _ = {
           desktop.managers.gnome = {

@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  customLib,
   config,
   pkgs,
   ...
@@ -66,12 +67,7 @@ in
 
         extraSpecialArgs = {
           inherit inputs;
-          customLib = (
-            import ../../../lib/home {
-              inherit lib;
-              inherit pkgs;
-            }
-          );
+          inherit customLib;
         };
         sharedModules = [ ../../home ];
       };

@@ -3,8 +3,8 @@
   ...
 }:
 {
-  theming = (
-    import ./stylix.nix {
+  desktop = (
+    import ./theming {
       inherit lib;
     }
   );

@@ -44,8 +44,13 @@
       stateVersion = "26.05";
 
       lib = nixpkgs.lib;
+      customLib = (import ./lib) {
+        inherit lib;
+      };
+
       hosts = {
         lyoko = {
+          platform = "x86_64-linux";
           flavors = [
             null
             "qemu"
@@ -66,7 +71,10 @@
             let
               hostName = mkHostName name flavor;
               hostSystem = lib.nixosSystem {
-                specialArgs = { inherit inputs; };
+                specialArgs = {
+                  inherit inputs;
+                  inherit customLib;
+                };
                 modules = [
                   home-manager.nixosModules.home-manager
                   disko.nixosModules.disko
@@ -77,7 +85,10 @@
                   ./modules
 
                   ./hosts/${name}/${if flavor != null then flavor else "host"}
-                  { networking.hostName = hostName; }
+                  {
+                    networking.hostName = hostName;
+                    nixpkgs.hostPlatform = value.platform;
+                  }
                   {
                     imports = lib.attrsets.mapAttrsToList (
                       userName: userFlavor: ./users/${userName}/${userFlavor}
