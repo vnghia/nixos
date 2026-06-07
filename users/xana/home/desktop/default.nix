@@ -40,6 +40,11 @@
             enable = true;
             favorite = 50;
           };
+          zenBrowser = {
+            enable = true;
+            default = true;
+            favorite = 1;
+          };
         };
         theming = {
           stylix = {

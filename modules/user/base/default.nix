@@ -72,7 +72,10 @@ in
           inherit inputs;
           inherit customLib;
         };
-        sharedModules = [ ../../home ];
+        sharedModules = [
+          inputs.zen-browser.homeModules.beta
+          ../../home
+        ];
       };
 
       home-manager.users = lib.attrsets.mapAttrs (userName: userCfg: userCfg.home) cfg.users;
