@@ -3,9 +3,9 @@
   ...
 }:
 {
-  home = (
-    import ./desktop {
+  home =
+    (import ./desktop {
       inherit lib;
-    }
-  );
+    })
+    // (import ./specialisation { inherit lib; });
 }

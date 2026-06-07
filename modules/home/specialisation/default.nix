@@ -39,6 +39,15 @@ in
           fi
         '';
 
+    home.packages = [
+      (pkgs.writeShellApplication {
+        name = customLib.home.specialisation.activateScript;
+        text = ''
+          ${specialisationDirectory}/"$1"-"$2"/activate
+        '';
+      })
+    ];
+
     specialisation = lib.attrsets.concatMapAttrs (
       typeName: typeSpecialisation:
       (lib.attrsets.mapAttrs' (
