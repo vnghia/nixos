@@ -45,6 +45,7 @@ in
   options = with lib; {
     _ = {
       desktop.managers.gnome = {
+        location = mkEnableOption "Location";
         favorites = mkOption {
           type = types.listOf types.str;
           default = [ ];
@@ -367,6 +368,7 @@ in
                     show-extensions-notice = false;
                   };
                 }
+                (lib.mkIf cfg.location { system.location.enabled = true; })
               ];
             };
 

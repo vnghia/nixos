@@ -19,6 +19,7 @@
         };
         managers = {
           gnome = {
+            location = true;
             stylix = {
               enable = true;
             };
