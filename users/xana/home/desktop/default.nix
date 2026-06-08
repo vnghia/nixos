@@ -34,6 +34,9 @@
             enable = true;
             stylix = {
               enable = true;
+              config = {
+                fonts.override.sizes.terminal = 12;
+              };
             };
             favorite = 10;
           };
@@ -56,6 +59,9 @@
             enable = true;
             stylix = {
               enable = true;
+              config = {
+                fonts.override.sizes.terminal = 10.5;
+              };
             };
             favorite = 5;
           };
