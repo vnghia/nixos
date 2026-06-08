@@ -105,7 +105,12 @@ in
         _ = {
           desktop.packages.alacritty.stylix.config = {
             colors.enable = false;
-            fonts.enable = true;
+            fonts = {
+              enable = true;
+              override = {
+                sizes.terminal = 12;
+              };
+            };
             opacity.enable = true;
           };
         };
