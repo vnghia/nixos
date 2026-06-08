@@ -1,11 +1,13 @@
 {
   lib,
   config,
+  pkgs,
   customLib,
   ...
 }:
 let
   cfg = config._.desktop.packages.zen-browser;
+  keepassxcCfg = config._.desktop.packages.keepassxc;
   xdgCfg = config.xdg;
 in
 {
@@ -26,6 +28,7 @@ in
         programs.zen-browser = {
           enable = true;
           setAsDefaultBrowser = cfg.default;
+          nativeMessagingHosts = (if keepassxcCfg.enable then [ pkgs.keepassxc ] else [ ]);
         };
 
         xdg.mimeApps = lib.mkIf cfg.default {

@@ -50,6 +50,10 @@
             };
             favorite = 10;
           };
+          keepassxc = {
+            enable = true;
+            autostart = true;
+          };
           nautilus = {
             enable = true;
             favorite = 50;
