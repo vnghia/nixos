@@ -27,6 +27,9 @@
             };
             flake = "${config.home.homeDirectory}/code/nixos";
           };
+          nixfmt = {
+            enable = true;
+          };
           starship = {
             enable = true;
           };

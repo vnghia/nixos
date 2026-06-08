@@ -4,6 +4,7 @@
     ./git
     ./just
     ./nh
+    ./nixfmt
     ./starship
     ./uv
     ./vim
