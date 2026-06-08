@@ -27,6 +27,16 @@
               light = "light";
               dark = "dark";
             };
+            dconf = {
+              org.gnome.desktop.peripherals = {
+                mouse = {
+                  speed = 0.5;
+                };
+                touchpad = {
+                  speed = 0.5;
+                };
+              };
+            };
           };
         };
         packages = {
