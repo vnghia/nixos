@@ -5,7 +5,6 @@
 }:
 let
   cfg = config._.system.nixos.impermanence;
-  bootCfg = config._.system.boot;
   filesystemCfg = config._.system.filesystem;
   timezoneFile = "${cfg.path}/timezone";
 in

@@ -7,6 +7,8 @@
 let
   cfg = config._.system.nixos.impermanence;
   osCfg = osConfig._.system.nixos.impermanence;
+  xdgCfg = config.xdg;
+
   homePrefix = "${config.home.homeDirectory}/";
   removeHomePrefix = (
     path: if (lib.strings.isString path) then lib.strings.removePrefix homePrefix path else path
@@ -50,6 +52,9 @@ in
           "Pictures"
           "Projects"
           "Videos"
+
+          # Audio
+          "${xdgCfg.stateHome}/wireplumber"
 
           {
             directory = ".gnupg";
