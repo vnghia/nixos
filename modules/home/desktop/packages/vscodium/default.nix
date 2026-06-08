@@ -7,6 +7,7 @@
 }:
 let
   cfg = config._.desktop.packages.vscodium;
+  cliCfg = config._.cli.packages;
   xdgCfg = config.xdg;
 in
 {
@@ -14,6 +15,9 @@ in
     _ = {
       desktop.packages.vscodium = {
         enable = mkEnableOption "VsCodium";
+        base = mkOption {
+          type = types.attrsOf types.anything;
+        };
         profiles = mkOption {
           type = types.attrsOf types.anything;
         };
@@ -28,19 +32,31 @@ in
       {
         programs.vscodium = {
           enable = true;
-          profiles = cfg.profiles;
+          profiles = lib.attrsets.mapAttrs (
+            name: profile:
+            (lib.mkMerge [
+              cfg.base
+              profile
+            ])
+          ) cfg.profiles;
         };
 
         _ = {
-          desktop.packages.vscodium.profiles = {
-            default = {
-              extensions = with pkgs.nix-vscode-extensions.open-vsx; [
-                pkief.material-icon-theme
-              ];
+          desktop.packages.vscodium = {
+            base = {
+              extensions =
+                with pkgs.nix-vscode-extensions.open-vsx;
+                [
+                  pkief.material-icon-theme
+                ]
+                ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ]);
               userSettings = {
                 terminal.integrated = {
                   cursorStyle = "line";
                   cursorBlinking = true;
+                };
+                explorer = {
+                  openEditors.visible = 10;
                 };
                 editor = {
                   formatOnSave = true;
@@ -58,6 +74,9 @@ in
                 };
               };
             };
+            profiles = {
+              default = { };
+            };
           };
 
           system.nixos.impermanence.directories = [
@@ -70,9 +89,18 @@ in
       (customLib.home.desktop.theming.stylix.mkConfig "vscodium" cfg)
       {
         _ = {
-          desktop.packages.vscodium.stylix.config = {
-            colors.enable = true;
-            fonts.enable = true;
+          desktop.packages.vscodium = {
+            base = {
+              userSettings = {
+                workbench = {
+                  colorTheme = "Stylix";
+                };
+              };
+            };
+            stylix.config = {
+              colors.enable = true;
+              fonts.enable = true;
+            };
           };
         };
       }
