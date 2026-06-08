@@ -8,7 +8,6 @@
 }:
 let
   cfg = config._.desktop.packages.nautilus;
-  osCfg = osConfig._.desktop.packages.nautilus;
 in
 {
   options = with lib; {

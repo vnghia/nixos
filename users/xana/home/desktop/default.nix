@@ -40,6 +40,9 @@
             enable = true;
             favorite = 50;
           };
+          signal-desktop = {
+            enable = true;
+          };
           zen-browser = {
             enable = true;
             default = true;
