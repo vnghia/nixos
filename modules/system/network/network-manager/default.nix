@@ -55,6 +55,12 @@ in
 
           networkmanager.wifi.backend = "iwd";
         };
+
+        _ = {
+          system.nixos.impermanence.directories = [
+            "/var/lib/iwd"
+          ];
+        };
       })
     ]
   );
