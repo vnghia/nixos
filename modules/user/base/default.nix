@@ -68,6 +68,8 @@ in
         useUserPackages = true;
         verbose = false;
 
+        backupCommand = "${pkgs.trash-cli}/bin/trash-put";
+
         extraSpecialArgs = {
           inherit inputs;
           inherit customLib;
