@@ -2,13 +2,11 @@
   lib,
   customLib,
   config,
-  osConfig,
   pkgs,
   ...
 }:
 let
   cfg = config._.specialisation;
-  xdgCfg = config.xdg;
   homeCfg = config.home;
   specialisationDirectory = "${homeCfg.homeDirectory}/.local/specialisation";
 
@@ -57,11 +55,11 @@ in
       activateSpecialisationPackage = activateSpecialisationPackage;
     };
 
-    specialisation = lib.attrsets.concatMapAttrs (
+    specialisation = lib.concatMapAttrs (
       typeName: typeSpecialisation:
-      (lib.attrsets.mapAttrs' (
+      (lib.mapAttrs' (
         subName: subConfig:
-        lib.attrsets.nameValuePair "${typeName}-${subName}" {
+        lib.nameValuePair "${typeName}-${subName}" {
           configuration = customLib.mkForceRecursive subConfig;
         }
       ) typeSpecialisation)

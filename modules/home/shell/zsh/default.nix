@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   osConfig,
   ...
@@ -11,7 +10,7 @@ let
   xdgCfg = config.xdg;
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
   compdumpPath = "${xdgCfg.cacheHome}/zsh/zcompdump";
-  enabledPlugins = lib.attrsets.filterAttrs (name: value: value.enable) cfg.plugins;
+  enabledPlugins = lib.filterAttrs (name: value: value.enable) cfg.plugins;
   enabledAntidote = builtins.length (builtins.attrNames enabledPlugins) != 0;
 in
 {
@@ -106,7 +105,7 @@ in
         enable = enabledAntidote;
         plugins = [
           (lib.strings.concatLines (
-            lib.attrsets.mapAttrsToList (
+            lib.mapAttrsToList (
               name: value: "${name}${lib.optionalString (value.path != null) " path:${value.path}"}"
             ) enabledPlugins
           ))

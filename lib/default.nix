@@ -5,7 +5,7 @@
 let
   mkForceRecursive =
     attrs:
-    lib.attrsets.mapAttrs (
+    lib.mapAttrs (
       name: value: (if (builtins.isAttrs value) then (mkForceRecursive value) else (lib.mkForce value))
     ) attrs;
 in

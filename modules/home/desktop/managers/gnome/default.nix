@@ -9,19 +9,19 @@
 let
   cfg = config._.desktop.managers.gnome;
   osCfg = osConfig._.desktop.managers.gnome;
-  enabledPlugins = lib.attrsets.filterAttrs (name: value: value.enable) cfg.extensions;
+  enabledPlugins = lib.filterAttrs (name: value: value.enable) cfg.extensions;
 
   dumpDconf =
     attrs:
-    lib.attrsets.concatMapAttrs (
+    lib.concatMapAttrs (
       name: value:
       if (builtins.isAttrs value) then
         (
           let
-            rawResults = lib.attrsets.mapAttrsToList (
+            rawResults = lib.mapAttrsToList (
               innerName: innerValue:
               if (builtins.isAttrs innerValue) then
-                lib.nameValuePair ("${name}/${innerName}") innerValue
+                lib.nameValuePair "${name}/${innerName}" innerValue
               else
                 lib.nameValuePair name {
                   ${innerName} = innerValue;
@@ -30,8 +30,8 @@ let
           in
           (builtins.listToAttrs (builtins.filter (children: children.name != name) rawResults))
           // {
-            "${name}" = lib.attrsets.mergeAttrsList (
-              builtins.map (nameValuePair: nameValuePair.value) (
+            "${name}" = lib.mergeAttrsList (
+              map (nameValuePair: nameValuePair.value) (
                 builtins.filter (children: children.name == name) rawResults
               )
             );
@@ -84,9 +84,7 @@ in
   config = lib.mkIf osCfg.enable (
     lib.mkMerge [
       {
-        home.packages = lib.attrsets.mapAttrsToList (
-          name: value: pkgs.gnomeExtensions.${name}
-        ) enabledPlugins;
+        home.packages = lib.mapAttrsToList (name: value: pkgs.gnomeExtensions.${name}) enabledPlugins;
       }
       {
         dconf = {
@@ -97,23 +95,23 @@ in
               org.gnome.shell = {
                 favorite-apps = cfg.favorites;
 
-                enabled-extensions = lib.attrsets.mapAttrsToList (
+                enabled-extensions = lib.mapAttrsToList (
                   name: _: pkgs.gnomeExtensions.${name}.extensionUuid
                 ) enabledPlugins;
 
-                extensions = lib.attrsets.mapAttrs' (
+                extensions = lib.mapAttrs' (
                   name: value:
-                  lib.attrsets.nameValuePair (if value.key != null then value.key else name) (
+                  lib.nameValuePair (if value.key != null then value.key else name) (
                     if value.config != null then value.config else { }
                   )
                 ) enabledPlugins;
               };
             })
             (dumpDconf {
-              org.gnome.shell.extensions = lib.attrsets.mapAttrs' (
+              org.gnome.shell.extensions = lib.mapAttrs' (
                 name: value:
-                lib.attrsets.nameValuePair (if value.key != null then value.key else name) (
-                  lib.attrsets.attrByPath [
+                lib.nameValuePair (if value.key != null then value.key else name) (
+                  lib.attrByPath [
                     name
                     "config"
                   ] { } osCfg.extensions

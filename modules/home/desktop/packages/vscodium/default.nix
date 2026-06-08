@@ -32,7 +32,7 @@ in
       {
         programs.vscodium = {
           enable = true;
-          profiles = lib.attrsets.mapAttrs (
+          profiles = lib.mapAttrs (
             name: profile:
             (lib.mkMerge [
               cfg.base

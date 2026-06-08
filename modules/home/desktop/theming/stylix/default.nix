@@ -8,7 +8,6 @@
 }:
 let
   cfg = config._.desktop.theming.stylix;
-  osCfg = osConfig._.desktop.theming.stylix;
   fontCfg = osConfig._.desktop.fonts;
   mkThemeConfig = theme: {
     image = lib.mkIf (theme.image != null) theme.image;
@@ -70,7 +69,7 @@ in
   };
 
   config = {
-    assertions = lib.attrsets.mapAttrsToList (_: value: {
+    assertions = lib.mapAttrsToList (_: value: {
       assertion = builtins.elem value.package fontCfg;
       message = "font package ${value.name} is not included in system font packages";
     }) cfg.fonts.fonts;
@@ -90,7 +89,7 @@ in
 
     _ = {
       specialisation = {
-        theme = lib.attrsets.mapAttrs (name: theme: {
+        theme = lib.mapAttrs (name: theme: {
           stylix = mkThemeConfig theme;
         }) cfg.themes;
       };

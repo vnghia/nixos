@@ -9,7 +9,6 @@
 let
   cfg = config._.users;
   networkCfg = config._.network;
-  impermanenceCfg = config._.system.nixos.impermanence;
   tpm2Cfg = config._.system.security.tpm2;
 in
 {
@@ -43,7 +42,7 @@ in
     {
       users.mutableUsers = false;
 
-      users.users = lib.attrsets.mapAttrs (userName: userCfg: {
+      users.users = lib.mapAttrs (userName: userCfg: {
         isNormalUser = true;
         shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
         hashedPasswordFile = "${cfg.hashedPasswordDirectory}/${userName}";
@@ -80,12 +79,10 @@ in
         ];
       };
 
-      home-manager.users = lib.attrsets.mapAttrs (userName: userCfg: userCfg.home) cfg.users;
+      home-manager.users = lib.mapAttrs (userName: userCfg: userCfg.home) cfg.users;
 
       _ = {
-        shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (
-          lib.attrsets.attrValues cfg.users
-        );
+        shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (lib.attrValues cfg.users);
       };
     }
   ];

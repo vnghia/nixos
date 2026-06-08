@@ -80,9 +80,9 @@
 
       mkHostName = name: flavor: "${name}${lib.optionalString (flavor != null) "-${flavor}"}";
 
-      outputs = lib.attrsets.concatMapAttrs (
+      outputs = lib.concatMapAttrs (
         name: value:
-        lib.attrsets.mergeAttrsList (
+        lib.mergeAttrsList (
           lib.lists.forEach value.flavors (
             flavor:
             let
@@ -109,9 +109,7 @@
                     nixpkgs.hostPlatform = value.platform;
                   }
                   {
-                    imports = lib.attrsets.mapAttrsToList (
-                      userName: userFlavor: ./users/${userName}/${userFlavor}
-                    ) value.users;
+                    imports = lib.mapAttrsToList (userName: userFlavor: ./users/${userName}/${userFlavor}) value.users;
                   }
                 ];
               };
@@ -126,9 +124,7 @@
       ) hosts;
     in
     {
-      nixosConfigurations = lib.attrsets.mapAttrs (
-        hostName: hostConfiguration: hostConfiguration.system
-      ) outputs;
+      nixosConfigurations = lib.mapAttrs (hostName: hostConfiguration: hostConfiguration.system) outputs;
 
       system.stateVersion = stateVersion;
     };
