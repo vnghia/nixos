@@ -7,6 +7,10 @@
     _ = {
       cli = {
         packages = {
+          direnv = {
+            enable = true;
+            nix = true;
+          };
           eza = {
             enable = true;
           };
