@@ -50,29 +50,44 @@ in
                   pkief.material-icon-theme
                 ]
                 ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ]);
-              userSettings = {
-                terminal.integrated = {
-                  cursorStyle = "line";
-                  cursorBlinking = true;
-                };
-                explorer = {
-                  openEditors.visible = 10;
-                };
-                editor = {
-                  formatOnSave = true;
-                  codeActionsOnSave = {
-                    source = {
-                      organizeImports = "always";
+              userSettings = lib.mkMerge [
+                {
+                  terminal.integrated = {
+                    cursorStyle = "line";
+                    cursorBlinking = true;
+                  };
+                  explorer = {
+                    openEditors.visible = 10;
+                  };
+                  editor = {
+                    formatOnSave = true;
+                    codeActionsOnSave = {
+                      source = {
+                        organizeImports = "always";
+                      };
                     };
                   };
-                };
-                diffEditor = {
-                  ignoreTrimWhitespace = false;
-                };
-                workbench = {
-                  iconTheme = "material-icon-theme";
-                };
-              };
+                  diffEditor = {
+                    ignoreTrimWhitespace = false;
+                  };
+                  workbench = {
+                    iconTheme = "material-icon-theme";
+                  };
+                }
+                (lib.mkIf (cliCfg.nixfmt.enable && cliCfg.nixd.enable) {
+                  nix = {
+                    enableLanguageServer = true;
+                    serverPath = "nixd";
+                    serverSettings = {
+                      nixd = {
+                        formatting = {
+                          command = [ "nixfmt" ];
+                        };
+                      };
+                    };
+                  };
+                })
+              ];
             };
             profiles = {
               default = { };

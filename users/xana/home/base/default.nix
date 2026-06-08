@@ -27,6 +27,9 @@
             };
             flake = "${config.home.homeDirectory}/code/nixos";
           };
+          nixd = {
+            enable = true;
+          };
           nixfmt = {
             enable = true;
           };
