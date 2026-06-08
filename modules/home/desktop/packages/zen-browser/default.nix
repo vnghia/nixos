@@ -30,6 +30,10 @@ in
           setAsDefaultBrowser = cfg.default;
         };
 
+        xdg.mimeApps = lib.mkIf cfg.default {
+          enable = true;
+        };
+
         _ = {
           system.nixos.impermanence.directories = [
             "${xdgCfg.configHome}/zen"
