@@ -10,6 +10,9 @@
           gtk = {
             stylix = true;
           };
+          qt = {
+            stylix = true;
+          };
         };
         fonts = [
           pkgs.ubuntu-sans

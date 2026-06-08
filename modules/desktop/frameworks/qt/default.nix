@@ -4,14 +4,14 @@
   ...
 }:
 let
-  cfg = config._.desktop.frameworks.gtk;
+  cfg = config._.desktop.frameworks.qt;
 in
 {
   options = with lib; {
     _ = {
       desktop = {
         frameworks = {
-          gtk = {
+          qt = {
             stylix = mkEnableOption "Stylix";
           };
         };
@@ -20,6 +20,6 @@ in
   };
 
   config = {
-    stylix.targets.gtk.enable = cfg.stylix;
+    stylix.targets.qt.enable = cfg.stylix;
   };
 }

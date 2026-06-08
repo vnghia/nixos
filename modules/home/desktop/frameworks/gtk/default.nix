@@ -1,7 +1,5 @@
 {
-  lib,
   customLib,
-  pkgs,
   config,
   ...
 }:
@@ -9,7 +7,7 @@ let
   cfg = config._.desktop.frameworks.gtk;
 in
 {
-  options = with lib; {
+  options = {
     _ = {
       desktop = {
         frameworks = {

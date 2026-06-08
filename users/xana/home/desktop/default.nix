@@ -16,6 +16,11 @@
               enable = true;
             };
           };
+          qt = {
+            stylix = {
+              enable = true;
+            };
+          };
         };
         managers = {
           gnome = {
