@@ -61,8 +61,8 @@ in
 
       historySubstringSearch = {
         enable = true;
-        searchUpKey = "^[[A";
-        searchDownKey = "^[[B";
+        searchUpKey = "$terminfo[kcuu1]";
+        searchDownKey = "$terminfo[kcud1]";
       };
 
       syntaxHighlighting = {
