@@ -24,8 +24,8 @@ in
         type = types.attrsOf (types.attrsOf (types.attrsOf types.anything));
         default = { };
       };
-      activateSpecialisationPackage = mkOption {
-        type = types.package;
+      activateSpecialisationBin = mkOption {
+        type = types.path;
       };
     };
   };
@@ -52,7 +52,7 @@ in
     ];
 
     _ = {
-      activateSpecialisationPackage = activateSpecialisationPackage;
+      activateSpecialisationBin = "${activateSpecialisationPackage}/bin/activate-specialisation";
     };
 
     specialisation = lib.concatMapAttrs (

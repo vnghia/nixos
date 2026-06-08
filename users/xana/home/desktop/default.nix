@@ -2,6 +2,12 @@
   pkgs,
   ...
 }:
+let
+  themes = {
+    light = "light";
+    dark = "dark";
+  };
+in
 {
   imports = [
     ../base
@@ -28,10 +34,7 @@
             stylix = {
               enable = true;
             };
-            themes = {
-              light = "light";
-              dark = "dark";
-            };
+            themes = themes;
             dconf = {
               org.gnome.desktop.peripherals = {
                 mouse = {
@@ -100,7 +103,6 @@
                 polarity = "dark";
               };
             };
-
             fonts = {
               fonts = {
                 serif = {

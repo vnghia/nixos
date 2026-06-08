@@ -1,5 +1,6 @@
 {
   imports = [
+    ./darkman
     ./stylix
   ];
 }

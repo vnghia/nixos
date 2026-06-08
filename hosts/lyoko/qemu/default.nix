@@ -1,5 +1,4 @@
 {
-  lib,
   ...
 }:
 {
@@ -27,24 +26,6 @@
                         swap.swapfile.size = "8G";
                       };
                     };
-                  };
-                };
-              };
-            };
-          };
-        };
-      };
-    };
-
-    _ = {
-      desktop = {
-        managers = {
-          gnome = {
-            extensions = {
-              night-theme-switcher = {
-                config = {
-                  time = {
-                    manual-schedule = lib.mkForce true;
                   };
                 };
               };

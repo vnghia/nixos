@@ -302,8 +302,8 @@ in
                   };
                   commands = {
                     enabled = true;
-                    sunrise = "${config._.activateSpecialisationPackage} theme ${cfg.themes.light}";
-                    sunset = "${config._.activateSpecialisationPackage} theme ${cfg.themes.dark}";
+                    sunrise = "${config._.activateSpecialisationBin} theme ${cfg.themes.light}";
+                    sunset = "${config._.activateSpecialisationBin} theme ${cfg.themes.dark}";
                   };
                 };
               };
