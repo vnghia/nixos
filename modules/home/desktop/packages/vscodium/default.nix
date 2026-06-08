@@ -14,6 +14,9 @@ in
     _ = {
       desktop.packages.vscodium = {
         enable = mkEnableOption "VsCodium";
+        profiles = mkOption {
+          type = types.attrsOf types.anything;
+        };
       }
       // customLib.home.desktop.packages.favorite.mkOption
       // customLib.home.desktop.theming.stylix.mkOption;
@@ -25,9 +28,38 @@ in
       {
         programs.vscodium = {
           enable = true;
+          profiles = cfg.profiles;
         };
 
         _ = {
+          desktop.packages.vscodium.profiles = {
+            default = {
+              extensions = with pkgs.nix-vscode-extensions.open-vsx; [
+                pkief.material-icon-theme
+              ];
+              userSettings = {
+                terminal.integrated = {
+                  cursorStyle = "line";
+                  cursorBlinking = true;
+                };
+                editor = {
+                  formatOnSave = true;
+                  codeActionsOnSave = {
+                    source = {
+                      organizeImports = "always";
+                    };
+                  };
+                };
+                diffEditor = {
+                  ignoreTrimWhitespace = false;
+                };
+                workbench = {
+                  iconTheme = "material-icon-theme";
+                };
+              };
+            };
+          };
+
           system.nixos.impermanence.directories = [
             "${xdgCfg.configHome}/VSCodium"
             "${xdgCfg.stateHome}/VSCodium"

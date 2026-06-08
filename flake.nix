@@ -35,6 +35,13 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs =
@@ -47,6 +54,7 @@
       stylix,
       lanzaboote,
       zen-browser,
+      nix-vscode-extensions,
       ...
     }@inputs:
     let
@@ -90,6 +98,8 @@
                   impermanence.nixosModules.impermanence
                   stylix.nixosModules.stylix
                   lanzaboote.nixosModules.lanzaboote
+
+                  { nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ]; }
 
                   ./modules
 
