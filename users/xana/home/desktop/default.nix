@@ -40,13 +40,19 @@
             enable = true;
             favorite = 50;
           };
-          zenBrowser = {
+          zen-browser = {
             enable = true;
             default = true;
+            stylix = {
+              enable = true;
+            };
             favorite = 1;
           };
           vscodium = {
             enable = true;
+            stylix = {
+              enable = true;
+            };
             favorite = 5;
           };
         };
@@ -85,7 +91,7 @@
                 applications = 10;
                 desktop = 10;
                 popups = 10;
-                terminal = 12;
+                terminal = 11;
               };
             };
             opacity = {
