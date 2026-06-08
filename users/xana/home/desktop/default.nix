@@ -45,6 +45,10 @@
             default = true;
             favorite = 1;
           };
+          vscodium = {
+            enable = true;
+            favorite = 5;
+          };
         };
         theming = {
           stylix = {
