@@ -117,16 +117,19 @@
               };
             in
             {
-              nixosConfigurations = {
-                ${hostName} = hostSystem;
+              ${hostName} = {
+                system = hostSystem;
               };
             }
           )
         )
       ) hosts;
     in
-    outputs
-    // {
+    {
+      nixosConfigurations = lib.attrsets.mapAttrs (
+        hostName: hostConfiguration: hostConfiguration.system
+      ) outputs;
+
       system.stateVersion = stateVersion;
     };
 }
