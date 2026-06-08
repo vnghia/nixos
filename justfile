@@ -15,7 +15,7 @@ system-enroll-secure-boot:
 
 [arg("disk")]
 [group("filesystem")]
-filesystem-cryptenroll-tpm disk="/dev/disk/by-labelpart/luks":
+filesystem-cryptenroll-tpm disk="/dev/disk/by-partlabel/luks":
     # 0 	Core System Firmware executable code (aka Firmware)
     # 2 	Extended or pluggable executable code
     # 7 	Secure Boot State
