@@ -48,6 +48,7 @@ in
                 with pkgs.nix-vscode-extensions.open-vsx;
                 [
                   pkief.material-icon-theme
+                  eamodio.gitlens
                 ]
                 ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ]);
               userSettings = lib.mkMerge [
