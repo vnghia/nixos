@@ -19,7 +19,10 @@ in
     services.mullvad-vpn.enable = true;
 
     _ = {
-      system.nixos.impermanence.directories = [ "/etc/mullvad-vpn" ];
+      system.nixos.impermanence.directories = [
+        "/etc/mullvad-vpn"
+        "/var/cache/mullvad-vpn"
+      ];
     };
   };
 }

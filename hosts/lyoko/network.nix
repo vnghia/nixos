@@ -9,9 +9,8 @@
           };
         };
         vpn = {
-          mullvad = {
-            enable = true;
-          };
+          default = "mullvad";
+          enabledInterfaces = [ "wlan0" ];
         };
       };
     };
