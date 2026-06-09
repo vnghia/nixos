@@ -91,6 +91,13 @@ in
       specialisation = {
         theme = lib.mapAttrs (name: theme: {
           stylix = mkThemeConfig theme;
+          dconf.settings."org/gnome/desktop/interface".color-scheme =
+            if theme.polarity == "dark" then
+              "prefer-dark"
+            else if theme.polarity == "light" then
+              "prefer-light"
+            else
+              null;
         }) cfg.themes;
       };
     };
