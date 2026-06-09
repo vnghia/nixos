@@ -62,6 +62,9 @@ in
             enable = true;
             autostart = true;
           };
+          mpv = {
+            enable = true;
+          };
           nautilus = {
             enable = true;
             favorite = 50;

@@ -2,6 +2,7 @@
   imports = [
     ./alacritty
     ./keepassxc
+    ./mpv
     ./nautilus
     ./signal-desktop
     ./vscodium
