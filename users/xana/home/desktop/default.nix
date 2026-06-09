@@ -58,6 +58,9 @@ in
             };
             favorite = 10;
           };
+          chromium = {
+            enable = true;
+          };
           keepassxc = {
             enable = true;
             autostart = true;

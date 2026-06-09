@@ -1,6 +1,7 @@
 {
   imports = [
     ./alacritty
+    ./chromium
     ./keepassxc
     ./mpv
     ./mullvad
