@@ -14,15 +14,17 @@
       };
     };
 
-    mkConfig = target: cfg: {
-      stylix.targets.${target} = lib.mkIf cfg.stylix.enable (
-        lib.mkMerge [
-          {
-            enable = lib.attrByPath [ "enable" ] true cfg;
-          }
-          cfg.stylix.config
-        ]
-      );
-    };
+    mkConfig =
+      target: cfg:
+      (lib.mkIf cfg.stylix.enable {
+        stylix.targets.${target} = (
+          lib.mkMerge [
+            {
+              enable = true;
+            }
+            cfg.stylix.config
+          ]
+        );
+      });
   };
 }

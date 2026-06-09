@@ -121,7 +121,7 @@ in
           ];
         };
       }
-      (customLib.home.desktop.theming.stylix.mkConfig "gnome" (cfg // { enable = osCfg.stylix; }))
+      (customLib.home.desktop.theming.stylix.mkConfig "gnome" cfg)
       {
         _ = {
           desktop.managers.gnome = {
