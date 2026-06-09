@@ -1,9 +1,16 @@
 {
+  pkgs,
+  ...
+}:
+{
   config = {
     _ = {
       system = {
         boot = {
           type = "lanzaboote";
+        };
+        linux = {
+          kernel = pkgs.linuxPackages_zen;
         };
         nixos = {
           feature = {
