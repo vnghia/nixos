@@ -65,6 +65,9 @@ in
           mpv = {
             enable = true;
           };
+          mullvad = {
+            enable = true;
+          };
           nautilus = {
             enable = true;
             favorite = 50;

@@ -3,6 +3,7 @@
     ./alacritty
     ./keepassxc
     ./mpv
+    ./mullvad
     ./nautilus
     ./signal-desktop
     ./vscodium

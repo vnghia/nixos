@@ -8,6 +8,11 @@
             backend = "iwd";
           };
         };
+        vpn = {
+          mullvad = {
+            enable = true;
+          };
+        };
       };
     };
   };
