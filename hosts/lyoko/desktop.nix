@@ -22,7 +22,7 @@
         managers = {
           gnome = {
             enable = true;
-            stylix = true;
+            stylix = false;
           };
         };
       };

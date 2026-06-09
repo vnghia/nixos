@@ -371,7 +371,7 @@ in
             };
 
             stylix.config = {
-              colors.enable = true;
+              colors.enable = false;
               fonts.enable = true;
               image.enable = true;
               imageScalingMode.enable = true;
