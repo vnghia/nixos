@@ -2,6 +2,7 @@
   lib,
   config,
   osConfig,
+  pkgs,
   ...
 }:
 let
@@ -13,6 +14,7 @@ in
     _ = {
       desktop.packages.mullvad = {
         enable = mkEnableOption "Mullvad";
+        autostart = mkEnableOption "Autostart";
       };
     };
   };
@@ -28,10 +30,17 @@ in
         enableSystemNotifications = true;
         monochromaticIcon = true;
         preferredLocale = "system";
-        startMinimized = false;
+        startMinimized = if cfg.autostart then true else false;
         unpinnedWindow = true;
         updateDismissedForVersion = "";
       };
+    };
+
+    xdg.autostart = lib.mkIf cfg.autostart {
+      enable = true;
+      entries = [
+        "${pkgs.mullvad-vpn}/share/applications/mullvad-vpn.desktop"
+      ];
     };
   };
 }

@@ -70,6 +70,7 @@ in
           };
           mullvad = {
             enable = true;
+            autostart = true;
           };
           nautilus = {
             enable = true;
