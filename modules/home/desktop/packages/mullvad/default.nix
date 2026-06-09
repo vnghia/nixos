@@ -8,6 +8,7 @@
 let
   cfg = config._.desktop.packages.mullvad;
   osCfg = osConfig._.network.vpn.mullvad;
+  xdgCfg = config.xdg;
 in
 {
   options = with lib; {
@@ -41,6 +42,10 @@ in
       entries = [
         "${pkgs.mullvad-vpn}/share/applications/mullvad-vpn.desktop"
       ];
+    };
+
+    _ = {
+      system.nixos.impermanence.directories = [ "${xdgCfg.configHome}/Mullvad VPN" ];
     };
   };
 }
