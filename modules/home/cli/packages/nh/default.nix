@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -39,7 +38,7 @@ in
       clean = {
         enable = cfg.clean.enable;
         extraArgs =
-          (lib.optionalString (cfg.clean.keep.keep != null) "--keep ${builtins.toString cfg.clean.keep.keep}")
+          (lib.optionalString (cfg.clean.keep.keep != null) "--keep ${toString cfg.clean.keep.keep}")
           + (lib.optionalString (cfg.clean.keep.since != null) " --keep-since ${cfg.clean.keep.since}");
       };
       flake = cfg.flake;
