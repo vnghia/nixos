@@ -52,37 +52,23 @@ in
                 ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ]);
               userSettings = lib.mkMerge [
                 {
-                  terminal.integrated = {
-                    cursorStyle = "line";
-                    cursorBlinking = true;
+                  "terminal.integrated.cursorStyle" = "line";
+                  "terminal.integrated.cursorBlinking" = true;
+                  "explorer.openEditors.visible" = 10;
+                  "editor.formatOnSave" = true;
+                  "editor.codeActionsOnSave" = {
+                    "source.organizeImports" = "always";
                   };
-                  explorer = {
-                    openEditors.visible = 10;
-                  };
-                  editor = {
-                    formatOnSave = true;
-                    codeActionsOnSave = {
-                      source = {
-                        organizeImports = "always";
-                      };
-                    };
-                  };
-                  diffEditor = {
-                    ignoreTrimWhitespace = false;
-                  };
-                  workbench = {
-                    iconTheme = "material-icon-theme";
-                  };
+                  "diffEditor.ignoreTrimWhitespace" = false;
+                  "workbench.iconTheme" = "material-icon-theme";
                 }
                 (lib.mkIf (cliCfg.nixfmt.enable && cliCfg.nixd.enable) {
-                  nix = {
-                    enableLanguageServer = true;
-                    serverPath = "nixd";
-                    serverSettings = {
-                      nixd = {
-                        formatting = {
-                          command = [ "nixfmt" ];
-                        };
+                  "nix.enableLanguageServer" = true;
+                  "nix.serverPath" = "nixd";
+                  "nix.serverSettings" = {
+                    nixd = {
+                      formatting = {
+                        command = [ "nixfmt" ];
                       };
                     };
                   };
@@ -105,13 +91,6 @@ in
       {
         _ = {
           desktop.packages.vscodium = {
-            base = {
-              userSettings = {
-                workbench = {
-                  colorTheme = "Stylix";
-                };
-              };
-            };
             stylix.config = {
               colors.enable = true;
               fonts.enable = true;
