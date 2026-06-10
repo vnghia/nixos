@@ -21,6 +21,7 @@ in
       enable = true;
       disableUpstreamLogging = true;
       openFirewall = true;
+      extraDaemonFlags = [ "--no-logs-no-support" ];
     };
 
     networking.firewall = {
