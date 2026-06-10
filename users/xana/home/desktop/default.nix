@@ -103,7 +103,6 @@ in
         };
         security = {
           secret = "keepassxc";
-          ssh = "tpm";
         };
         theming = {
           stylix = {

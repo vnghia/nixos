@@ -9,24 +9,28 @@ in
 {
   options = with lib; {
     _ = {
-      desktop.security.ssh = mkOption {
-        type = types.enum [
-          "gnome"
-          "keepassxc"
-          "tpm"
-        ];
+      desktop.security.ssh = {
+        type = mkOption {
+          type = types.nullOr (
+            types.enum [
+              "gnome"
+              "keepassxc"
+            ]
+          );
+          default = null;
+        };
       };
     };
   };
 
   config = lib.mkMerge [
-    (lib.mkIf (cfg == "gnome") {
+    (lib.mkIf (cfg.type == "gnome") {
       services.gnome-keyring = {
         enable = true;
         components = [ "ssh" ];
       };
     })
-    (lib.mkIf (cfg == "keepassxc") {
+    (lib.mkIf (cfg.type == "keepassxc") {
       _ = {
         desktop.packages.keepassxc = {
           enable = true;
@@ -42,11 +46,6 @@ in
             UsePageant = false;
           };
         };
-      };
-    })
-    (lib.mkIf (cfg == "tpm") {
-      services.ssh-tpm-agent = {
-        enable = true;
       };
     })
   ];

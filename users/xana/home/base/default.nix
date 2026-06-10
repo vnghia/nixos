@@ -53,6 +53,11 @@
             enable = true;
           };
         };
+        security = {
+          ssh = {
+            type = "tpm";
+          };
+        };
       };
 
       system.nixos.impermanence.directories = [
