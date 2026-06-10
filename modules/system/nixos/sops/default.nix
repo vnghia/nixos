@@ -14,7 +14,7 @@ in
         enable = mkEnableOption "SOPS";
         keyFile = mkOption {
           type = types.path;
-          default = "/etc/sops/age/key.txt";
+          default = "/etc/sops/age/keys.txt";
         };
         tpm2 = mkEnableOption "TPM2";
       };
