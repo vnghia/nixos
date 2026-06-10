@@ -75,6 +75,8 @@ in
         };
         sharedModules = [
           inputs.zen-browser.homeModules.beta
+          inputs.sops-nix.homeManagerModules.sops
+
           ../../home
         ];
       };

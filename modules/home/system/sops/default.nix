@@ -2,10 +2,13 @@
   lib,
   pkgs,
   config,
+  osConfig,
   ...
 }:
 let
   cfg = config._.system.nixos.sops;
+  osCfg = osConfig._.system.nixos.sops;
+  xdgCfg = config.xdg;
 in
 {
   options = with lib; {
@@ -14,7 +17,7 @@ in
         enable = mkEnableOption "SOPS";
         keyFile = mkOption {
           type = types.path;
-          default = "/etc/sops/age/keys.txt";
+          default = "${xdgCfg.configHome}/sops/age/keys.txt";
         };
         tpm2 = mkEnableOption "TPM2";
       };
@@ -22,14 +25,19 @@ in
   };
 
   config = lib.mkIf cfg.enable (
-    lib.mkMerge [
+    lib.mkMerge cfg.enable [
       {
-        sops.age.keyFile = cfg.keyFile;
+        sops = {
+          age.keyFile = cfg.keyFile;
+          defaultSopsFile = ../../../../secrets/users + "/${config.home.username}.yaml";
+        };
 
-        environment.systemPackages = with pkgs; [
-          age
-          sops
-        ];
+        home.packages =
+          with pkgs;
+          lib.mkIf (!osCfg.enable) [
+            age
+            sops
+          ];
 
         _ = {
           system.nixos.impermanence.files = [
@@ -43,14 +51,6 @@ in
         };
       }
       (lib.mkIf cfg.tpm2 {
-        _ = {
-          system.security = {
-            tpm2 = {
-              enable = true;
-            };
-          };
-        };
-
         sops = {
           age = {
             plugins = [
@@ -59,9 +59,11 @@ in
           };
         };
 
-        environment.systemPackages = with pkgs; [
-          age-plugin-tpm
-        ];
+        home.packages =
+          with pkgs;
+          lib.mkIf (!osCfg.enable) [
+            age-plugin-tpm
+          ];
       })
     ]
   );

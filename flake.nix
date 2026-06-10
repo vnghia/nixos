@@ -123,6 +123,7 @@
                   {
                     networking.hostName = hostName;
                     nixpkgs.hostPlatform = value.platform;
+                    sops.defaultSopsFile = ./secrets/hosts/${name}/secrets.yaml;
                   }
                   {
                     imports = lib.mapAttrsToList (userName: userFlavor: ./users/${userName}/${userFlavor}) value.users;
