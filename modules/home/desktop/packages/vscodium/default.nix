@@ -49,6 +49,8 @@ in
                 [
                   pkief.material-icon-theme
                   eamodio.gitlens
+                  nefrob.vscode-just-syntax
+                  redhat.vscode-yaml
                 ]
                 ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ]);
               userSettings = lib.mkMerge [
