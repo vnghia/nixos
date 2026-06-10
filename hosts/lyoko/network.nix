@@ -11,6 +11,9 @@
         vpn = {
           default = "mullvad";
           enabledInterfaces = [ "wlan0" ];
+          tailscale = {
+            enable = true;
+          };
         };
       };
     };

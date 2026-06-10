@@ -79,6 +79,9 @@ in
           signal-desktop = {
             enable = true;
           };
+          tailscale = {
+            enable = true;
+          };
           zen-browser = {
             enable = true;
             default = true;

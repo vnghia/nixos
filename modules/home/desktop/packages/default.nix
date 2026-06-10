@@ -7,6 +7,7 @@
     ./mullvad
     ./nautilus
     ./signal-desktop
+    ./tailscale
     ./vscodium
     ./zen-browser
   ];

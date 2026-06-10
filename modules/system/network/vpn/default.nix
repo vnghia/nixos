@@ -9,6 +9,7 @@ in
 {
   imports = [
     ./mullvad
+    ./tailscale
   ];
 
   options = with lib; {
