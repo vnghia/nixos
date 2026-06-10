@@ -20,7 +20,10 @@ in
 
     _ = {
       system.nixos.impermanence.directories = [
-        "/etc/mullvad-vpn"
+        {
+          directory = "/etc/mullvad-vpn";
+          mode = "0600";
+        }
         "/var/cache/mullvad-vpn"
       ];
     };
