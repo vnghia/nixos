@@ -48,11 +48,11 @@ in
                 with pkgs.nix-vscode-extensions.open-vsx;
                 [
                   pkief.material-icon-theme
-                  eamodio.gitlens
-                  nefrob.vscode-just-syntax
                   redhat.vscode-yaml
                 ]
-                ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ]);
+                ++ (if cliCfg.git.enable then [ eamodio.gitlens ] else [ ])
+                ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ])
+                ++ (if cliCfg.just.enable then [ nefrob.vscode-just-syntax ] else [ ]);
               userSettings = lib.mkMerge [
                 {
                   "terminal.integrated.cursorStyle" = "line";
@@ -64,6 +64,9 @@ in
                   };
                   "diffEditor.ignoreTrimWhitespace" = false;
                   "workbench.iconTheme" = "material-icon-theme";
+
+                  # RedHat extension
+                  "redhat.telemetry.enabled" = false;
                 }
                 (lib.mkIf (cliCfg.nixfmt.enable && cliCfg.nixd.enable) {
                   "nix.enableLanguageServer" = true;
@@ -74,6 +77,11 @@ in
                         command = [ "nixfmt" ];
                       };
                     };
+                  };
+                })
+                (lib.mkIf cliCfg.just.enable {
+                  "[just]" = {
+                    "editor.defaultFormatter" = "nefrob.vscode-just-syntax";
                   };
                 })
               ];

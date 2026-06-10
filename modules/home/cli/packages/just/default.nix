@@ -17,6 +17,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.just ];
+    home.packages = [
+      pkgs.just
+      pkgs.just-lsp
+    ];
   };
 }
