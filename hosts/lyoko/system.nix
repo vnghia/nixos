@@ -20,6 +20,10 @@
               };
             };
           };
+          sops = {
+            enable = true;
+            tpm2 = true;
+          };
         };
         packages = {
           gvfs = {

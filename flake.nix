@@ -49,6 +49,13 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs =
@@ -62,6 +69,7 @@
       lanzaboote,
       zen-browser,
       nix-vscode-extensions,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -105,6 +113,7 @@
                   impermanence.nixosModules.impermanence
                   stylix.nixosModules.stylix
                   lanzaboote.nixosModules.lanzaboote
+                  sops-nix.nixosModules.sops
 
                   { nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ]; }
 

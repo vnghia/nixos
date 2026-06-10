@@ -65,6 +65,7 @@ in
             ];
           };
 
+          system.nixos.sops.keyFile = "${cfg.path}/etc/sops/age/key.txt";
           users.hashedPasswordDirectory = "${cfg.path}/etc/hashed-passwords";
         };
 
