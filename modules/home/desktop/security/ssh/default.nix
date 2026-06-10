@@ -13,6 +13,7 @@ in
         type = types.enum [
           "gnome"
           "keepassxc"
+          "tpm"
         ];
       };
     };
@@ -41,6 +42,11 @@ in
             UsePageant = false;
           };
         };
+      };
+    })
+    (lib.mkIf (cfg == "tpm") {
+      services.ssh-tpm-agent = {
+        enable = true;
       };
     })
   ];
