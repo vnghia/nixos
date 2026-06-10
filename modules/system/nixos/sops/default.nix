@@ -30,20 +30,21 @@ in
           };
         };
 
-        systemd.tmpfiles.settings = {
-          "10-sops-key-file" = {
-            ${cfg.keyFile} = {
-              z = {
-                mode = "0400";
-              };
-            };
-          };
-        };
-
         environment.systemPackages = with pkgs; [
           age
           sops
         ];
+
+        _ = {
+          system.nixos.impermanence.files = [
+            {
+              file = cfg.keyFile;
+              parentDirectory = {
+                mode = "0400";
+              };
+            }
+          ];
+        };
       }
       (lib.mkIf cfg.tpm2 {
         _ = {
