@@ -101,9 +101,9 @@ in
             favorite = 5;
           };
         };
-        secret = {
-          type = "keepassxc";
-          ssh = true;
+        security = {
+          secret = "keepassxc";
+          ssh = "keepassxc";
         };
         theming = {
           stylix = {
