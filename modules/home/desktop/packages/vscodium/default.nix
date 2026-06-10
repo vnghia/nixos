@@ -65,6 +65,12 @@ in
                   "diffEditor.ignoreTrimWhitespace" = false;
                   "workbench.iconTheme" = "material-icon-theme";
 
+                  # YAML
+                  "yaml.format.enable" = true;
+                  "[yaml]" = {
+                    "editor.defaultFormatter" = "redhat.vscode-yaml";
+                  };
+
                   # RedHat extension
                   "redhat.telemetry.enabled" = false;
                 }
