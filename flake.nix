@@ -76,7 +76,7 @@
         lyoko = {
           platform = "x86_64-linux";
           flavors = [
-            null
+            "host"
             "qemu"
           ];
           users = {
@@ -85,7 +85,7 @@
         };
       };
 
-      mkHostName = name: flavor: "${name}${lib.optionalString (flavor != null) "-${flavor}"}";
+      mkHostName = name: flavor: "${name}${lib.optionalString (flavor != "host") "-${flavor}"}";
 
       outputs = lib.concatMapAttrs (
         name: value:
@@ -110,7 +110,7 @@
 
                   ./modules
 
-                  ./hosts/${name}/${if flavor != null then flavor else "host"}
+                  ./hosts/${name}/${flavor}
                   {
                     networking.hostName = hostName;
                     nixpkgs.hostPlatform = value.platform;
