@@ -21,5 +21,16 @@ in
       pkgs.just
       pkgs.just-lsp
     ];
+
+    _ = {
+      desktop.packages.vscodium.base = {
+        extensions = [ pkgs.nix-vscode-extensions.open-vsx.nefrob.vscode-just-syntax ];
+        userSettings = {
+          "[just]" = {
+            "editor.defaultFormatter" = "nefrob.vscode-just-syntax";
+          };
+        };
+      };
+    };
   };
 }

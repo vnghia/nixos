@@ -7,8 +7,22 @@
 }:
 let
   cfg = config._.desktop.packages.vscodium;
-  cliCfg = config._.cli.packages;
   xdgCfg = config.xdg;
+
+  profile =
+    with lib;
+    types.submodule {
+      options = {
+        extensions = mkOption {
+          type = types.listOf types.package;
+          default = [ ];
+        };
+        userSettings = mkOption {
+          type = types.attrsOf types.anything;
+          default = { };
+        };
+      };
+    };
 in
 {
   options = with lib; {
@@ -16,10 +30,10 @@ in
       desktop.packages.vscodium = {
         enable = mkEnableOption "VsCodium";
         base = mkOption {
-          type = types.attrsOf types.anything;
+          type = profile;
         };
         profiles = mkOption {
-          type = types.attrsOf types.anything;
+          type = types.attrsOf profile;
         };
       }
       // customLib.home.desktop.packages.favorite.mkOption
@@ -44,53 +58,30 @@ in
         _ = {
           desktop.packages.vscodium = {
             base = {
-              extensions =
-                with pkgs.nix-vscode-extensions.open-vsx;
-                [
-                  pkief.material-icon-theme
-                  redhat.vscode-yaml
-                ]
-                ++ (if cliCfg.git.enable then [ eamodio.gitlens ] else [ ])
-                ++ (if cliCfg.nixfmt.enable then [ jnoortheen.nix-ide ] else [ ])
-                ++ (if cliCfg.just.enable then [ nefrob.vscode-just-syntax ] else [ ]);
-              userSettings = lib.mkMerge [
-                {
-                  "terminal.integrated.cursorStyle" = "line";
-                  "terminal.integrated.cursorBlinking" = true;
-                  "explorer.openEditors.visible" = 10;
-                  "editor.formatOnSave" = true;
-                  "editor.codeActionsOnSave" = {
-                    "source.organizeImports" = "always";
-                  };
-                  "diffEditor.ignoreTrimWhitespace" = false;
-                  "workbench.iconTheme" = "material-icon-theme";
-
-                  # YAML
-                  "yaml.format.enable" = true;
-                  "[yaml]" = {
-                    "editor.defaultFormatter" = "redhat.vscode-yaml";
-                  };
-
-                  # RedHat extension
-                  "redhat.telemetry.enabled" = false;
-                }
-                (lib.mkIf (cliCfg.nixfmt.enable && cliCfg.nixd.enable) {
-                  "nix.enableLanguageServer" = true;
-                  "nix.serverPath" = "nixd";
-                  "nix.serverSettings" = {
-                    nixd = {
-                      formatting = {
-                        command = [ "nixfmt" ];
-                      };
-                    };
-                  };
-                })
-                (lib.mkIf cliCfg.just.enable {
-                  "[just]" = {
-                    "editor.defaultFormatter" = "nefrob.vscode-just-syntax";
-                  };
-                })
+              extensions = with pkgs.nix-vscode-extensions.open-vsx; [
+                pkief.material-icon-theme
+                redhat.vscode-yaml
               ];
+              userSettings = {
+                "terminal.integrated.cursorStyle" = "line";
+                "terminal.integrated.cursorBlinking" = true;
+                "explorer.openEditors.visible" = 10;
+                "editor.formatOnSave" = true;
+                "editor.codeActionsOnSave" = {
+                  "source.organizeImports" = "always";
+                };
+                "diffEditor.ignoreTrimWhitespace" = false;
+                "workbench.iconTheme" = "material-icon-theme";
+
+                # YAML
+                "yaml.format.enable" = true;
+                "[yaml]" = {
+                  "editor.defaultFormatter" = "redhat.vscode-yaml";
+                };
+
+                # RedHat extension
+                "redhat.telemetry.enabled" = false;
+              };
             };
             profiles = {
               default = { };

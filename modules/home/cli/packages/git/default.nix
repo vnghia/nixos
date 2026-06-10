@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -130,6 +131,10 @@ in
           st = "status --porcelain";
         };
       };
+    };
+
+    _ = {
+      desktop.packages.vscodium.base.extensions = [ pkgs.nix-vscode-extensions.open-vsx.eamodio.gitlens ];
     };
   };
 }
