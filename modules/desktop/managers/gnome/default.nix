@@ -37,6 +37,7 @@ in
   config = lib.mkIf cfg.enable {
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
+    services.gnome.gnome-keyring.enable = false;
 
     services.gnome.core-apps.enable = false;
     services.gnome.core-developer-tools.enable = false;

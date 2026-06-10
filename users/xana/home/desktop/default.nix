@@ -98,6 +98,10 @@ in
             favorite = 5;
           };
         };
+        secret = {
+          type = "keepassxc";
+          ssh = true;
+        };
         theming = {
           stylix = {
             default = "light";

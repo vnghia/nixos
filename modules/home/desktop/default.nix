@@ -3,6 +3,7 @@
     ./frameworks
     ./managers
     ./packages
+    ./secret
     ./theming
   ];
 }
