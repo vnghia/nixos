@@ -342,13 +342,18 @@ in
                     workspaces-only-on-primary = true;
                   };
 
-                  settings-daemon.plugins.power = {
-                    ambient-enabled = false;
-                    power-button-action = "interactive";
-                    sleep-inactive-ac-timeout = 3600;
-                    sleep-inactive-ac-type = "suspend";
-                    sleep-inactive-battery-timeout = 1800;
-                    sleep-inactive-battery-type = "suspend";
+                  settings-daemon.plugins = {
+                    # Donation notification
+                    housekeeping.donation-reminder-enabled = false;
+
+                    power = {
+                      ambient-enabled = false;
+                      power-button-action = "interactive";
+                      sleep-inactive-ac-timeout = 3600;
+                      sleep-inactive-ac-type = "suspend";
+                      sleep-inactive-battery-timeout = 1800;
+                      sleep-inactive-battery-type = "suspend";
+                    };
                   };
 
                   shell = {
