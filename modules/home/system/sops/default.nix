@@ -25,11 +25,11 @@ in
   };
 
   config = lib.mkIf cfg.enable (
-    lib.mkMerge cfg.enable [
+    lib.mkMerge [
       {
         sops = {
           age.keyFile = cfg.keyFile;
-          defaultSopsFile = ../../../../secrets/users + "/${config.home.username}.yaml";
+          defaultSopsFile = ../../../../secrets/users/${config.home.username}/secrets.yaml;
         };
 
         home.packages =
@@ -44,7 +44,7 @@ in
             {
               file = cfg.keyFile;
               parentDirectory = {
-                mode = "0400";
+                mode = "0700";
               };
             }
           ];
