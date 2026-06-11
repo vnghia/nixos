@@ -11,7 +11,16 @@ let
 
   homePrefix = "${config.home.homeDirectory}/";
   removeHomePrefix = (
-    path: if (lib.strings.isString path) then lib.strings.removePrefix homePrefix path else path
+    file: path:
+    if (lib.isString path) then
+      lib.removePrefix homePrefix path
+    else
+      (lib.updateManyAttrsByPath [
+        {
+          path = [ (if file then "file" else "directory") ];
+          update = lib.removePrefix homePrefix;
+        }
+      ] path)
   );
 in
 {
@@ -39,8 +48,8 @@ in
       enable = true;
       allowTrash = true;
       hideMounts = true;
-      directories = lib.lists.forEach cfg.directories removeHomePrefix;
-      files = lib.lists.forEach cfg.files removeHomePrefix;
+      directories = lib.lists.forEach cfg.directories (removeHomePrefix false);
+      files = lib.lists.forEach cfg.files (removeHomePrefix true);
     };
 
     _ = {

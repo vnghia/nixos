@@ -104,7 +104,7 @@ in
       antidote = {
         enable = enabledAntidote;
         plugins = [
-          (lib.strings.concatLines (
+          (lib.concatLines (
             lib.mapAttrsToList (
               name: value: "${name}${lib.optionalString (value.path != null) " path:${value.path}"}"
             ) enabledPlugins
