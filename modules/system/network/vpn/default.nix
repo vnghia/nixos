@@ -26,6 +26,22 @@ in
         enabledInterfaces = mkOption {
           type = types.listOf types.str;
         };
+        commands = mkOption {
+          type = types.attrsOf (
+            types.submodule {
+              options = {
+                inputs = mkOption {
+                  type = types.listOf types.package;
+                  default = [ ];
+                };
+                check = mkOption { type = types.str; };
+                up = mkOption { type = types.str; };
+                down = mkOption { type = types.str; };
+              };
+            }
+          );
+          default = { };
+        };
       };
     };
   };

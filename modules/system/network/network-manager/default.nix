@@ -6,25 +6,12 @@
 }:
 let
   cfg = config._.network.networkManager;
-
   vpnCfg = config._.network.vpn;
-  vpnCommands = {
-    mullvad = {
-      inputs = [
-        pkgs.curl
-        pkgs.jq
-      ];
-      check = "curl https://am.i.mullvad.net/json | jq .mullvad_exit_ip";
-      up = ''
-        ${pkgs.mullvad}/bin/mullvad connect --wait
-      '';
-    };
-  };
   activateDefaultVpnPackage =
     if (vpnCfg.default != null) then
       (pkgs.writeShellApplication (
         let
-          vpnCommand = vpnCommands.${vpnCfg.default};
+          vpnCommand = vpnCfg.commands.${vpnCfg.default};
         in
         {
           name = "activate-default-vpn";

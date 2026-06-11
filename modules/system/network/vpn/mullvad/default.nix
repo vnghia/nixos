@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -19,6 +20,15 @@ in
     services.mullvad-vpn.enable = true;
 
     _ = {
+      network.vpn.commands = {
+        mullvad = {
+          inputs = [ pkgs.jq ];
+          check = "${pkgs.mullvad}/bin/mullvad status --json | jq .details.location.mullvad_exit_ip";
+          up = "${pkgs.mullvad}/bin/mullvad connect --wait";
+          down = "${pkgs.mullvad}/bin/mullvad disconnet --wait";
+        };
+      };
+
       system.nixos.impermanence.directories = [
         {
           directory = "/etc/mullvad-vpn";
