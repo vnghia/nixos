@@ -61,12 +61,17 @@
       };
 
       system.nixos = {
-        sops = {
-          enable = true;
+        feature = {
+          exec = {
+            enable = true;
+          };
         };
         impermanence.directories = [
           "code"
         ];
+        sops = {
+          enable = true;
+        };
       };
     };
   };
