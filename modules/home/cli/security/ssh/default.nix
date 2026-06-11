@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  customLib,
   ...
 }:
 let
@@ -18,6 +19,15 @@ in
           );
           default = null;
         };
+        config = {
+          tpm = {
+            environmentFile = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+            };
+          }
+          // (customLib.system.nixos.sops.mkRequiresOption);
+        };
       };
     };
   };
@@ -27,6 +37,12 @@ in
       services.ssh-tpm-agent = {
         enable = true;
       };
+      systemd.user.services.ssh-tpm-agent = lib.mkMerge [
+        (lib.mkIf (cfg.config.tpm.environmentFile != null) {
+          Service.EnvironmentFile = cfg.config.tpm.environmentFile;
+        })
+        (customLib.system.nixos.sops.mkSystemdServiceRequirements cfg.config.tpm)
+      ];
     })
   ];
 }
