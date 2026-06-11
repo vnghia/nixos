@@ -1,5 +1,6 @@
 {
   config,
+  secrets,
   ...
 }:
 {
@@ -16,10 +17,7 @@
           };
           git = {
             enable = true;
-            user = {
-              name = "Vo Van Nghia";
-              email = "git@vnghia.com";
-            };
+            user = secrets.cli.packages.git.user;
           };
           just = {
             enable = true;
@@ -61,11 +59,6 @@
       };
 
       system.nixos = {
-        feature = {
-          exec = {
-            enable = true;
-          };
-        };
         impermanence.directories = [
           "code"
         ];

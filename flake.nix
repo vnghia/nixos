@@ -101,11 +101,16 @@
           lib.lists.forEach value.flavors (
             flavor:
             let
+              pkgs = import nixpkgs { system = value.platform; };
+
               hostName = mkHostName name flavor;
               hostSystem = lib.nixosSystem {
                 specialArgs = {
                   inherit inputs;
                   inherit customLib;
+                  secrets =
+                    customLib.system.nixos.sops.mkSecrets pkgs "host-build-secrets-${name}"
+                      ./secrets/hosts/${name}/build/secrets.yaml;
                 };
                 modules = [
                   home-manager.nixosModules.home-manager

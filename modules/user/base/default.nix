@@ -81,7 +81,17 @@ in
         ];
       };
 
-      home-manager.users = lib.mapAttrs (userName: userCfg: userCfg.home) cfg.users;
+      home-manager.users = lib.mapAttrs (
+        userName: userCfg:
+        lib.mkMerge [
+          {
+            config._module.args.secrets =
+              customLib.system.nixos.sops.mkSecrets pkgs "user-build-secrets-${userName}"
+                ../../../secrets/users/${userName}/build/secrets.yaml;
+          }
+          userCfg.home
+        ]
+      ) cfg.users;
 
       _ = {
         shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (lib.attrValues cfg.users);
