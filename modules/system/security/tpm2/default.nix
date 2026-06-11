@@ -12,6 +12,7 @@ in
     _ = {
       system.security.tpm2 = {
         enable = mkEnableOption "TPM2";
+        abrmd = mkEnableOption "user-space resource manager";
       };
     };
   };
@@ -19,6 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     security.tpm2 = {
       enable = true;
+      abrmd.enable = cfg.abrmd;
     };
 
     environment.systemPackages = with pkgs; [
