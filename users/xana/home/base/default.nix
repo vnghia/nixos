@@ -60,9 +60,14 @@
         };
       };
 
-      system.nixos.impermanence.directories = [
-        "code"
-      ];
+      system.nixos = {
+        sops = {
+          enable = true;
+        };
+        impermanence.directories = [
+          "code"
+        ];
+      };
     };
   };
 }
