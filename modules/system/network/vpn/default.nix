@@ -15,16 +15,22 @@ in
   options = with lib; {
     _ = {
       network.vpn = {
-        default = mkOption {
-          type = types.nullOr (
-            types.enum [
-              "mullvad"
-            ]
-          );
-          default = null;
-        };
-        enabledInterfaces = mkOption {
-          type = types.listOf types.str;
+        default = {
+          type = mkOption {
+            type = types.nullOr (
+              types.enum [
+                "mullvad"
+              ]
+            );
+            default = null;
+          };
+          enabledInterfaces = mkOption {
+            type = types.listOf types.str;
+          };
+          trustedConnectionFile = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+          };
         };
         commands = mkOption {
           type = types.attrsOf (
@@ -47,7 +53,7 @@ in
   };
 
   config = lib.mkMerge [
-    (lib.mkIf (cfg.default == "mullvad") {
+    (lib.mkIf (cfg.default.type == "mullvad") {
       _ = {
         network.vpn.mullvad.enable = true;
       };

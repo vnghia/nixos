@@ -11,27 +11,40 @@ let
     if (vpnCfg.default != null) then
       (pkgs.writeShellApplication (
         let
-          vpnCommand = vpnCfg.commands.${vpnCfg.default};
+          vpnCommand = vpnCfg.commands.${vpnCfg.default.type};
         in
         {
           name = "activate-default-vpn";
-          runtimeInputs = vpnCommand.inputs;
+          runtimeInputs =
+            vpnCommand.inputs ++ (if (vpnCfg.default.trustedConnectionFile != null) then [ pkgs.jq ] else [ ]);
           text = ''
             enabled_interfaces=(${
-              lib.concatStringsSep " " (lib.forEach vpnCfg.enabledInterfaces (interface: "\"${interface}\""))
+              lib.concatStringsSep " " (
+                lib.forEach vpnCfg.default.enabledInterfaces (interface: "\"${interface}\"")
+              )
             })
+            interface=$1
+            status=$2
+            connection_id=''${CONNECTION_ID:-null}
 
-            interface=$1 status=$2
             for i in "''${enabled_interfaces[@]}"
             do
               if [ "$interface" == "$i" ] && [ "$status" == "up" ]; then
-                echo "Interface $interface is up"
+                echo "Interface $interface is up with connection id $connection_id"
 
-                connected=$(${vpnCommand.check})
-                if [ "$connected" == "true" ]; then
-                  echo "Already connected to the default VPN ${vpnCfg.default}"
+                ${
+                  if (vpnCfg.default.trustedConnectionFile != null) then
+                    ''trusted_connection=$(cat ${vpnCfg.default.trustedConnectionFile} | jq ".$interface | index(\"$connection_id\") != null")''
+                  else
+                    "trusted_connection=false"
+                }
+                if [ "$trusted_connection" == "true" ]; then
+                  echo "Connection is trusted. Turning off the default VPN ${vpnCfg.default.type} ..."
+                  ${vpnCommand.down}
+                elif [ "$(${vpnCommand.check})" == "true" ]; then
+                  echo "Connection is untrusted but it is already connected to the default VPN ${vpnCfg.default.type}"
                 else
-                  echo "Connecting to default VPN ${vpnCfg.default} ..."
+                  echo "Connection is untrusted. Turning on the default VPN ${vpnCfg.default.type} ..."
                   ${vpnCommand.up}
                 fi
 
