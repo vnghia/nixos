@@ -35,6 +35,8 @@ in
     ];
 
     _ = {
+      network.vpn.mullvad.excludeOutgoingTraffics = [ "100.64.0.0/10" ];
+
       system.nixos.impermanence.directories = [
         {
           directory = "/var/lib/tailscale";

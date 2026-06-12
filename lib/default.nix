@@ -15,6 +15,7 @@ in
 // (import ./desktop {
   inherit lib;
 })
+// (import ./network { inherit lib; })
 // (import ./system { inherit lib; })
 // {
   mkForceRecursive = mkForceRecursive;
