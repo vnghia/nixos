@@ -22,6 +22,12 @@ filesystem-cryptenroll-tpm disk="/dev/disk/by-partlabel/luks":
     # 12 	Overridden kernel command line, Credentials
     sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --wipe-slot=tpm2 {{ disk }}
 
+[arg("disk")]
+[group("filesystem")]
+filesystem-mount-btrfs disk="/dev/disk/by-label/nixos":
+    sudo mkdir -p /btrfs
+    sudo mount -o subvol=/ {{ disk }} /btrfs
+
 [arg("user")]
 [arg("prefix", long="prefix")]
 [group("user")]
