@@ -21,11 +21,11 @@ in
       enable = true;
       disableUpstreamLogging = true;
       openFirewall = true;
-      extraDaemonFlags = [ "--no-logs-no-support" ];
     };
 
     networking.firewall = {
       enable = true;
+      checkReversePath = "loose";
       trustedInterfaces = [ tailscaleInterfaceName ];
     };
 
@@ -35,7 +35,10 @@ in
     ];
 
     _ = {
-      network.vpn.mullvad.excludeOutgoingTraffics = [ "100.64.0.0/10" ];
+      network.vpn.mullvad.excludeOutgoingTraffics = [
+        "100.64.0.0/10"
+        "fd7a:115c:a1e0::/48"
+      ];
 
       system.nixos.impermanence.directories = [
         {
