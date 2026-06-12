@@ -3,6 +3,7 @@
     ./direnv
     ./eza
     ./git
+    ./jq
     ./just
     ./nh
     ./nixd

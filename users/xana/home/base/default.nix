@@ -19,6 +19,9 @@
             enable = true;
             user = secrets.cli.packages.git.user;
           };
+          jq = {
+            enable = true;
+          };
           just = {
             enable = true;
           };
