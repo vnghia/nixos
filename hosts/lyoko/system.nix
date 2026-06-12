@@ -10,6 +10,9 @@
           type = "lanzaboote";
         };
         linux = {
+          dbus = {
+            implementation = "broker";
+          };
           kernel = pkgs.linuxPackages_zen;
         };
         nixos = {
