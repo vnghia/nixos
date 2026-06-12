@@ -52,23 +52,26 @@ in
         networking.nftables = {
           enable = true;
           tables = {
-            mullvadExcludeIps = {
-              name = "mullvad-exclude-outgoing-traffics";
-              family = "inet";
-              content = ''
-                chain mullvad-exclude-outgoing-traffics {
-                  type route hook output priority 0; policy accept;
-                  ${lib.concatStringsSep "\n" (
-                    lib.forEach cfg.excludeOutgoingTraffics (
-                      traffic:
-                      "${
-                        if ((customLib.network.isIpV4 traffic) || (customLib.network.isCdirV4 traffic)) then "ip" else "ip6"
-                      } daddr ${traffic} ct mark set 0x00000f41 meta mark set 0x6d6f6c65"
-                    )
-                  )}
-                }
-              '';
-            };
+            mullvadExcludeTraffics =
+              let
+                mkChainRule =
+                  traffic:
+                  "${
+                    if ((customLib.network.isIpV4 traffic) || (customLib.network.isCdirV4 traffic)) then "ip" else "ip6"
+                  } daddr ${traffic} ct mark set 0x00000f41 meta mark set 0x6d6f6c65;";
+
+                outgoingChain = lib.concatStringsSep "\n" (lib.forEach cfg.excludeOutgoingTraffics mkChainRule);
+              in
+              {
+                name = "mullvad-exclude-traffics";
+                family = "inet";
+                content = ''
+                  chain outgoing {
+                    type route hook output priority 0; policy accept;
+                    ${outgoingChain}
+                  }
+                '';
+              };
           };
         };
       })
