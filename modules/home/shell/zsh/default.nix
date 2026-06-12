@@ -11,7 +11,7 @@ let
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
   compdumpPath = "${xdgCfg.cacheHome}/zsh/zcompdump";
   enabledPlugins = lib.filterAttrs (name: value: value.enable) cfg.plugins;
-  enabledAntidote = builtins.length (builtins.attrNames enabledPlugins) != 0;
+  enabledAntidote = builtins.length (builtins.attrNames enabledPlugins) > 0;
 in
 {
   options = with lib; {
