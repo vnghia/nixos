@@ -9,6 +9,7 @@
 let
   cfg = config._.desktop.managers.gnome;
   osCfg = osConfig._.desktop.managers.gnome;
+  xdgCfg = config.xdg;
   enabledPlugins = lib.filterAttrs (name: value: value.enable) cfg.extensions;
 
   dumpDconf =
@@ -383,6 +384,20 @@ in
               inputs.enable = true;
               polarity.enable = true;
             };
+          };
+
+          system.nixos.impermanence = {
+            directories = [
+              "${xdgCfg.configHome}/dconf"
+
+              # Expensive cache
+              "${xdgCfg.cacheHome}/tracker3"
+            ];
+
+            files = [
+              # Monitor configuration
+              "${xdgCfg.configHome}/monitors.xml"
+            ];
           };
         };
       }

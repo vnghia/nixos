@@ -5,6 +5,7 @@
 }:
 let
   cfg = config._.cli.packages.direnv;
+  xdgCfg = config.xdg;
 in
 {
   options = with lib; {
@@ -31,7 +32,7 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [ ".local/share/direnv" ];
+      system.nixos.impermanence.directories = [ "${xdgCfg.dataHome}/direnv" ];
     };
   };
 }

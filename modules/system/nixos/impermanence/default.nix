@@ -48,6 +48,12 @@ in
               "/var/lib/systemd/timers"
               "/var/lib/systemd/rfkill"
               "/var/lib/systemd/backlight"
+              {
+                directory = "/var/lib/colord";
+                user = "colord";
+                group = "colord";
+                mode = "u=rwx,g=rx,o=";
+              }
 
               # Auth and SSH
               "/etc/ssh"
@@ -112,17 +118,16 @@ in
             # so we can manipulate btrfs subvolumes.
             mount -o subvol=/ /dev/mapper/cryptroot /btrfs
 
+            timestamp=$(date --date="@$(stat -c %Y /btrfs/@root)" "+%Y-%m-%-d-%H-%M-%S")
+
             # We then take a snapshot of the current root
             # before recreating a blank root.
             mkdir -p /btrfs/@snapshots/@root
-            timestamp=$(date --date="@$(stat -c %Y /btrfs/@root)" "+%Y-%m-%-d-%H-%M-%S")
             btrfs subvolume snapshot -r /btrfs/@root "/btrfs/@snapshots/@root/$timestamp"
-
 
             ${lib.optionalString cfg.home ''
               # Also do the same thing for the current home
               mkdir -p /btrfs/@snapshots/@home
-              timestamp=$(date --date="@$(stat -c %Y /btrfs/@home)" "+%Y-%m-%-d-%H-%M-%S")
               btrfs subvolume snapshot -r /btrfs/@home "/btrfs/@snapshots/@home/$timestamp"
             ''}
 

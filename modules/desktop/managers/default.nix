@@ -9,7 +9,7 @@
         directories = [
           # Desktop session data
           "/var/lib/AccountsService"
-          "/var/cache/cups"
+          "/var/lib/cups"
         ];
       };
     };

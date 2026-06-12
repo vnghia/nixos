@@ -74,7 +74,7 @@ in
             mode = "0700";
           }
           {
-            directory = ".local/share/keyrings";
+            directory = "${xdgCfg.dataHome}/keyrings";
             mode = "0700";
           }
         ];
