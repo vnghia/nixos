@@ -1,4 +1,8 @@
 {
+  secrets,
+  ...
+}:
+{
   config = {
     _ = {
       network = {
@@ -11,7 +15,8 @@
         vpn = {
           default = {
             type = "mullvad";
-            enabledInterfaces = [ "wlan0" ];
+            enabledInterfaces = secrets.network.vpn.enabledInterfaces;
+            trustedConnections = secrets.network.vpn.trustedConnections;
           };
           tailscale = {
             enable = true;

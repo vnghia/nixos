@@ -26,10 +26,11 @@ in
           };
           enabledInterfaces = mkOption {
             type = types.listOf types.str;
+            default = [ ];
           };
-          trustedConnectionFile = mkOption {
-            type = types.nullOr types.path;
-            default = null;
+          trustedConnections = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
           };
         };
         commands = mkOption {
