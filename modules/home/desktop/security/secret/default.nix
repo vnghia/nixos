@@ -9,23 +9,33 @@ in
 {
   options = with lib; {
     _ = {
-      desktop.security.secret = mkOption {
-        type = types.enum [
-          "gnome"
-          "keepassxc"
-        ];
+      desktop.security.secret = {
+        type = mkOption {
+          type = types.enum [
+            "gnome"
+            "keepassxc"
+          ];
+        };
+        config = {
+          keepassxc = {
+            confirmAccessItem = mkOption {
+              type = types.bool;
+              default = true;
+            };
+          };
+        };
       };
     };
   };
 
   config = lib.mkMerge [
-    (lib.mkIf (cfg == "gnome") {
+    (lib.mkIf (cfg.type == "gnome") {
       services.gnome-keyring = {
         enable = true;
         components = [ "secrets" ];
       };
     })
-    (lib.mkIf (cfg == "keepassxc") {
+    (lib.mkIf (cfg.type == "keepassxc") {
       _ = {
         desktop.packages.keepassxc = {
           enable = true;
@@ -35,7 +45,10 @@ in
 
       programs.keepassxc = {
         settings = {
-          FdoSecrets.Enabled = true;
+          FdoSecret = {
+            Enabled = true;
+            ConfirmAccessItem = cfg.config.keepassxc.confirmAccessItem;
+          };
         };
       };
     })

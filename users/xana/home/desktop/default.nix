@@ -102,7 +102,14 @@ in
           };
         };
         security = {
-          secret = "keepassxc";
+          secret = {
+            type = "keepassxc";
+            config = {
+              keepassxc = {
+                confirmAccessItem = false;
+              };
+            };
+          };
         };
         theming = {
           stylix = {
