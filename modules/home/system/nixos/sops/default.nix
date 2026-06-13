@@ -29,7 +29,7 @@ in
       {
         sops = {
           age.keyFile = cfg.keyFile;
-          defaultSopsFile = ../../../../secrets/users/${config.home.username}/secrets.yaml;
+          defaultSopsFile = ../../../../../secrets/users/${config.home.username}/run/secrets.yaml;
         };
 
         home.packages =

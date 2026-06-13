@@ -22,10 +22,17 @@ in
       {
         programs.thunderbird = {
           enable = true;
+          profiles = {
+            me = {
+              isDefault = true;
+            };
+          };
         };
 
         _ = {
           system.nixos.impermanence.directories = [ ".thunderbird" ];
+
+          user.email.clients = [ "thunderbird" ];
         };
       }
       (lib.mkIf cfg.birdtray {

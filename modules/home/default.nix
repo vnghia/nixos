@@ -6,5 +6,6 @@
     ./shell
     ./specialisation
     ./system
+    ./user
   ];
 }
