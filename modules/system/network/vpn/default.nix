@@ -28,9 +28,9 @@ in
             type = types.listOf types.str;
             default = [ ];
           };
-          trustedConnections = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
+          interfaceTrustedConnections = mkOption {
+            type = types.attrsOf (types.listOf types.str);
+            default = { };
           };
         };
         commands = mkOption {

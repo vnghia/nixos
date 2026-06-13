@@ -15,18 +15,14 @@ let
         in
         {
           name = "activate-default-vpn";
-          runtimeInputs = vpnCommand.inputs;
+          runtimeInputs = vpnCommand.inputs ++ [ pkgs.jq ];
           text = ''
             enabled_interfaces=(${
               lib.concatStringsSep " " (
                 lib.forEach vpnCfg.default.enabledInterfaces (interface: "\"${interface}\"")
               )
             })
-            trusted_connections=(${
-              lib.concatStringsSep " " (
-                lib.forEach vpnCfg.default.trustedConnections (connection: "\"${connection}\"")
-              )
-            })
+            interface_trusted_connections='${builtins.toJSON vpnCfg.default.interfaceTrustedConnections}'
 
             interface=$1
             status=$2
@@ -37,6 +33,7 @@ let
               if [ "$interface" == "$enabled_interface" ] && [ "$status" == "up" ]; then
                 echo "Interface $interface is up with connection id $connection_id"
 
+                mapfile -t trusted_connections < <(echo "$interface_trusted_connections" | jq -r ".$interface // [] | .[]")
                 for trusted_connection in "''${trusted_connections[@]}"
                 do
                   regex="^$trusted_connection$|^$trusted_connection [0-9]+$"

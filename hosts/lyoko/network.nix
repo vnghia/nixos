@@ -19,7 +19,7 @@
           default = {
             type = "mullvad";
             enabledInterfaces = secrets.network.vpn.enabledInterfaces;
-            trustedConnections = secrets.network.vpn.trustedConnections;
+            interfaceTrustedConnections = builtins.fromJSON secrets.network.vpn.interfaceTrustedConnections;
           };
           tailscale = {
             enable = true;
