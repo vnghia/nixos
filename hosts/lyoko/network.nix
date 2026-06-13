@@ -8,6 +8,7 @@
       network = {
         dns = {
           nameservers = secrets.network.dns.nameservers;
+          interfaceConfig = builtins.fromJSON secrets.network.dns.interfaceConfig;
         };
         networkManager = {
           enable = true;
