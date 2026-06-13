@@ -30,6 +30,9 @@ in
         programs.thunderbird = {
           enable = true;
           profiles = cfg.profiles;
+          settings = {
+            "datareporting.healthreport.uploadEnabled" = false;
+          };
         };
 
         _ = {
