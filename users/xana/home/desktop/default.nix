@@ -82,6 +82,10 @@ in
           tailscale = {
             enable = true;
           };
+          thunderbird = {
+            enable = true;
+            birdtray = true;
+          };
           zen-browser = {
             enable = true;
             default = true;

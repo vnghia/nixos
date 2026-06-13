@@ -8,6 +8,7 @@
     ./nautilus
     ./signal-desktop
     ./tailscale
+    ./thunderbird
     ./vscodium
     ./zen-browser
   ];
