@@ -1,5 +1,7 @@
 {
+  lib,
   pkgs,
+  secrets,
   ...
 }:
 let
@@ -84,7 +86,13 @@ in
           };
           thunderbird = {
             enable = true;
-            birdtray = true;
+            default = true;
+            profiles = {
+              me = {
+                isDefault = true;
+              };
+            };
+            favorite = 100;
           };
           zen-browser = {
             enable = true;
@@ -156,6 +164,22 @@ in
               terminal = 0.65;
             };
           };
+        };
+      };
+
+      user = {
+        email = {
+          accounts = lib.listToAttrs (
+            lib.forEach secrets.user.email.accounts (
+              account:
+              (lib.nameValuePair account.name {
+                thunderbird = {
+                  enable = true;
+                  profiles = [ "me" ];
+                };
+              })
+            )
+          );
         };
       };
     };
