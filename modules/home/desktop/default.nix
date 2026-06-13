@@ -1,8 +1,11 @@
 {
+  lib,
   config,
+  osConfig,
   ...
 }:
 let
+  osCfg = osConfig._.desktop;
   xdgCfg = config.xdg;
 in
 {
@@ -14,7 +17,7 @@ in
     ./theming
   ];
 
-  config = {
+  config = lib.mkIf osCfg.enable {
     _ = {
       system.nixos.impermanence.directories = [
         # Graphic cache
