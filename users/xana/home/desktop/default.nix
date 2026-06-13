@@ -176,6 +176,11 @@ in
                 thunderbird = {
                   enable = true;
                   profiles = [ "me" ];
+                  settings = id: {
+                    "mail.identity.id_${id}.catchAllHint" = lib.concatStringsSep "," (
+                      lib.forEach account.config.catchAllDomains (domain: "*@${domain}")
+                    );
+                  };
                 };
               })
             )
