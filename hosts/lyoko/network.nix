@@ -6,6 +6,9 @@
   config = {
     _ = {
       network = {
+        dns = {
+          nameservers = secrets.network.dns.nameservers;
+        };
         networkManager = {
           enable = true;
           wifi = {

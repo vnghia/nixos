@@ -1,8 +1,24 @@
 {
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config._.network.dns;
+in
+{
+  options = with lib; {
+    _ = {
+      network.dns = {
+        nameservers = mkOption {
+          type = types.listOf types.str;
+        };
+      };
+    };
+  };
+
   config = {
-    networking.nameservers = [
-      "1.1.1.1"
-    ];
+    networking.nameservers = cfg.nameservers;
 
     services.resolved = {
       enable = true;
