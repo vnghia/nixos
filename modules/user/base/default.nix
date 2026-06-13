@@ -29,7 +29,7 @@ in
                   networkManager = mkEnableOption "Network Manager";
                   tpm2 = mkEnableOption "TPM2";
                 };
-                home = mkOption { type = types.attrsOf types.anything; };
+                home = mkOption { type = types.path; };
               };
             }
           );
@@ -89,7 +89,7 @@ in
               customLib.system.nixos.sops.mkSecrets pkgs "user-build-secrets-${userName}"
                 ../../../secrets/users/${userName}/build/secrets.yaml;
           }
-          userCfg.home
+          { imports = [ userCfg.home ]; }
         ]
       ) cfg.users;
 

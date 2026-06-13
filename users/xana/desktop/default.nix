@@ -1,8 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-{
   imports = [
     ../base
   ];
@@ -12,7 +8,7 @@
       users = {
         users = {
           xana = {
-            home = import ../home/desktop { inherit pkgs; };
+            home = ../home/desktop;
           };
         };
       };
