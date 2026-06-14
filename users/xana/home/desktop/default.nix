@@ -28,6 +28,72 @@ in
             };
           };
         };
+        i18n = {
+          input = {
+            type = "fcitx5";
+            config = {
+              fcitx5 = {
+                globalOptions = {
+                  Hotkey = {
+                    "TriggerKeys/0" = "Control+space";
+                  };
+                  Behavior = {
+                    ActiveByDefault = false;
+                    ShareInputState = "All";
+                    PreeditEnabledByDefault = true;
+                    ShowInputMethodInformation = true;
+                    showInputMethodInformationWhenFocusIn = false;
+                    CompactInputMethodInformation = true;
+                    ShowFirstInputMethodInformation = true;
+                  };
+                };
+                addons = {
+                  "unikey" = {
+                    package = "kdePackages.fcitx5-unikey";
+                    globalSection = {
+                      InputMethod = "Simple Telex";
+                      OutputCharset = "Unicode";
+                      SpellCheck = false;
+                      Macro = false;
+                      ProcessWAtBegin = true;
+                      AutoNonVnRestore = true;
+                      ModernStyle = true;
+                      FreeMarking = true;
+                      SurroundingText = false;
+                      ModifySurroundingText = false;
+                      DisplayUnderline = false;
+                    };
+                  };
+                  "mozc" = {
+                    package = "fcitx5-mozc-ut";
+                  };
+                };
+                inputMethod = {
+                  GroupOrder = {
+                    "0" = "Default";
+                  };
+                  "Groups/0" = {
+                    Name = "Default";
+                    "Default Layout" = "us";
+                    DefaultIM = "keyboard-us";
+                  };
+                  "Groups/0/Items/0" = {
+                    Name = "keyboard-us";
+                  };
+                  "Groups/0/Items/1" = {
+                    Name = "unikey";
+                  };
+                  "Groups/0/Items/2" = {
+                    Name = "mozc";
+                  };
+                };
+                stylix = {
+                  enable = true;
+                };
+              };
+            };
+          };
+        };
         managers = {
           gnome = {
             location = true;
