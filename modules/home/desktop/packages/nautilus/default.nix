@@ -20,7 +20,20 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      { home.packages = [ pkgs.nautilus ]; }
+      {
+        home.packages = [
+          pkgs.nautilus
+        ];
+
+        _ = {
+          desktop.managers.gnome.dconf = {
+            org.gnome.nautilus = {
+              preferences.default-folder-viewer = "list-view";
+              list-view.default-zoom-level = "small";
+            };
+          };
+        };
+      }
       (customLib.home.desktop.packages.favorite.mkConfig "org.gnome.Nautilus.desktop" cfg)
     ]
   );
