@@ -31,6 +31,7 @@ in
           enable = true;
           profiles = cfg.profiles;
           settings = {
+            # Privacy
             "datareporting.healthreport.uploadEnabled" = false;
           };
         };

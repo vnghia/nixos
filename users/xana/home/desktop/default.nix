@@ -177,7 +177,8 @@ in
                   enable = true;
                   profiles = [ "me" ];
                   settings = id: {
-                    "mail.identity.id_${id}.catchAllHint" = lib.concatStringsSep "," (
+                    "mail.identity.id_${id}.catchAll" = true;
+                    "mail.identity.id_${id}.catchAllHint" = lib.concatStringsSep ", " (
                       lib.forEach account.config.catchAllDomains (domain: "*@${domain}")
                     );
                   };
