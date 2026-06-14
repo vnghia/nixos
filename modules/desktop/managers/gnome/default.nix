@@ -52,11 +52,5 @@ in
     environment.systemPackages = [
       pkgs.gnome-terminal
     ];
-
-    _ = {
-      system.nixos.impermanence.directories = [
-        "/var/lib/gdm"
-      ];
-    };
   };
 }
