@@ -8,7 +8,6 @@ let
   cfg = config._.desktop.programs.keepassxc;
   homeCfg = config.home;
   passwordDirectory = "${homeCfg.homeDirectory}/Documents/Passwords";
-  passwordFile = "${passwordDirectory}/passwords.kdbx";
 in
 {
   options = with lib; {
@@ -16,6 +15,10 @@ in
       desktop.programs.keepassxc = {
         enable = mkEnableOption "KeepassXC";
         autostart = mkEnableOption "Autostart";
+        defaultDatabase = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
       }
       // customLib.home.desktop.programs.favorite.mkOption;
     };
@@ -29,10 +32,14 @@ in
           autostart = cfg.autostart;
           settings = lib.mkMerge [
             {
-              General = {
-                LastActiveDatabase = passwordFile;
-                MinimizeAfterUnlock = true;
-              };
+              General = lib.mkMerge [
+                {
+                  MinimizeAfterUnlock = true;
+                }
+                (lib.mkIf (cfg.defaultDatabase != null) {
+                  LastActiveDatabase = "${passwordDirectory}/${cfg.defaultDatabase}";
+                })
+              ];
               Browser = {
                 Enabled = true;
                 UpdateBinaryPath = false;

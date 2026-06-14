@@ -130,6 +130,7 @@ in
           keepassxc = {
             enable = true;
             autostart = true;
+            defaultDatabase = "me.kdbx";
           };
           mpv = {
             enable = true;
