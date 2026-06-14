@@ -6,7 +6,7 @@
 }:
 let
   cfg = config._.cli.packages.zellij;
-  shellCfg = osConfig._.shell;
+  shellCfg = osConfig._.system.shell;
   xdgCfg = config.xdg;
 in
 {

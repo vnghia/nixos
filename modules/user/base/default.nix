@@ -94,7 +94,7 @@ in
       ) cfg.users;
 
       _ = {
-        shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (lib.attrValues cfg.users);
+        system.shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (lib.attrValues cfg.users);
       };
     }
   ];

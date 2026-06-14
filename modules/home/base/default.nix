@@ -6,7 +6,7 @@
 }:
 let
   cfg = config._.user;
-  shellCfg = osConfig._.shell;
+  shellCfg = osConfig._.system.shell;
 in
 {
   options = with lib; {

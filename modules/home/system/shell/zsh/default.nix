@@ -5,8 +5,8 @@
   ...
 }:
 let
-  cfg = config._.shell.zsh;
-  osCfg = osConfig._.shell.zsh;
+  cfg = config._.system.shell.zsh;
+  osCfg = osConfig._.system.shell.zsh;
   xdgCfg = config.xdg;
   historyPath = "${xdgCfg.dataHome}/zsh/zsh_history";
   compdumpPath = "${xdgCfg.cacheHome}/zsh/zcompdump";
@@ -16,7 +16,7 @@ in
 {
   options = with lib; {
     _ = {
-      shell.zsh = {
+      system.shell.zsh = {
         plugins = mkOption {
           type = types.attrsOf (
             types.submodule {
