@@ -176,8 +176,16 @@ in
           zen-browser = {
             enable = true;
             default = true;
+            profiles = {
+              me = {
+                isDefault = true;
+              };
+            };
             stylix = {
               enable = true;
+              config = {
+                profileNames = [ "me" ];
+              };
             };
             favorite = 1;
           };

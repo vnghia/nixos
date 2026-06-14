@@ -16,6 +16,9 @@ in
       desktop.packages.zen-browser = {
         enable = mkEnableOption "Zen Browser";
         default = mkEnableOption "Default";
+        profiles = mkOption {
+          type = types.attrsOf types.anything;
+        };
       }
       // customLib.home.desktop.packages.favorite.mkOption
       // customLib.home.desktop.theming.stylix.mkOption;
@@ -29,6 +32,7 @@ in
           enable = true;
           setAsDefaultBrowser = cfg.default;
           nativeMessagingHosts = (if keepassxcCfg.enable then [ pkgs.keepassxc ] else [ ]);
+          profiles = cfg.profiles;
         };
 
         xdg.mimeApps = lib.mkIf cfg.default {
@@ -47,7 +51,6 @@ in
       {
         _ = {
           desktop.packages.zen-browser.stylix.config = {
-            profileNames = [ "me" ];
             enableCss = true;
           };
         };
