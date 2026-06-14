@@ -7,6 +7,7 @@
 }:
 let
   cfg = config._.desktop.packages.thunderbird;
+  emailCfg = config._.user.email;
   desktop = "thunderbird.desktop";
 in
 {
@@ -29,7 +30,12 @@ in
       {
         programs.thunderbird = {
           enable = true;
-          profiles = cfg.profiles;
+          profiles = lib.mkMerge [
+            cfg.profiles
+            (lib.mapAttrs (profile: accounts: {
+              accountsOrder = lib.forEach accounts (account: account.name);
+            }) emailCfg.accounts.accounts)
+          ];
           settings = {
             # Privacy
             "datareporting.healthreport.uploadEnabled" = false;
@@ -38,6 +44,27 @@ in
 
         _ = {
           system.nixos.impermanence.directories = [ ".thunderbird" ];
+
+          user.email.accounts.config = lib.concatMapAttrs (
+            profile: accounts:
+            lib.listToAttrs (
+              lib.forEach accounts (
+                account:
+                lib.nameValuePair account.name {
+                  thunderbird = {
+                    enable = true;
+                    profiles = [ profile ];
+                    settings = id: {
+                      "mail.identity.id_${id}.catchAll" = true;
+                      "mail.identity.id_${id}.catchAllHint" = lib.concatStringsSep ", " (
+                        lib.forEach account.config.catchAllDomains (domain: "*@${domain}")
+                      );
+                    };
+                  };
+                }
+              )
+            )
+          ) emailCfg.accounts.accounts;
         };
       }
       (customLib.home.desktop.packages.favorite.mkConfig desktop cfg)

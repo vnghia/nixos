@@ -1,29 +1,10 @@
 {
-  lib,
   config,
   secrets,
   ...
 }:
-let
-  emailAccountsList = secrets.user.email.accounts;
-  secretPrefix = "user/email/accounts";
-in
 {
   config = {
-    sops.secrets = lib.mergeAttrsList (
-      builtins.genList (
-        i:
-        let
-          emailAccount = builtins.elemAt emailAccountsList i;
-        in
-        {
-          "${secretPrefix}/${emailAccount.name}" = {
-            key = "${secretPrefix}/${toString i}";
-          };
-        }
-      ) (builtins.length emailAccountsList)
-    );
-
     _ = {
       cli = {
         packages = {
@@ -91,13 +72,9 @@ in
 
       user = {
         email = {
-          accounts = lib.mapAttrs (
-            name: value:
-            lib.mkMerge [
-              value
-              { passwordCommand = "cat ${config.sops.secrets."${secretPrefix}/${name}".path}"; }
-            ]
-          ) (lib.listToAttrs emailAccountsList);
+          accounts = {
+            accounts = secrets.user.email.accounts;
+          };
         };
       };
     };

@@ -1,7 +1,5 @@
 {
-  lib,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -164,28 +162,6 @@ in
               terminal = 0.65;
             };
           };
-        };
-      };
-
-      user = {
-        email = {
-          accounts = lib.listToAttrs (
-            lib.forEach secrets.user.email.accounts (
-              account:
-              (lib.nameValuePair account.name {
-                thunderbird = {
-                  enable = true;
-                  profiles = [ "me" ];
-                  settings = id: {
-                    "mail.identity.id_${id}.catchAll" = true;
-                    "mail.identity.id_${id}.catchAllHint" = lib.concatStringsSep ", " (
-                      lib.forEach account.config.catchAllDomains (domain: "*@${domain}")
-                    );
-                  };
-                };
-              })
-            )
-          );
         };
       };
     };
