@@ -113,7 +113,7 @@ in
             };
           };
         };
-        packages = {
+        programs = {
           alacritty = {
             enable = true;
             stylix = {

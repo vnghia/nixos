@@ -4,7 +4,7 @@
 }:
 {
   desktop =
-    (import ./packages { inherit lib; })
+    (import ./programs { inherit lib; })
     // (import ./theming {
       inherit lib;
     });

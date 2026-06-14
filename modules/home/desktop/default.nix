@@ -13,7 +13,7 @@ in
     ./frameworks
     ./i18n
     ./managers
-    ./packages
+    ./programs
     ./security
     ./theming
   ];

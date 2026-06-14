@@ -7,7 +7,7 @@
   config = {
     _ = {
       cli = {
-        packages = {
+        programs = {
           direnv = {
             enable = true;
             nix = true;
@@ -17,7 +17,7 @@
           };
           git = {
             enable = true;
-            user = secrets.cli.packages.git.user;
+            user = secrets.cli.programs.git.user;
           };
           jq = {
             enable = true;

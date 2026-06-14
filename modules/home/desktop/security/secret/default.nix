@@ -37,7 +37,7 @@ in
     })
     (lib.mkIf (cfg.type == "keepassxc") {
       _ = {
-        desktop.packages.keepassxc = {
+        desktop.programs.keepassxc = {
           enable = true;
           autostart = true;
         };

@@ -1,0 +1,140 @@
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config._.cli.programs.git;
+in
+{
+  options = with lib; {
+    _ = {
+      cli.programs.git = {
+        enable = mkEnableOption "Git";
+        user = {
+          name = mkOption { type = types.str; };
+          email = mkOption { type = types.str; };
+        };
+      };
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.git = {
+      enable = true;
+      settings = {
+        user = lib.mkMerge [
+          cfg.user
+          {
+            useConfigOnly = true;
+          }
+        ];
+        init = {
+          defaultBranch = "main";
+        };
+        color = {
+          ui = "auto";
+        };
+        column = {
+          ui = "auto";
+        };
+        branch = {
+          sort = "-committerdate";
+        };
+        tag = {
+          sort = "version:refname";
+        };
+        diff = {
+          algorithm = "histogram";
+          colorMoved = "plain";
+          mnemonicPrefix = true;
+          renames = true;
+        };
+        push = {
+          default = "simple";
+          autoSetupRemote = true;
+          followTags = true;
+        };
+        fetch = {
+          prune = true;
+          pruneTags = true;
+          all = true;
+        };
+        pull = {
+          ff = "only";
+        };
+        commit = {
+          verbose = true;
+        };
+        rerere = {
+          enabled = true;
+          autoupdate = true;
+        };
+        rebase = {
+          autoSquash = true;
+          autoStash = true;
+          updateRefs = true;
+        };
+        help = {
+          autocorrect = "prompt";
+        };
+        alias = {
+          # Add
+          a = "add --all";
+
+          # Commit
+          ca = "commit --amend";
+          cat = "ca --no-edit";
+          cm = "commit -m";
+          ce = "commit --allow-empty -m";
+
+          # Checkout
+          co = "checkout";
+
+          # Branch
+          b = "branch";
+          cb = "b --show-current";
+
+          # Push
+          p = "push";
+          pf = "p --force";
+          pfl = "p --force-with-lease";
+
+          # Log
+          l = "log --oneline";
+          la = "l --all";
+          lp = "l -p";
+          lpa = "lp --all";
+          lg = "l --graph --decorate --pretty=oneline --abbrev-commit";
+          lga = "lg --all";
+
+          # Fetch
+          f = "fetch";
+          fo = "fetch origin";
+
+          # Reset
+          r = "reset";
+          rh = "reset --hard";
+          ro = ''!git fo && git rh origin/''\${1:-''\$(git cb)}'';
+
+          # Rebase
+          rb = "rebase";
+          rba = "rb --abort";
+          rbi = "rb -i";
+          rbtd = "rb --edit-todo";
+          rbc = "-c core.editor=true rb --continue";
+          rbr = "rbi --root";
+          rbh = "!git rbi HEAD~$1";
+
+          # Status
+          st = "status --porcelain";
+        };
+      };
+    };
+
+    _ = {
+      desktop.programs.vscodium.base.extensions = [ pkgs.nix-vscode-extensions.open-vsx.eamodio.gitlens ];
+    };
+  };
+}
