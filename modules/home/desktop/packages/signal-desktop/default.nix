@@ -23,6 +23,7 @@ in
     lib.mkMerge [
       {
         home.packages = [ pkgs.signal-desktop ];
+
         _ = {
           system.nixos.impermanence.directories = [
             "${xdgCfg.configHome}/Signal"

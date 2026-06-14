@@ -6,6 +6,7 @@
     ./mpv
     ./mullvad
     ./nautilus
+    ./obsidian
     ./signal-desktop
     ./tailscale
     ./thunderbird

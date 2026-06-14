@@ -80,6 +80,8 @@
         inherit lib;
       };
 
+      unfreePackages = [ "obsidian" ];
+
       hosts = {
         lyoko = {
           platform = "x86_64-linux";
@@ -127,7 +129,12 @@
                   ./hosts/${name}/${flavor}
                   {
                     networking.hostName = hostName;
-                    nixpkgs.hostPlatform = value.platform;
+                    nixpkgs = {
+                      hostPlatform = value.platform;
+                      config = {
+                        allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
+                      };
+                    };
                     sops.defaultSopsFile = ./secrets/hosts/${name}/run/secrets.yaml;
                   }
                   {

@@ -142,6 +142,21 @@ in
             enable = true;
             favorite = 50;
           };
+          obsidian = {
+            enable = true;
+            stylix = {
+              enable = true;
+              config = {
+                fonts.override.sizes.applications = 16;
+                vaultNames = [
+                  "me"
+                ];
+              };
+            };
+            vaults = {
+              me = { };
+            };
+          };
           signal-desktop = {
             enable = true;
           };
