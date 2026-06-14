@@ -37,7 +37,8 @@ in
             }) emailCfg.accounts.accounts)
           ];
           settings = {
-            # Reply
+            # Composition
+            "mail.compose.default_to_paragraph" = false;
             "mail.compose.warned_about_customize_from" = true;
 
             # Privacy
