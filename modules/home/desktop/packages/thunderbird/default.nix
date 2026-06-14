@@ -37,8 +37,14 @@ in
             }) emailCfg.accounts.accounts)
           ];
           settings = {
+            # Reply
+            "mail.compose.warned_about_customize_from" = true;
+
             # Privacy
             "datareporting.healthreport.uploadEnabled" = false;
+
+            # Sort
+            "mailnews.default_sort_order" = 1;
           };
         };
 
