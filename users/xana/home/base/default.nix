@@ -61,6 +61,12 @@
         };
       };
 
+      services = {
+        syncthing = {
+          enable = true;
+        };
+      };
+
       system.nixos = {
         impermanence.directories = [
           "code"
