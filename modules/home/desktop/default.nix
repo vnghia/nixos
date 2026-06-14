@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./frameworks
+    ./i18n
     ./managers
     ./packages
     ./security
