@@ -46,6 +46,7 @@ in
       {
         programs.vscodium = {
           enable = true;
+          mutableExtensionsDir = false;
           profiles = lib.mapAttrs (
             name: profile:
             (lib.mkMerge [
@@ -60,7 +61,16 @@ in
             base = {
               extensions = with pkgs.nix-vscode-extensions.open-vsx; [
                 pkief.material-icon-theme
+
+                # YAML
                 redhat.vscode-yaml
+
+                # Python
+                ms-python.debugpy
+                ms-python.python
+                ms-python.vscode-python-envs
+                meta.pyrefly
+                ms-toolsai.jupyter
               ];
               userSettings = {
                 "terminal.integrated.cursorStyle" = "line";
@@ -78,6 +88,9 @@ in
                 "[yaml]" = {
                   "editor.defaultFormatter" = "redhat.vscode-yaml";
                 };
+
+                # Python
+                "python.languageServer" = "None";
 
                 # RedHat extension
                 "redhat.telemetry.enabled" = false;
