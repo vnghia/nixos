@@ -8,6 +8,8 @@ let
   cfg = config._.cli.programs.uv;
   nixLdCfg = osConfig._.system.packages.nixLd;
   xdgCfg = config.xdg;
+
+  uvDataDirectory = "${xdgCfg.dataHome}/uv";
   uvCacheDirectory = "${xdgCfg.cacheHome}/uv";
 in
 {
@@ -36,7 +38,10 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [ uvCacheDirectory ];
+      system.nixos.impermanence.directories = [
+        uvDataDirectory
+        uvCacheDirectory
+      ];
     };
   };
 }
