@@ -69,7 +69,8 @@ in
                 ms-python.debugpy
                 ms-python.python
                 ms-python.vscode-python-envs
-                meta.pyrefly
+                astral-sh.ty
+                detachhead.basedpyright
                 ms-toolsai.jupyter
               ];
               userSettings = {
@@ -90,7 +91,8 @@ in
                 };
 
                 # Python
-                "python.languageServer" = "None";
+                "python.languageServer" = "Pylance";
+                "ty.disableLanguageServices" = true;
 
                 # RedHat extension
                 "redhat.telemetry.enabled" = false;
