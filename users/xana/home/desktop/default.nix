@@ -1,8 +1,11 @@
 {
   pkgs,
+  config,
   ...
 }:
 let
+  desktopCfg = config._.desktop;
+
   themes = {
     light = "light";
     dark = "dark";
@@ -250,6 +253,27 @@ in
             };
             opacity = {
               terminal = 0.65;
+            };
+          };
+        };
+      };
+
+      services = {
+        syncthing = {
+          folders = {
+            passwords = {
+              id = "keepass";
+              label = "passwords";
+              devices = [
+                "sun"
+                "android"
+              ];
+              path = desktopCfg.programs.keepassxc.directory;
+              type = "sendreceive";
+              versioning = {
+                type = "simple";
+                params.keep = "10";
+              };
             };
           };
         };

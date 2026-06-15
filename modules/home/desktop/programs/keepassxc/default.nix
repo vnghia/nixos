@@ -7,7 +7,6 @@
 let
   cfg = config._.desktop.programs.keepassxc;
   homeCfg = config.home;
-  passwordDirectory = "${homeCfg.homeDirectory}/Documents/Passwords";
 in
 {
   options = with lib; {
@@ -15,6 +14,10 @@ in
       desktop.programs.keepassxc = {
         enable = mkEnableOption "KeepassXC";
         autostart = mkEnableOption "Autostart";
+        directory = mkOption {
+          type = types.path;
+          default = "${homeCfg.homeDirectory}/Documents/Passwords";
+        };
         defaultDatabase = mkOption {
           type = types.nullOr types.str;
           default = null;
@@ -37,7 +40,7 @@ in
                   MinimizeAfterUnlock = true;
                 }
                 (lib.mkIf (cfg.defaultDatabase != null) {
-                  LastActiveDatabase = "${passwordDirectory}/${cfg.defaultDatabase}";
+                  LastActiveDatabase = "${cfg.directory}/${cfg.defaultDatabase}";
                 })
               ];
               Browser = {
@@ -76,7 +79,7 @@ in
 
         _ = {
           system.nixos.impermanence.directories = [
-            passwordDirectory
+            cfg.directory
           ];
         };
       }

@@ -3,6 +3,9 @@
   secrets,
   ...
 }:
+let
+  homeCfg = config.home;
+in
 {
   config = {
     _ = {
@@ -64,6 +67,7 @@
       services = {
         syncthing = {
           enable = true;
+          devices = secrets.services.syncthing.devices;
         };
       };
 
