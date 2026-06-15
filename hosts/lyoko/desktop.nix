@@ -1,5 +1,6 @@
 {
   pkgs,
+  secrets,
   ...
 }:
 {
@@ -23,6 +24,11 @@
           gnome = {
             enable = true;
             stylix = false;
+          };
+        };
+        network = {
+          captive = {
+            interface = secrets.desktop.network.captive.interface;
           };
         };
       };
