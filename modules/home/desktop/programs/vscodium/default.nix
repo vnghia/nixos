@@ -91,7 +91,7 @@ in
                 };
 
                 # Python
-                "python.languageServer" = "Pylance";
+                "python.languageServer" = "None";
                 "ty.disableLanguageServices" = true;
 
                 # RedHat extension
