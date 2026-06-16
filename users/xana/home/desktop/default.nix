@@ -220,12 +220,12 @@ in
             themes = {
               light = {
                 image = ../../../../wallpapers/kde-breeze/light.png;
-                scheme = "humanoid-light";
+                scheme = "ia-light";
                 polarity = "light";
               };
               dark = {
                 image = ../../../../wallpapers/kde-breeze/dark.png;
-                scheme = "humanoid-dark";
+                scheme = "ia-dark";
                 polarity = "dark";
               };
             };
