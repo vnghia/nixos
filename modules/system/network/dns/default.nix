@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -47,5 +48,9 @@ in
         DNSSEC = true;
       };
     };
+
+    environment.systemPackages = with pkgs; [
+      bind
+    ];
   };
 }
