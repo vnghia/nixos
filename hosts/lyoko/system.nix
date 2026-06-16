@@ -15,6 +15,16 @@
           };
           kernel = pkgs.linuxPackages_zen;
         };
+        hardware = {
+          bluetooth = {
+            enable = true;
+            onBoot = true;
+            config = {
+              experimental = true;
+              fastConnectable = true;
+            };
+          };
+        };
         nixos = {
           feature = {
             experimental = {
