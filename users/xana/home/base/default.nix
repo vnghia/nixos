@@ -5,6 +5,7 @@
 }:
 let
   homeCfg = config.home;
+  techDirectory = "${homeCfg.homeDirectory}/Tech";
 in
 {
   config = {
@@ -33,7 +34,7 @@ in
             clean = {
               enable = true;
             };
-            flake = "${config.home.homeDirectory}/code/nixos";
+            flake = "${techDirectory}/code/infrastructure/nixos";
           };
           nixd = {
             enable = true;
@@ -73,7 +74,7 @@ in
 
       system.nixos = {
         impermanence.directories = [
-          "code"
+          techDirectory
         ];
         sops = {
           enable = true;
