@@ -68,10 +68,10 @@ in
                 # Python
                 ms-python.debugpy
                 ms-python.python
-                ms-python.vscode-python-envs
                 astral-sh.ty
                 detachhead.basedpyright
                 ms-toolsai.jupyter
+                charliermarsh.ruff
               ];
               userSettings = {
                 "terminal.integrated.cursorStyle" = "line";
@@ -79,7 +79,8 @@ in
                 "explorer.openEditors.visible" = 10;
                 "editor.formatOnSave" = true;
                 "editor.codeActionsOnSave" = {
-                  "source.organizeImports" = "always";
+                  "source.fixAll" = "explicit";
+                  "source.organizeImports" = "explicit";
                 };
                 "diffEditor.ignoreTrimWhitespace" = false;
                 "workbench.iconTheme" = "material-icon-theme";
@@ -93,6 +94,9 @@ in
                 # Python
                 "python.languageServer" = "None";
                 "ty.disableLanguageServices" = true;
+                "[python]" = {
+                  "editor.defaultFormatter" = "charliermarsh.ruff";
+                };
 
                 # RedHat extension
                 "redhat.telemetry.enabled" = false;
