@@ -24,11 +24,6 @@
               fastConnectable = true;
             };
           };
-          network = {
-            hardwares = [
-              "mt7921"
-            ];
-          };
         };
         nixos = {
           feature = {

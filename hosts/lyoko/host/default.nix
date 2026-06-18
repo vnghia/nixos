@@ -27,6 +27,20 @@
           };
         };
       };
+
+      system = {
+        hardware = {
+          network = {
+            hardwares = [
+              "mt7921"
+            ];
+          };
+        };
+      };
+    };
+
+    hardware.framework.laptop13.audioEnhancement = {
+      enable = true;
     };
   };
 }
