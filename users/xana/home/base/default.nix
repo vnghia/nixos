@@ -12,54 +12,63 @@ in
     _ = {
       cli = {
         programs = {
-          direnv = {
-            enable = true;
-            nix = true;
-          };
-          dust = {
-            enable = true;
-          };
-          eza = {
-            enable = true;
-          };
-          git = {
-            enable = true;
-            user = secrets.cli.programs.git.user;
-          };
-          jq = {
-            enable = true;
-          };
-          just = {
-            enable = true;
-          };
-          nh = {
-            enable = true;
-            clean = {
+          development = {
+            direnv = {
+              enable = true;
+              nix = true;
+            };
+            git = {
+              enable = true;
+              user = secrets.cli.programs.development.git.user;
+            };
+            just = {
               enable = true;
             };
-            flake = "${techDirectory}/code/infrastructure/nixos";
+            nixd = {
+              enable = true;
+            };
+            nixfmt = {
+              enable = true;
+            };
+            uv = {
+              enable = true;
+            };
           };
-          nixd = {
-            enable = true;
+          shell = {
+            eza = {
+              enable = true;
+            };
+            starship = {
+              enable = true;
+            };
+            zellij = {
+              enable = true;
+            };
+            zoxide = {
+              enable = true;
+            };
           };
-          nixfmt = {
-            enable = true;
+          system = {
+            nh = {
+              enable = true;
+              clean = {
+                enable = true;
+              };
+              flake = "${techDirectory}/code/infrastructure/nixos";
+            };
           };
-          starship = {
-            enable = true;
+          utility = {
+            dust = {
+              enable = true;
+            };
+            jq = {
+              enable = true;
+            };
+            vim = {
+              enable = true;
+            };
           };
-          uv = {
-            enable = true;
-          };
-          vim = {
-            enable = true;
-          };
-          zellij = {
-            enable = true;
-          };
-          zoxide = {
-            enable = true;
-          };
+
         };
         security = {
           ssh = {
