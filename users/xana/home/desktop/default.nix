@@ -216,16 +216,16 @@ in
         };
         theming = {
           stylix = {
-            default = "light";
+            default = "dark";
             themes = {
               light = {
                 image = ../../../../wallpapers/kde-breeze/light.png;
-                scheme = "ia-light";
+                scheme = "google-light";
                 polarity = "light";
               };
               dark = {
                 image = ../../../../wallpapers/kde-breeze/dark.png;
-                scheme = "ia-dark";
+                scheme = "google-dark";
                 polarity = "dark";
               };
             };
