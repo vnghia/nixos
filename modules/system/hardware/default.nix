@@ -5,6 +5,7 @@
 {
   imports = [
     ./bluetooth
+    ./network
   ];
 
   config = {
