@@ -16,6 +16,9 @@ in
             enable = true;
             nix = true;
           };
+          dust = {
+            enable = true;
+          };
           eza = {
             enable = true;
           };

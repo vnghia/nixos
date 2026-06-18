@@ -1,6 +1,7 @@
 {
   imports = [
     ./direnv
+    ./dust
     ./eza
     ./git
     ./jq
