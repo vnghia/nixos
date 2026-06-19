@@ -60,10 +60,8 @@ in
           desktop.programs.vscodium = {
             base = {
               extensions = with pkgs.nix-vscode-extensions.open-vsx; [
+                # Theme
                 pkief.material-icon-theme
-
-                # YAML
-                redhat.vscode-yaml
 
                 # Python
                 ms-python.debugpy
@@ -72,6 +70,12 @@ in
                 detachhead.basedpyright
                 ms-toolsai.jupyter
                 charliermarsh.ruff
+
+                # YAML
+                redhat.vscode-yaml
+
+                # TOML
+                tamasfe.even-better-toml
               ];
               userSettings = {
                 "terminal.integrated.cursorStyle" = "line";
@@ -85,17 +89,22 @@ in
                 "diffEditor.ignoreTrimWhitespace" = false;
                 "workbench.iconTheme" = "material-icon-theme";
 
+                # Python
+                "python.languageServer" = "None";
+                "ty.disableLanguageServices" = true;
+                "[python]" = {
+                  "editor.defaultFormatter" = "charliermarsh.ruff";
+                };
+
                 # YAML
                 "yaml.format.enable" = true;
                 "[yaml]" = {
                   "editor.defaultFormatter" = "redhat.vscode-yaml";
                 };
 
-                # Python
-                "python.languageServer" = "None";
-                "ty.disableLanguageServices" = true;
-                "[python]" = {
-                  "editor.defaultFormatter" = "charliermarsh.ruff";
+                # TOML
+                "[toml]" = {
+                  "editor.defaultFormatter" = "tamasfe.even-better-toml";
                 };
 
                 # RedHat extension
