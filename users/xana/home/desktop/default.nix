@@ -262,7 +262,7 @@ in
         syncthing = {
           folders = {
             passwords = {
-              id = "keepass";
+              id = "passwords";
               label = "passwords";
               devices = [
                 "sun"
