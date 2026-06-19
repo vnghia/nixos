@@ -4,12 +4,12 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.utility.jq;
+  cfg = config._.cli.programs.data.jq;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.utility.jq = {
+      cli.programs.data.jq = {
         enable = mkEnableOption "Jq";
       };
     };

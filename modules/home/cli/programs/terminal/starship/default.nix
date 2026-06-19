@@ -4,12 +4,12 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.shell.starship;
+  cfg = config._.cli.programs.terminal.starship;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.shell.starship = {
+      cli.programs.terminal.starship = {
         enable = mkEnableOption "Starship";
       };
     };

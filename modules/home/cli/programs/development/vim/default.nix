@@ -4,12 +4,12 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.utility.vim;
+  cfg = config._.cli.programs.development.vim;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.utility.vim = {
+      cli.programs.development.vim = {
         enable = mkEnableOption "Vim";
       };
     };

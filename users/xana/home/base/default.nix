@@ -12,6 +12,14 @@ in
     _ = {
       cli = {
         programs = {
+          data = {
+            jq = {
+              enable = true;
+            };
+            rclone = {
+              enable = true;
+            };
+          };
           development = {
             direnv = {
               enable = true;
@@ -33,11 +41,26 @@ in
             uv = {
               enable = true;
             };
+            vim = {
+              enable = true;
+            };
           };
-          shell = {
+          system = {
+            dust = {
+              enable = true;
+            };
             eza = {
               enable = true;
             };
+            nh = {
+              enable = true;
+              clean = {
+                enable = true;
+              };
+              flake = "${techDirectory}/code/infrastructure/nixos";
+            };
+          };
+          terminal = {
             starship = {
               enable = true;
             };
@@ -48,30 +71,6 @@ in
               enable = true;
             };
           };
-          system = {
-            nh = {
-              enable = true;
-              clean = {
-                enable = true;
-              };
-              flake = "${techDirectory}/code/infrastructure/nixos";
-            };
-          };
-          utility = {
-            dust = {
-              enable = true;
-            };
-            jq = {
-              enable = true;
-            };
-            rclone = {
-              enable = true;
-            };
-            vim = {
-              enable = true;
-            };
-          };
-
         };
         security = {
           ssh = {

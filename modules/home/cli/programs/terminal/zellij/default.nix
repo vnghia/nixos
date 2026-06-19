@@ -5,14 +5,14 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.shell.zellij;
+  cfg = config._.cli.programs.terminal.zellij;
   shellCfg = osConfig._.system.shell;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.shell.zellij = {
+      cli.programs.terminal.zellij = {
         enable = mkEnableOption "Zellij";
       };
     };

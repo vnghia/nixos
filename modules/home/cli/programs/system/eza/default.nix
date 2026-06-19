@@ -4,13 +4,13 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.shell.eza;
+  cfg = config._.cli.programs.system.eza;
   gitCfg = config._.cli.programs.development.git;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.shell.eza = {
+      cli.programs.system.eza = {
         enable = mkEnableOption "Eza";
       };
     };

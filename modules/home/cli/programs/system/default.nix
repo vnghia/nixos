@@ -1,5 +1,7 @@
 {
   imports = [
+    ./dust
+    ./eza
     ./nh
   ];
 }

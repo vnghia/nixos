@@ -6,5 +6,6 @@
     ./nixd
     ./nixfmt
     ./uv
+    ./vim
   ];
 }

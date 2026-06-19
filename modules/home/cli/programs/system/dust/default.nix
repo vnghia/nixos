@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.utility.dust;
+  cfg = config._.cli.programs.system.dust;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.utility.dust = {
+      cli.programs.system.dust = {
         enable = mkEnableOption "Dust";
       };
     };

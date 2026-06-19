@@ -1,8 +1,8 @@
 {
   imports = [
+    ./data
     ./development
-    ./shell
     ./system
-    ./utility
+    ./terminal
   ];
 }

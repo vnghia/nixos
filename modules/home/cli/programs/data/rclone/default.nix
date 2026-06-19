@@ -4,13 +4,13 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.utility.rclone;
+  cfg = config._.cli.programs.data.rclone;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.utility.rclone = {
+      cli.programs.data.rclone = {
         enable = mkEnableOption "Rclone";
       };
     };

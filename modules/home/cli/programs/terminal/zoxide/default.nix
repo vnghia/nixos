@@ -4,13 +4,13 @@
   ...
 }:
 let
-  cfg = config._.cli.programs.shell.zoxide;
+  cfg = config._.cli.programs.terminal.zoxide;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      cli.programs.shell.zoxide = {
+      cli.programs.terminal.zoxide = {
         enable = mkEnableOption "Zoxide";
       };
     };
