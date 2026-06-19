@@ -64,6 +64,9 @@ in
             jq = {
               enable = true;
             };
+            rclone = {
+              enable = true;
+            };
             vim = {
               enable = true;
             };
