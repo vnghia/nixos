@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.keepassxc;
+  cfg = config._.desktop.programs.productivity.keepassxc;
   homeCfg = config.home;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.keepassxc = {
+      desktop.programs.productivity.keepassxc = {
         enable = mkEnableOption "KeepassXC";
         autostart = mkEnableOption "Autostart";
         directory = mkOption {

@@ -6,12 +6,12 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.nautilus;
+  cfg = config._.desktop.programs.productivity.nautilus;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.nautilus = {
+      desktop.programs.productivity.nautilus = {
         enable = mkEnableOption "Nautilus";
       }
       // customLib.home.desktop.programs.favorite.mkOption;

@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.mpv;
+  cfg = config._.desktop.programs.media.mpv;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.mpv = {
+      desktop.programs.media.mpv = {
         enable = mkEnableOption "Mpv";
       }
       // customLib.home.desktop.programs.favorite.mkOption;

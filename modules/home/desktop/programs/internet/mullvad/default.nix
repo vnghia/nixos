@@ -6,14 +6,14 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.mullvad;
+  cfg = config._.desktop.programs.internet.mullvad;
   osCfg = osConfig._.network.vpn.mullvad;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.mullvad = {
+      desktop.programs.internet.mullvad = {
         enable = mkEnableOption "Mullvad";
         autostart = mkEnableOption "Autostart";
       };

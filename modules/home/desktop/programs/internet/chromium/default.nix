@@ -6,14 +6,14 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.chromium;
-  keepassxcCfg = config._.desktop.programs.keepassxc;
+  cfg = config._.desktop.programs.internet.chromium;
+  keepassxcCfg = config._.desktop.programs.productivity.keepassxc;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.chromium = {
+      desktop.programs.internet.chromium = {
         enable = mkEnableOption "Chromium";
       }
       // customLib.home.desktop.programs.favorite.mkOption;

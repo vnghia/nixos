@@ -134,7 +134,9 @@ in
     };
 
     _ = {
-      desktop.programs.vscodium.base.extensions = [ pkgs.nix-vscode-extensions.open-vsx.eamodio.gitlens ];
+      desktop.programs.development.vscodium.base.extensions = [
+        pkgs.nix-vscode-extensions.open-vsx.eamodio.gitlens
+      ];
     };
   };
 }

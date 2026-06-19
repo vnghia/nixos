@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.alacritty;
+  cfg = config._.desktop.programs.development.alacritty;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.alacritty = {
+      desktop.programs.development.alacritty = {
         enable = mkEnableOption "Alacritty";
       }
       // customLib.home.desktop.programs.favorite.mkOption
@@ -102,7 +102,7 @@ in
       (customLib.home.desktop.theming.stylix.mkConfig "alacritty" cfg)
       {
         _ = {
-          desktop.programs.alacritty.stylix.config = {
+          desktop.programs.development.alacritty.stylix.config = {
             colors.enable = false;
             fonts.enable = true;
             opacity.enable = true;

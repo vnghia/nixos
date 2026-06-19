@@ -22,7 +22,7 @@ in
     _ = {
       cli.programs.development.nixfmt.enable = true;
 
-      desktop.programs.vscodium.base = {
+      desktop.programs.development.vscodium.base = {
         extensions = [ pkgs.nix-vscode-extensions.open-vsx.jnoortheen.nix-ide ];
         userSettings = {
           "nix.enableLanguageServer" = true;

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.vscodium;
+  cfg = config._.desktop.programs.development.vscodium;
   xdgCfg = config.xdg;
 
   profile =
@@ -27,7 +27,7 @@ in
 {
   options = with lib; {
     _ = {
-      desktop.programs.vscodium = {
+      desktop.programs.development.vscodium = {
         enable = mkEnableOption "VsCodium";
         base = mkOption {
           type = profile;
@@ -57,7 +57,7 @@ in
         };
 
         _ = {
-          desktop.programs.vscodium = {
+          desktop.programs.development.vscodium = {
             base = {
               extensions = with pkgs.nix-vscode-extensions.open-vsx; [
                 # Theme
@@ -126,7 +126,7 @@ in
       (customLib.home.desktop.theming.stylix.mkConfig "vscodium" cfg)
       {
         _ = {
-          desktop.programs.vscodium = {
+          desktop.programs.development.vscodium = {
             stylix.config = {
               colors.enable = true;
               fonts.enable = true;

@@ -117,91 +117,101 @@ in
           };
         };
         programs = {
-          alacritty = {
-            enable = true;
-            stylix = {
+          communication = {
+            signal-desktop = {
               enable = true;
-              config = {
-                fonts.override.sizes.terminal = 12;
-              };
             };
-            favorite = 10;
-          };
-          chromium = {
-            enable = true;
-          };
-          keepassxc = {
-            enable = true;
-            autostart = true;
-            defaultDatabase = "me.kdbx";
-          };
-          mpv = {
-            enable = true;
-          };
-          mullvad = {
-            enable = true;
-            autostart = true;
-          };
-          nautilus = {
-            enable = true;
-            favorite = 50;
-          };
-          obsidian = {
-            enable = true;
-            stylix = {
+            thunderbird = {
               enable = true;
-              config = {
-                fonts.override.sizes.applications = 16;
-                vaultNames = [
-                  "me"
-                ];
+              default = true;
+              profiles = {
+                me = {
+                  isDefault = true;
+                };
               };
-            };
-            vaults = {
-              me = { };
+              favorite = 100;
             };
           };
-          signal-desktop = {
-            enable = true;
-          };
-          tailscale = {
-            enable = true;
-          };
-          thunderbird = {
-            enable = true;
-            default = true;
-            profiles = {
-              me = {
-                isDefault = true;
-              };
-            };
-            favorite = 100;
-          };
-          zen-browser = {
-            enable = true;
-            default = true;
-            profiles = {
-              me = {
-                isDefault = true;
-              };
-            };
-            stylix = {
+          development = {
+            alacritty = {
               enable = true;
-              config = {
-                profileNames = [ "me" ];
+              stylix = {
+                enable = true;
+                config = {
+                  fonts.override.sizes.terminal = 12;
+                };
               };
+              favorite = 10;
             };
-            favorite = 1;
-          };
-          vscodium = {
-            enable = true;
-            stylix = {
+            vscodium = {
               enable = true;
-              config = {
-                fonts.override.sizes.terminal = 10.5;
+              stylix = {
+                enable = true;
+                config = {
+                  fonts.override.sizes.terminal = 10.5;
+                };
+              };
+              favorite = 5;
+            };
+          };
+          internet = {
+            chromium = {
+              enable = true;
+            };
+            mullvad = {
+              enable = true;
+              autostart = true;
+            };
+            tailscale = {
+              enable = true;
+            };
+            zen-browser = {
+              enable = true;
+              default = true;
+              profiles = {
+                me = {
+                  isDefault = true;
+                };
+              };
+              stylix = {
+                enable = true;
+                config = {
+                  profileNames = [ "me" ];
+                };
+              };
+              favorite = 1;
+            };
+          };
+          media = {
+            mpv = {
+              enable = true;
+            };
+          };
+          productivity = {
+            keepassxc = {
+              enable = true;
+              autostart = true;
+              defaultDatabase = "me.kdbx";
+            };
+            nautilus = {
+              enable = true;
+              favorite = 50;
+            };
+            obsidian = {
+              enable = true;
+              stylix = {
+                enable = true;
+                config = {
+                  fonts.override.sizes.applications = 16;
+                  vaultNames = [
+                    "me"
+                  ];
+                };
+              };
+              vaults = {
+                me = { };
               };
             };
-            favorite = 5;
           };
         };
         security = {
@@ -268,7 +278,7 @@ in
                 "sun"
                 "android"
               ];
-              path = desktopCfg.programs.keepassxc.directory;
+              path = desktopCfg.programs.productivity.keepassxc.directory;
               type = "sendreceive";
               versioning = {
                 type = "simple";

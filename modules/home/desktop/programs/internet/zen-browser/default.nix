@@ -6,14 +6,14 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.zen-browser;
-  keepassxcCfg = config._.desktop.programs.keepassxc;
+  cfg = config._.desktop.programs.internet.zen-browser;
+  keepassxcCfg = config._.desktop.programs.productivity.keepassxc;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.zen-browser = {
+      desktop.programs.internet.zen-browser = {
         enable = mkEnableOption "Zen Browser";
         default = mkEnableOption "Default";
         profiles = mkOption {
@@ -50,7 +50,7 @@ in
       (customLib.home.desktop.theming.stylix.mkConfig "zen-browser" cfg)
       {
         _ = {
-          desktop.programs.zen-browser.stylix.config = {
+          desktop.programs.internet.zen-browser.stylix.config = {
             enableCss = true;
           };
         };

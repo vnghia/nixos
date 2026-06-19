@@ -6,13 +6,13 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.signal-desktop;
+  cfg = config._.desktop.programs.communication.signal-desktop;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.signal-desktop = {
+      desktop.programs.communication.signal-desktop = {
         enable = mkEnableOption "Signal Desktop";
       }
       // customLib.home.desktop.programs.favorite.mkOption;

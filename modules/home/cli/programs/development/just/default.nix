@@ -23,7 +23,7 @@ in
     ];
 
     _ = {
-      desktop.programs.vscodium.base = {
+      desktop.programs.development.vscodium.base = {
         extensions = [ pkgs.nix-vscode-extensions.open-vsx.nefrob.vscode-just-syntax ];
         userSettings = {
           "[just]" = {

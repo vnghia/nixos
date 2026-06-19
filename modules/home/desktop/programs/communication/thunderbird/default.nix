@@ -6,14 +6,14 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.thunderbird;
+  cfg = config._.desktop.programs.communication.thunderbird;
   emailCfg = config._.user.email;
   desktop = "thunderbird.desktop";
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.thunderbird = {
+      desktop.programs.communication.thunderbird = {
         enable = mkEnableOption "Thunderbird";
         birdtray = mkEnableOption "Birdtray";
         default = mkEnableOption "Default";

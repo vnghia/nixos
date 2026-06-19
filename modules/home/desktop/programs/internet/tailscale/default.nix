@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.tailscale;
+  cfg = config._.desktop.programs.internet.tailscale;
   osCfg = osConfig._.network.vpn.tailscale;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.tailscale = {
+      desktop.programs.internet.tailscale = {
         enable = mkEnableOption "Tailscale";
       };
     };

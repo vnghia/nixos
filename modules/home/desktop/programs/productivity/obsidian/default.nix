@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config._.desktop.programs.obsidian;
+  cfg = config._.desktop.programs.productivity.obsidian;
   xdgCfg = config.xdg;
 in
 {
   options = with lib; {
     _ = {
-      desktop.programs.obsidian = {
+      desktop.programs.productivity.obsidian = {
         enable = mkEnableOption "Obsidian";
         vaults = mkOption { type = types.attrsOf types.anything; };
       }
@@ -41,7 +41,7 @@ in
       (customLib.home.desktop.theming.stylix.mkConfig "obsidian" cfg)
       {
         _ = {
-          desktop.programs.obsidian.stylix.config = {
+          desktop.programs.productivity.obsidian.stylix.config = {
             colors.enable = true;
             fonts.enable = true;
             polarity.enable = true;
