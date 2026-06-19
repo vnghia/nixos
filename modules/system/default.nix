@@ -9,5 +9,6 @@
     ./nixos
     ./security
     ./shell
+    ./virtualization
   ];
 }

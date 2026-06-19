@@ -52,6 +52,11 @@
             abrmd = true;
           };
         };
+        virtualization = {
+          qemu = {
+            enable = true;
+          };
+        };
       };
     };
   };
