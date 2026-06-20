@@ -23,6 +23,10 @@ in
           type = types.attrsOf (
             types.submodule {
               options = {
+                homeMode = mkOption {
+                  type = types.str;
+                  default = "0700";
+                };
                 shell = mkOption { type = types.enum [ "zsh" ]; };
                 groups = {
                   wheel = mkEnableOption "Wheel";
@@ -44,8 +48,14 @@ in
 
       users.users = lib.mapAttrs (userName: userCfg: {
         isNormalUser = true;
-        shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
+
+        createHome = true;
+        home = "/home/${userName}";
+        homeMode = userCfg.homeMode;
         hashedPasswordFile = "${cfg.hashedPasswordDirectory}/${userName}";
+
+        shell = if userCfg.shell == "zsh" then pkgs.zsh else null;
+
         extraGroups =
           (if userCfg.groups.wheel then [ "wheel" ] else [ ])
           ++ (if networkCfg.networkManager.enable then [ "networkmanager" ] else [ ])
@@ -53,13 +63,21 @@ in
       }) cfg.users;
 
       systemd.tmpfiles.settings = {
-        "10-hashed-password" = {
+        "99-lock-hashed-password" = {
           ${cfg.hashedPasswordDirectory} = {
             Z = {
-              mode = "0600";
+              mode = "0000";
             };
           };
         };
+        "99-set-home-directory-mode" = lib.mapAttrs' (
+          userName: userCfg:
+          lib.nameValuePair "/home/${userName}" {
+            z = {
+              mode = userCfg.homeMode;
+            };
+          }
+        ) cfg.users;
       };
 
       home-manager = {
