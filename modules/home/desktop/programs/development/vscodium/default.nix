@@ -76,6 +76,9 @@ in
 
                 # TOML
                 tamasfe.even-better-toml
+
+                # XML
+                redhat.vscode-xml
               ];
               userSettings = {
                 "terminal.integrated.cursorStyle" = "line";
@@ -105,6 +108,11 @@ in
                 # TOML
                 "[toml]" = {
                   "editor.defaultFormatter" = "tamasfe.even-better-toml";
+                };
+
+                # XML
+                "[xml]" = {
+                  "editor.defaultFormatter" = "redhat.vscode-xml";
                 };
 
                 # RedHat extension
