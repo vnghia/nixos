@@ -1,6 +1,6 @@
 {
   imports = [
-    ./jq
-    ./rclone
+    ./jq.nix
+    ./rclone.nix
   ];
 }

@@ -4,9 +4,10 @@
 }:
 {
   imports = [
-    ./dns
-    ./network-manager
     ./vpn
+
+    ./dns.nix
+    ./network-manager.nix
   ];
 
   config = {

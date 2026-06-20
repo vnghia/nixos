@@ -1,8 +1,8 @@
 {
   imports = [
-    ./chromium
-    ./mullvad
-    ./tailscale
-    ./zen-browser
+    ./chromium.nix
+    ./mullvad.nix
+    ./tailscale.nix
+    ./zen-browser.nix
   ];
 }

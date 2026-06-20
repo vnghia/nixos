@@ -1,5 +1,5 @@
 {
   imports = [
-    ./email
+    ./email.nix
   ];
 }

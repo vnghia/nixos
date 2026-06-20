@@ -8,8 +8,8 @@ let
 in
 {
   imports = [
-    ./mullvad
-    ./tailscale
+    ./mullvad.nix
+    ./tailscale.nix
   ];
 
   options = with lib; {

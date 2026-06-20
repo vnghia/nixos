@@ -1,6 +1,6 @@
 {
   imports = [
-    ../base
+    ./base.nix
   ];
 
   config = {
@@ -8,7 +8,7 @@
       users = {
         users = {
           xana = {
-            home = ../home/desktop;
+            home = ./home/desktop.nix;
           };
         };
       };

@@ -1,7 +1,7 @@
 {
   imports = [
-    ./dust
-    ./eza
-    ./nh
+    ./dust.nix
+    ./eza.nix
+    ./nh.nix
   ];
 }

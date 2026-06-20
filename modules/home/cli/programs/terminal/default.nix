@@ -1,7 +1,7 @@
 {
   imports = [
-    ./starship
-    ./zellij
-    ./zoxide
+    ./starship.nix
+    ./zellij.nix
+    ./zoxide.nix
   ];
 }

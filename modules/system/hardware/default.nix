@@ -4,8 +4,9 @@
 }:
 {
   imports = [
-    ./bluetooth
     ./network
+
+    ./bluetooth.nix
   ];
 
   config = {

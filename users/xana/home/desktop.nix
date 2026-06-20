@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    ../base
+    ./base.nix
   ];
 
   config = {
@@ -229,12 +229,12 @@ in
             default = "dark";
             themes = {
               light = {
-                image = ../../../../wallpapers/kde-breeze/light.png;
+                image = ../../../wallpapers/kde-breeze/light.png;
                 scheme = "google-light";
                 polarity = "light";
               };
               dark = {
-                image = ../../../../wallpapers/kde-breeze/dark.png;
+                image = ../../../wallpapers/kde-breeze/dark.png;
                 scheme = "google-dark";
                 polarity = "dark";
               };

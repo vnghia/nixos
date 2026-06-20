@@ -1,6 +1,6 @@
 {
   imports = [
-    ./darkman
-    ./stylix
+    ./darkman.nix
+    ./stylix.nix
   ];
 }

@@ -1,5 +1,5 @@
 {
   imports = [
-    ./qemu
+    ./qemu.nix
   ];
 }

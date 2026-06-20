@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    ./fcitx5
+    ./fcitx5.nix
   ];
 
   options = with lib; {

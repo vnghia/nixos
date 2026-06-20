@@ -1,6 +1,6 @@
 {
   imports = [
-    ./signal-desktop
-    ./thunderbird
+    ./signal-desktop.nix
+    ./thunderbird.nix
   ];
 }

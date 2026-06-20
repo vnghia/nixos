@@ -1,6 +1,6 @@
 {
   imports = [
-    ./alacritty
-    ./vscodium
+    ./alacritty.nix
+    ./vscodium.nix
   ];
 }

@@ -1,7 +1,7 @@
 {
   imports = [
-    ./keepassxc
-    ./nautilus
-    ./obsidian
+    ./keepassxc.nix
+    ./nautilus.nix
+    ./obsidian.nix
   ];
 }

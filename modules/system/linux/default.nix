@@ -1,6 +1,6 @@
 {
   imports = [
-    ./dbus
-    ./kernel
+    ./dbus.nix
+    ./kernel.nix
   ];
 }

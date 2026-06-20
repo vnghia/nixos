@@ -1,7 +1,7 @@
 {
   imports = [
-    ./feature
-    ./impermanence
-    ./sops
+    ./feature.nix
+    ./impermanence.nix
+    ./sops.nix
   ];
 }

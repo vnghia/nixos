@@ -1,5 +1,5 @@
 {
   imports = [
-    ./ssh
+    ./ssh.nix
   ];
 }

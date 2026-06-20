@@ -138,7 +138,9 @@
                     sops.defaultSopsFile = ./secrets/hosts/${name}/run/secrets.yaml;
                   }
                   {
-                    imports = lib.mapAttrsToList (userName: userFlavor: ./users/${userName}/${userFlavor}) value.users;
+                    imports = lib.mapAttrsToList (
+                      userName: userFlavor: ./users/${userName} + "/${userFlavor}.nix"
+                    ) value.users;
                   }
                 ];
               };
