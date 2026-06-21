@@ -11,6 +11,7 @@
             groups = {
               wheel = true;
               networkManager = true;
+              qemu = true;
               tpm2 = true;
             };
           };

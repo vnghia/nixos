@@ -9,6 +9,7 @@
 let
   cfg = config._.users;
   networkCfg = config._.network;
+  virtualizationCfg = config._.system.virtualization;
   tpm2Cfg = config._.system.security.tpm2;
 in
 {
@@ -31,6 +32,7 @@ in
                 groups = {
                   wheel = mkEnableOption "Wheel";
                   networkManager = mkEnableOption "Network Manager";
+                  qemu = mkEnableOption "QEMU";
                   tpm2 = mkEnableOption "TPM2";
                 };
                 home = mkOption { type = types.path; };
@@ -58,8 +60,14 @@ in
 
         extraGroups =
           (if userCfg.groups.wheel then [ "wheel" ] else [ ])
-          ++ (if networkCfg.networkManager.enable then [ "networkmanager" ] else [ ])
-          ++ (if tpm2Cfg.enable then [ "tss" ] else [ ]);
+          ++ (
+            if (userCfg.groups.networkManager && networkCfg.networkManager.enable) then
+              [ "networkmanager" ]
+            else
+              [ ]
+          )
+          ++ (if (userCfg.groups.qemu && virtualizationCfg.qemu.enable) then [ "libvirtd" ] else [ ])
+          ++ (if (userCfg.groups.tpm2 && tpm2Cfg.enable) then [ "tss" ] else [ ]);
       }) cfg.users;
 
       systemd.tmpfiles.settings = {
