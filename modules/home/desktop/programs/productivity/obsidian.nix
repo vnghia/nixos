@@ -6,7 +6,10 @@
 }:
 let
   cfg = config._.desktop.programs.productivity.obsidian;
+  userXdgCfg = config._.user.xdg;
   xdgCfg = config.xdg;
+
+  mkObsidianTarget = name: "${userXdgCfg.directories.documents}/obsidian/${name}";
 in
 {
   options = with lib; {
@@ -27,13 +30,16 @@ in
           enable = true;
           vaults = lib.mkMerge [
             cfg.vaults
-            (lib.mapAttrs (name: _: { target = "Documents/Obsidian/${name}"; }) cfg.vaults)
+            (lib.mapAttrs (name: _: {
+              target = mkObsidianTarget name;
+            }) cfg.vaults)
           ];
         };
 
         _ = {
           system.nixos.impermanence.directories = [
             "${xdgCfg.configHome}/obsidian"
+            "${userXdgCfg.directories.documents}/obsidian"
           ];
         };
       }

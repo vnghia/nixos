@@ -288,6 +288,23 @@ in
           };
         };
       };
+
+      user = {
+        xdg = {
+          enable = true;
+          directories = {
+            desktop = "desktop";
+            documents = "documents";
+            download = "download";
+            music = "media/music";
+            pictures = "media/pictures";
+            videos = "media/videos";
+            projects = null;
+            publicShare = null;
+            templates = null;
+          };
+        };
+      };
     };
   };
 }

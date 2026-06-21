@@ -5,7 +5,7 @@
 }:
 let
   homeCfg = config.home;
-  techDirectory = "${homeCfg.homeDirectory}/Tech";
+  techDirectory = "${homeCfg.homeDirectory}/tech";
 in
 {
   config = {

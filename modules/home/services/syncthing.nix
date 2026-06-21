@@ -5,6 +5,7 @@
 }:
 let
   cfg = config._.services.syncthing;
+  homeCfg = config.home;
   xdgCfg = config.xdg;
 in
 {
@@ -35,7 +36,13 @@ in
           urAccepted = -1;
         };
         devices = cfg.devices;
-        folders = cfg.folders;
+        folders = lib.mapAttrs (
+          name: folder:
+          lib.mkMerge [
+            folder
+            { path = lib.mkForce "${homeCfg.homeDirectory}/${folder.path}"; }
+          ]
+        ) cfg.folders;
       };
       tray = {
         enable = cfg.tray;
@@ -43,7 +50,9 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [ "${xdgCfg.stateHome}/syncthing" ];
+      system.nixos.impermanence.directories = [
+        "${xdgCfg.stateHome}/syncthing"
+      ];
     };
   };
 }

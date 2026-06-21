@@ -6,6 +6,7 @@
 }:
 let
   cfg = config._.desktop.programs.productivity.keepassxc;
+  userXdgCfg = config._.user.xdg;
   homeCfg = config.home;
 in
 {
@@ -15,8 +16,8 @@ in
         enable = mkEnableOption "KeepassXC";
         autostart = mkEnableOption "Autostart";
         directory = mkOption {
-          type = types.path;
-          default = "${homeCfg.homeDirectory}/Documents/Passwords";
+          type = types.str;
+          default = "${userXdgCfg.directories.documents}/passwords";
         };
         defaultDatabase = mkOption {
           type = types.nullOr types.str;
@@ -40,7 +41,7 @@ in
                   MinimizeAfterUnlock = true;
                 }
                 (lib.mkIf (cfg.defaultDatabase != null) {
-                  LastActiveDatabase = "${cfg.directory}/${cfg.defaultDatabase}";
+                  LastActiveDatabase = "${homeCfg.homeDirectory}/${cfg.directory}/${cfg.defaultDatabase}";
                 })
               ];
               Browser = {

@@ -55,13 +55,6 @@ in
     _ = {
       system.nixos.impermanence = {
         directories = [
-          "Documents"
-          "Downloads"
-          "Music"
-          "Pictures"
-          "Projects"
-          "Videos"
-
           # Audio
           "${xdgCfg.stateHome}/wireplumber"
 
