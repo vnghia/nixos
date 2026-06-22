@@ -4,7 +4,7 @@
     ./desktop
     ./hardware
     ./filesystem
-    ./packages
+    ./programs
     ./network
     ./linux
     ./nixos

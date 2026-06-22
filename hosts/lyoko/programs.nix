@@ -4,7 +4,7 @@
 {
   config = {
     _ = {
-      packages = {
+      programs = {
         gvfs = {
           enable = true;
         };

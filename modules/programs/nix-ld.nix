@@ -4,12 +4,12 @@
   ...
 }:
 let
-  cfg = config._.packages.nixLd;
+  cfg = config._.programs.nixLd;
 in
 {
   options = with lib; {
     _ = {
-      packages.nixLd = {
+      programs.nixLd = {
         enable = mkEnableOption "Nix-ld";
       };
     };
