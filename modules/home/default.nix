@@ -17,6 +17,7 @@ in
     ./shell
     ./specialisation
     ./user
+    ./virtualisation
   ];
 
   options = with lib; {
