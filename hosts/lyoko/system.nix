@@ -55,6 +55,8 @@
         virtualization = {
           qemu = {
             enable = true;
+            onBoot = "ignore";
+            onShutdown = "suspend";
           };
         };
       };
