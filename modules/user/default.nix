@@ -9,7 +9,7 @@
 let
   cfg = config._.users;
   networkCfg = config._.network;
-  virtualizationCfg = config._.system.virtualization;
+  virtualisationCfg = config._.system.virtualisation;
   tpm2Cfg = config._.system.security.tpm2;
 in
 {
@@ -66,7 +66,7 @@ in
             else
               [ ]
           )
-          ++ (if (userCfg.groups.qemu && virtualizationCfg.qemu.enable) then [ "libvirtd" ] else [ ])
+          ++ (if (userCfg.groups.qemu && virtualisationCfg.qemu.enable) then [ "libvirtd" ] else [ ])
           ++ (if (userCfg.groups.tpm2 && tpm2Cfg.enable) then [ "tss" ] else [ ]);
       }) cfg.users;
 

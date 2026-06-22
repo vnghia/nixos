@@ -52,7 +52,7 @@
             abrmd = true;
           };
         };
-        virtualization = {
+        virtualisation = {
           qemu = {
             enable = true;
             onBoot = "ignore";

@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config._.system.virtualization.qemu;
+  cfg = config._.system.virtualisation.qemu;
   tpmCfg = config._.system.security.tpm2;
 in
 {
   options = with lib; {
     _ = {
-      system.virtualization.qemu = {
+      system.virtualisation.qemu = {
         enable = mkEnableOption "QEMU";
         onBoot = mkOption {
           type = types.enum [
