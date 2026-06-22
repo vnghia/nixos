@@ -8,6 +8,7 @@
 let
   cfg = config._.desktop.programs.communication.thunderbird;
   emailCfg = config._.user.email;
+  homeCfg = config.home;
   desktop = "thunderbird.desktop";
 in
 {
@@ -50,7 +51,9 @@ in
         };
 
         _ = {
-          system.nixos.impermanence.directories = [ ".thunderbird" ];
+          nixos.impermanence.directories = [
+            "${homeCfg.homeDirectory}/.thunderbird"
+          ];
 
           user.email.accounts.config = lib.concatMapAttrs (
             profile: accounts:

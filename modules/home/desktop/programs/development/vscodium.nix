@@ -124,7 +124,7 @@ in
             };
           };
 
-          system.nixos.impermanence.directories = [
+          nixos.impermanence.directories = [
             "${xdgCfg.configHome}/VSCodium"
             "${xdgCfg.stateHome}/VSCodium"
           ];

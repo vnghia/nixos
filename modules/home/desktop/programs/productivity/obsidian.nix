@@ -37,7 +37,7 @@ in
         };
 
         _ = {
-          system.nixos.impermanence.directories = [
+          nixos.impermanence.directories = [
             "${xdgCfg.configHome}/obsidian"
             "${userXdgCfg.directories.documents}/obsidian"
           ];

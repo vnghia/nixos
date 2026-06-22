@@ -6,7 +6,7 @@
 }:
 let
   cfg = config._.cli.programs.terminal.zellij;
-  shellCfg = osConfig._.system.shell;
+  shellCfg = osConfig._.shell;
   xdgCfg = config.xdg;
 in
 {
@@ -31,7 +31,9 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [ "${xdgCfg.cacheHome}/zellij" ];
+      nixos.impermanence.directories = [
+        "${xdgCfg.cacheHome}/zellij"
+      ];
     };
   };
 }

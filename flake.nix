@@ -111,7 +111,7 @@
                   inherit inputs;
                   inherit customLib;
                   secrets =
-                    customLib.system.nixos.sops.mkSecrets pkgs "host-build-secrets-${name}"
+                    customLib.nixos.sops.mkSecrets pkgs "host-build-secrets-${name}"
                       ./secrets/hosts/${name}/build/secrets.yaml;
                 };
                 modules = [

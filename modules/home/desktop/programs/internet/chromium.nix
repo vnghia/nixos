@@ -30,7 +30,7 @@ in
         };
 
         _ = {
-          system.nixos.impermanence.directories = [
+          nixos.impermanence.directories = [
             "${xdgCfg.configHome}/chromium"
             "${xdgCfg.cacheHome}/chromium"
           ];

@@ -9,8 +9,8 @@
 let
   cfg = config._.users;
   networkCfg = config._.network;
-  virtualisationCfg = config._.system.virtualisation;
-  tpm2Cfg = config._.system.security.tpm2;
+  virtualisationCfg = config._.virtualisation;
+  tpm2Cfg = config._.security.tpm2;
 in
 {
   options = with lib; {
@@ -112,7 +112,7 @@ in
         lib.mkMerge [
           {
             config._module.args.secrets =
-              customLib.system.nixos.sops.mkSecrets pkgs "user-build-secrets-${userName}"
+              customLib.nixos.sops.mkSecrets pkgs "user-build-secrets-${userName}"
                 ../../secrets/users/${userName}/build/secrets.yaml;
           }
           { imports = [ userCfg.home ]; }
@@ -120,7 +120,7 @@ in
       ) cfg.users;
 
       _ = {
-        system.shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (lib.attrValues cfg.users);
+        shell.zsh.enable = builtins.any (userCfg: userCfg.shell == "zsh") (lib.attrValues cfg.users);
       };
     }
   ];

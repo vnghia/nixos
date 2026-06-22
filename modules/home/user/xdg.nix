@@ -32,7 +32,7 @@ in
     ];
 
     _ = {
-      system.nixos.impermanence.directories = builtins.filter (path: path != null) (
+      nixos.impermanence.directories = builtins.filter (path: path != null) (
         lib.mapAttrsToList (directory: path: path) cfg.directories
       );
     };

@@ -25,7 +25,7 @@ in
         home.packages = [ pkgs.signal-desktop ];
 
         _ = {
-          system.nixos.impermanence.directories = [
+          nixos.impermanence.directories = [
             "${xdgCfg.configHome}/Signal"
           ];
         };

@@ -6,15 +6,16 @@
 }:
 let
   cfg = config._.user;
-  shellCfg = osConfig._.system.shell;
+  shellCfg = osConfig._.shell;
 in
 {
   imports = [
     ./cli
     ./desktop
+    ./nixos
     ./services
+    ./shell
     ./specialisation
-    ./system
     ./user
   ];
 

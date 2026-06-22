@@ -5,7 +5,7 @@
 
   config = {
     _ = {
-      system.nixos.impermanence = {
+      nixos.impermanence = {
         directories = [
           # Desktop session data
           "/var/lib/AccountsService"

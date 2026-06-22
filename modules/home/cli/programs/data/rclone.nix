@@ -22,7 +22,7 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [
+      nixos.impermanence.directories = [
         {
           directory = "${xdgCfg.configHome}/rclone";
           mode = "0700";

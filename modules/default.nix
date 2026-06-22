@@ -1,7 +1,16 @@
 {
   imports = [
+    ./boot
     ./desktop
-    ./system
+    ./hardware
+    ./filesystem
+    ./packages
+    ./network
+    ./linux
+    ./nixos
+    ./security
+    ./shell
     ./user
+    ./virtualisation
   ];
 }

@@ -50,7 +50,7 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [
+      nixos.impermanence.directories = [
         "${xdgCfg.stateHome}/syncthing"
       ];
     };

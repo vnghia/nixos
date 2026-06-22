@@ -40,7 +40,7 @@ in
         };
 
         _ = {
-          system.nixos.impermanence.directories = [
+          nixos.impermanence.directories = [
             "${xdgCfg.configHome}/zen"
             "${xdgCfg.cacheHome}/zen"
           ];

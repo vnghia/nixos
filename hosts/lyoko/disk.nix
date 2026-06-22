@@ -12,14 +12,12 @@ in
 {
   config = {
     _ = {
-      system = {
-        filesystem.root.type = "btrfs";
+      filesystem.root.type = "btrfs";
 
-        nixos.impermanence = {
-          enable = true;
-          home = true;
-          path = "/persist";
-        };
+      nixos.impermanence = {
+        enable = true;
+        home = true;
+        path = "/persist";
       };
     };
 

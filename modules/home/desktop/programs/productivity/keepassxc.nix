@@ -79,7 +79,7 @@ in
         };
 
         _ = {
-          system.nixos.impermanence.directories = [
+          nixos.impermanence.directories = [
             cfg.directory
           ];
         };

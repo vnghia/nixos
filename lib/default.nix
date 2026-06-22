@@ -16,7 +16,7 @@ in
   inherit lib;
 })
 // (import ./network { inherit lib; })
-// (import ./system { inherit lib; })
+// (import ./nixos { inherit lib; })
 // {
   mkForceRecursive = mkForceRecursive;
 }

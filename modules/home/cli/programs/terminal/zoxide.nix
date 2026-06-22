@@ -23,7 +23,9 @@ in
     };
 
     _ = {
-      system.nixos.impermanence.directories = [ "${xdgCfg.dataHome}/zoxide" ];
+      nixos.impermanence.directories = [
+        "${xdgCfg.dataHome}/zoxide"
+      ];
     };
   };
 }

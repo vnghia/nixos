@@ -26,7 +26,7 @@ in
               default = null;
             };
           }
-          // (customLib.system.nixos.sops.mkRequiresOption);
+          // (customLib.nixos.sops.mkRequiresOption);
         };
       };
     };
@@ -41,7 +41,7 @@ in
         (lib.mkIf (cfg.config.tpm.environmentFile != null) {
           Service.EnvironmentFile = cfg.config.tpm.environmentFile;
         })
-        (customLib.system.nixos.sops.mkSystemdServiceRequirements cfg.config.tpm)
+        (customLib.nixos.sops.mkSystemdServiceRequirements cfg.config.tpm)
       ];
     })
   ];

@@ -86,7 +86,7 @@ in
         };
       };
 
-      system.nixos = {
+      nixos = {
         impermanence.directories = [
           techDirectory
         ];

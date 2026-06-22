@@ -27,14 +27,11 @@
           };
         };
       };
-
-      system = {
-        hardware = {
-          network = {
-            hardwares = [
-              "mt7921"
-            ];
-          };
+      hardware = {
+        network = {
+          hardwares = [
+            "mt7921"
+          ];
         };
       };
     };
