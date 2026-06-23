@@ -295,7 +295,7 @@ in
           directories = {
             desktop = "desktop";
             documents = "documents";
-            download = "download";
+            download = "downloads";
             music = "media/music";
             pictures = "media/pictures";
             videos = "media/videos";
