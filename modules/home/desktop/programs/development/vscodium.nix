@@ -59,7 +59,7 @@ in
         _ = {
           desktop.programs.development.vscodium = {
             base = {
-              extensions = with pkgs.nix-vscode-extensions.open-vsx; [
+              extensions = with pkgs.nix-vscode-extensions.open-vsx-release; [
                 # Theme
                 pkief.material-icon-theme
 
@@ -67,7 +67,6 @@ in
                 ms-python.debugpy
                 ms-python.python
                 astral-sh.ty
-                detachhead.basedpyright
                 ms-toolsai.jupyter
                 charliermarsh.ruff
 
@@ -94,7 +93,7 @@ in
 
                 # Python
                 "python.languageServer" = "None";
-                "ty.disableLanguageServices" = true;
+                "ty.disableLanguageServices" = false;
                 "[python]" = {
                   "editor.defaultFormatter" = "charliermarsh.ruff";
                 };

@@ -122,19 +122,21 @@
                   lanzaboote.nixosModules.lanzaboote
                   sops-nix.nixosModules.sops
 
-                  { nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ]; }
+                  {
+                    nixpkgs = {
+                      hostPlatform = value.platform;
+                      config = {
+                        allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
+                      };
+                      overlays = [ nix-vscode-extensions.overlays.default ];
+                    };
+                  }
 
                   ./modules
 
                   ./hosts/${name}/${flavor}
                   {
                     networking.hostName = hostName;
-                    nixpkgs = {
-                      hostPlatform = value.platform;
-                      config = {
-                        allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
-                      };
-                    };
                     sops.defaultSopsFile = ./secrets/hosts/${name}/run/secrets.yaml;
                   }
                   {
