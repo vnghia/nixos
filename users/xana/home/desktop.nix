@@ -145,10 +145,17 @@ in
             };
             vscodium = {
               enable = true;
+              profiles = {
+                homelab = { };
+              };
               stylix = {
                 enable = true;
                 config = {
                   fonts.override.sizes.terminal = 10.5;
+                  profileNames = [
+                    "default"
+                    "homelab"
+                  ];
                 };
               };
               favorite = 5;
