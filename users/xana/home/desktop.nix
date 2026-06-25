@@ -190,6 +190,9 @@ in
             };
           };
           media = {
+            loupe = {
+              enable = true;
+            };
             mpv = {
               enable = true;
             };
