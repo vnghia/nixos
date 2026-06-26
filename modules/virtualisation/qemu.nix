@@ -38,10 +38,14 @@ in
           enable = true;
           onBoot = cfg.onBoot;
           onShutdown = cfg.onShutdown;
+          qemu = {
+            package = pkgs.qemu_kvm;
+          };
         };
 
         environment.systemPackages = with pkgs; [
           dnsmasq
+          OVMFFull
         ];
 
         networking.firewall.trustedInterfaces = [
