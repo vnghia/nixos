@@ -372,7 +372,9 @@ in
                     show-extensions-notice = false;
                   };
                 }
-                (lib.mkIf cfg.location { location.enabled = true; })
+                (lib.mkIf cfg.location {
+                  system.location.enabled = true;
+                })
               ];
             };
 
