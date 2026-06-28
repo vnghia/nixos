@@ -45,7 +45,7 @@ in
 
       programs.keepassxc = {
         settings = {
-          FdoSecret = {
+          FdoSecrets = {
             Enabled = true;
             ConfirmAccessItem = cfg.config.keepassxc.confirmAccessItem;
           };
