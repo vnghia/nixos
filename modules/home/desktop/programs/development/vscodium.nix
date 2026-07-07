@@ -84,6 +84,7 @@ in
                 "terminal.integrated.cursorBlinking" = true;
                 "explorer.openEditors.visible" = 10;
                 "editor.formatOnSave" = true;
+                "editor.fontLigatures" = true;
                 "editor.codeActionsOnSave" = {
                   "source.fixAll" = "explicit";
                   "source.organizeImports" = "explicit";
