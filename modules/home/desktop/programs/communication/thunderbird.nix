@@ -83,6 +83,7 @@ in
           mimeApps = {
             "x-scheme-handler/mailto" = [ (lib.mkForce desktop) ];
             "x-scheme-handler/mid" = [ (lib.mkForce desktop) ];
+            "x-scheme-handler/net.thunderbird" = [ (lib.mkForce desktop) ];
             "message/rfc822" = [ (lib.mkForce desktop) ];
           };
         in
