@@ -57,10 +57,6 @@ in
             directories = [
               "/var/lib/libvirt"
             ];
-            # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
-            files = [
-              "/var/lib/systemd/credential.secret"
-            ];
           };
         };
       }

@@ -68,6 +68,8 @@ in
               # Machine id
               "/etc/machine-id"
               "/var/lib/dbus/machine-id"
+              # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
+              "/var/lib/systemd/credential.secret"
             ];
           };
 
