@@ -358,6 +358,7 @@ in
                   };
 
                   shell = {
+                    disable-user-extensions = false;
                     disable-extension-version-validation = true;
 
                     app-switcher = {
