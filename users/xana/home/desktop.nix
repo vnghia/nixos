@@ -146,7 +146,18 @@ in
             vscodium = {
               enable = true;
               profiles = {
-                homelab = { };
+                homelab = {
+                  extensions = with pkgs.nix-vscode-extensions.open-vsx-release; [
+                    # Nickel
+                    nickel-lang.vscode-nickel
+                  ];
+                  userSettings = {
+                    # Nickel
+                    "[nickel]" = {
+                      "editor.defaultFormatter" = "nickel-lang.vscode-nickel";
+                    };
+                  };
+                };
               };
               stylix = {
                 enable = true;
