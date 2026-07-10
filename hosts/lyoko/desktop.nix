@@ -31,6 +31,15 @@
             interface = secrets.desktop.network.captive.interface;
           };
         };
+        programs = {
+          game = {
+            steam = {
+              enable = true;
+              gamemode = true;
+              extest = true;
+            };
+          };
+        };
       };
     };
   };

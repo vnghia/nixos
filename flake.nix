@@ -80,7 +80,11 @@
         inherit lib;
       };
 
-      unfreePackages = [ "obsidian" ];
+      unfreePackages = [
+        "obsidian"
+        "steam"
+        "steam-unwrapped"
+      ];
 
       hosts = {
         lyoko = {

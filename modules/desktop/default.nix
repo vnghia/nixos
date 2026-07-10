@@ -12,6 +12,7 @@ in
     ./fonts
     ./managers
     ./network
+    ./programs
     ./theming
   ];
 
