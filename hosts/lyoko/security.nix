@@ -9,6 +9,9 @@
           enable = true;
           abrmd = true;
         };
+        yubikey = {
+          enable = true;
+        };
       };
     };
   };

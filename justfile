@@ -24,6 +24,16 @@ filesystem-cryptenroll-tpm disk="/dev/disk/by-partlabel/luks":
 
 [arg("disk")]
 [group("filesystem")]
+filesystem-cryptenroll-fido2 disk="/dev/disk/by-partlabel/luks":
+    sudo systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=yes --fido2-with-user-presence=yes --wipe-slot=fido2 {{ disk }}
+
+[arg("disk")]
+[group("filesystem")]
+filesystem-cryptenroll-recovery disk="/dev/disk/by-partlabel/luks":
+    sudo systemd-cryptenroll --recovery-key {{ disk }}
+
+[arg("disk")]
+[group("filesystem")]
 filesystem-mount-btrfs disk="/dev/disk/by-label/nixos":
     sudo mkdir -p /btrfs
     sudo mount -o subvol=/ {{ disk }} /btrfs
