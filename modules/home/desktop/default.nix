@@ -25,7 +25,8 @@ in
         "${xdgCfg.cacheHome}/mesa_shader_cache"
         "${xdgCfg.cacheHome}/radv_builtin_shaders"
 
-        # Application icons
+        # Application entries
+        "${xdgCfg.dataHome}/icons"
         "${xdgCfg.dataHome}/applications"
       ];
     };
