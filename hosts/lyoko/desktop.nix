@@ -36,7 +36,6 @@
             steam = {
               enable = true;
               gamemode = true;
-              extest = true;
             };
           };
         };

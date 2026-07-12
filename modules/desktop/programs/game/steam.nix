@@ -12,7 +12,6 @@ in
       desktop.programs.game.steam = {
         enable = mkEnableOption "Steam";
         gamemode = mkEnableOption "Gamemode";
-        extest = mkEnableOption "Extest";
       };
     };
   };
@@ -22,11 +21,6 @@ in
       {
         programs.steam = {
           enable = true;
-          extest = (
-            lib.mkIf cfg.extest {
-              enable = true;
-            }
-          );
         };
       }
       (lib.mkIf cfg.gamemode {
