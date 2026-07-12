@@ -20,7 +20,7 @@ filesystem-cryptenroll-tpm disk="/dev/disk/by-partlabel/luks":
     # 2 	Extended or pluggable executable code
     # 7 	Secure Boot State
     # 12 	Overridden kernel command line, Credentials
-    sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --wipe-slot=tpm2 {{ disk }}
+    sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --tpm2-with-pin=yes --wipe-slot=tpm2 {{ disk }}
 
 [arg("disk")]
 [group("filesystem")]
