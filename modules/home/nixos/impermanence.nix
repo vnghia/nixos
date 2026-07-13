@@ -43,10 +43,10 @@ in
           # Audio
           "${xdgCfg.stateHome}/wireplumber" = { };
 
-          "${homeCfg.homeDirectory}/.gnupg" = {
+          "${homePrefix}.gnupg" = {
             mode = "0700";
           };
-          "${homeCfg.homeDirectory}/.ssh" = {
+          "${homePrefix}.ssh" = {
             mode = "0700";
           };
           "${xdgCfg.dataHome}/keyrings" = {
