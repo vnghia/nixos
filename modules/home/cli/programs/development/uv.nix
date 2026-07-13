@@ -39,8 +39,12 @@ in
 
     _ = {
       nixos.impermanence.directories = {
-        ${uvDataDirectory} = { };
-        ${uvCacheDirectory} = { };
+        ${uvDataDirectory} = {
+          restic = false;
+        };
+        ${uvCacheDirectory} = {
+          restic = false;
+        };
       };
     };
   };

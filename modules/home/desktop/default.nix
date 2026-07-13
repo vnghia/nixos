@@ -22,12 +22,20 @@ in
     _ = {
       nixos.impermanence.directories = {
         # Graphic cache
-        "${xdgCfg.cacheHome}/mesa_shader_cache" = { };
-        "${xdgCfg.cacheHome}/radv_builtin_shaders" = { };
+        "${xdgCfg.cacheHome}/mesa_shader_cache" = {
+          restic = false;
+        };
+        "${xdgCfg.cacheHome}/radv_builtin_shaders" = {
+          restic = false;
+        };
 
         # Application entries
-        "${xdgCfg.dataHome}/icons" = { };
-        "${xdgCfg.dataHome}/applications" = { };
+        "${xdgCfg.dataHome}/icons" = {
+          restic = false;
+        };
+        "${xdgCfg.dataHome}/applications" = {
+          restic = false;
+        };
       };
     };
   };

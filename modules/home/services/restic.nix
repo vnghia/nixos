@@ -26,10 +26,10 @@ in
       services.restic = {
         enable = mkEnableOption "Restic";
         home = mkOption {
-          type = customLib.services.restic.backupSubmodule;
+          type = customLib.services.restic.backupOptions;
         };
         backups = mkOption {
-          type = types.attrsOf customLib.services.restic.backupSubmodule;
+          type = types.attrsOf customLib.services.restic.backupOptions;
           default = { };
         };
       };

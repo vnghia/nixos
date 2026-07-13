@@ -13,8 +13,12 @@ in
   config = lib.mkIf osCfg.enable {
     _ = {
       nixos.impermanence.directories = {
-        "${homeCfg.homeDirectory}/.steam" = { };
-        "${xdgCfg.dataHome}/Steam" = { };
+        "${homeCfg.homeDirectory}/.steam" = {
+          restic = false;
+        };
+        "${xdgCfg.dataHome}/Steam" = {
+          restic = false;
+        };
       };
     };
   };

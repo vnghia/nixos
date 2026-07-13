@@ -33,7 +33,9 @@ in
 
     _ = {
       nixos.impermanence.directories = {
-        "${xdgCfg.dataHome}/direnv" = { };
+        "${xdgCfg.dataHome}/direnv" = {
+          restic = false;
+        };
       };
     };
   };

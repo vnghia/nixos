@@ -9,7 +9,7 @@ in
   restic = {
     secretPrefix = secretPrefix;
 
-    backupSubmodule =
+    backupOptions =
       with lib;
       types.submodule {
         options = {
@@ -30,7 +30,7 @@ in
     mkConfig =
       config: name: backup:
       let
-        userName = lib.attrByPath [ "home" "userName" ] null config;
+        userName = lib.attrByPath [ "home" "username" ] null config;
       in
       lib.mkMerge [
         {

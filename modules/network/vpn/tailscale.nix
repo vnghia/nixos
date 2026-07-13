@@ -43,6 +43,7 @@ in
       nixos.impermanence.directories = {
         "/var/lib/tailscale" = {
           mode = "0600";
+          restic = false;
         };
       };
     };

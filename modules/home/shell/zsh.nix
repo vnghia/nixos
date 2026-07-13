@@ -129,7 +129,9 @@ in
 
         files = {
           ${historyPath} = { };
-          ${compdumpPath} = { };
+          ${compdumpPath} = {
+            restic = false;
+          };
         };
       };
     };

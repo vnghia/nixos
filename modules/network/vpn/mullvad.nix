@@ -41,7 +41,9 @@ in
             "/etc/mullvad-vpn" = {
               mode = "0600";
             };
-            "/var/cache/mullvad-vpn" = { };
+            "/var/cache/mullvad-vpn" = {
+              restic = false;
+            };
           };
         };
       }

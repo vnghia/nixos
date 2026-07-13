@@ -394,7 +394,9 @@ in
               "${xdgCfg.configHome}/dconf" = { };
 
               # Expensive cache
-              "${xdgCfg.cacheHome}/tracker3" = { };
+              "${xdgCfg.cacheHome}/tracker3" = {
+                restic = false;
+              };
             };
 
             files = {

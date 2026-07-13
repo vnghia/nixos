@@ -45,6 +45,7 @@ in
               parentDirectory = {
                 mode = "0700";
               };
+              restic = false;
             };
           };
         };

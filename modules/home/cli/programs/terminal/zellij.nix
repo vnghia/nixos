@@ -32,7 +32,9 @@ in
 
     _ = {
       nixos.impermanence.directories = {
-        "${xdgCfg.cacheHome}/zellij" = { };
+        "${xdgCfg.cacheHome}/zellij" = {
+          restic = false;
+        };
       };
     };
   };
