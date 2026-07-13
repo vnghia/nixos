@@ -6,11 +6,11 @@
   config = {
     _ = {
       nixos.impermanence = {
-        directories = [
+        directories = {
           # Desktop session data
-          "/var/lib/AccountsService"
-          "/var/lib/cups"
-        ];
+          "/var/lib/AccountsService" = { };
+          "/var/lib/cups" = { };
+        };
       };
     };
   };

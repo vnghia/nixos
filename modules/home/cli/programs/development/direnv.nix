@@ -32,9 +32,9 @@ in
     };
 
     _ = {
-      nixos.impermanence.directories = [
-        "${xdgCfg.dataHome}/direnv"
-      ];
+      nixos.impermanence.directories = {
+        "${xdgCfg.dataHome}/direnv" = { };
+      };
     };
   };
 }

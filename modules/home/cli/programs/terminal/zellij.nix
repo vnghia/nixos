@@ -31,9 +31,9 @@ in
     };
 
     _ = {
-      nixos.impermanence.directories = [
-        "${xdgCfg.cacheHome}/zellij"
-      ];
+      nixos.impermanence.directories = {
+        "${xdgCfg.cacheHome}/zellij" = { };
+      };
     };
   };
 }

@@ -124,10 +124,10 @@ in
             };
           };
 
-          nixos.impermanence.directories = [
-            "${xdgCfg.configHome}/VSCodium"
-            "${xdgCfg.stateHome}/VSCodium"
-          ];
+          nixos.impermanence.directories = {
+            "${xdgCfg.configHome}/VSCodium" = { };
+            "${xdgCfg.stateHome}/VSCodium" = { };
+          };
         };
       }
       (customLib.home.desktop.programs.favorite.mkConfig "codium.desktop" cfg)

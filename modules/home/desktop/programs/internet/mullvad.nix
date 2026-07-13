@@ -45,9 +45,9 @@ in
     };
 
     _ = {
-      nixos.impermanence.directories = [
-        "${xdgCfg.configHome}/Mullvad VPN"
-      ];
+      nixos.impermanence.directories = {
+        "${xdgCfg.configHome}/Mullvad VPN" = { };
+      };
     };
   };
 }

@@ -12,10 +12,10 @@ in
 {
   config = lib.mkIf (virtualisationCfg.qemu.enable && userCfg.groups.qemu) {
     _ = {
-      nixos.impermanence.directories = [
-        "${xdgCfg.configHome}/libvirt"
-        "${xdgCfg.dataHome}/libvirt"
-      ];
+      nixos.impermanence.directories = {
+        "${xdgCfg.configHome}/libvirt" = { };
+        "${xdgCfg.dataHome}/libvirt" = { };
+      };
     };
   };
 }

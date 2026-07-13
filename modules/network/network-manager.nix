@@ -124,10 +124,10 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            "/etc/NetworkManager/system-connections"
-            "/var/lib/NetworkManager"
-          ];
+          nixos.impermanence.directories = {
+            "/etc/NetworkManager/system-connections" = { };
+            "/var/lib/NetworkManager" = { };
+          };
         };
       }
       (lib.mkIf (cfg.wifi.backend == "iwd") {
@@ -156,9 +156,9 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            "/var/lib/iwd"
-          ];
+          nixos.impermanence.directories = {
+            "/var/lib/iwd" = { };
+          };
         };
       })
     ]

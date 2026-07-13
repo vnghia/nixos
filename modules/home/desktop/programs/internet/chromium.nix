@@ -30,10 +30,10 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            "${xdgCfg.configHome}/chromium"
-            "${xdgCfg.cacheHome}/chromium"
-          ];
+          nixos.impermanence.directories = {
+            "${xdgCfg.configHome}/chromium" = { };
+            "${xdgCfg.cacheHome}/chromium" = { };
+          };
         };
       }
       (customLib.home.desktop.programs.favorite.mkConfig "chromium-browser.desktop" cfg)

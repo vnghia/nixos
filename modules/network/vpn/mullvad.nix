@@ -37,13 +37,12 @@ in
             };
           };
 
-          nixos.impermanence.directories = [
-            {
-              directory = "/etc/mullvad-vpn";
+          nixos.impermanence.directories = {
+            "/etc/mullvad-vpn" = {
               mode = "0600";
-            }
-            "/var/cache/mullvad-vpn"
-          ];
+            };
+            "/var/cache/mullvad-vpn" = { };
+          };
         };
       }
       (lib.mkIf (builtins.length cfg.excludeOutgoingTraffics > 0) {

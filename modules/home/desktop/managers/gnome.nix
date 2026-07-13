@@ -390,17 +390,17 @@ in
           };
 
           nixos.impermanence = {
-            directories = [
-              "${xdgCfg.configHome}/dconf"
+            directories = {
+              "${xdgCfg.configHome}/dconf" = { };
 
               # Expensive cache
-              "${xdgCfg.cacheHome}/tracker3"
-            ];
+              "${xdgCfg.cacheHome}/tracker3" = { };
+            };
 
-            files = [
+            files = {
               # Monitor configuration
-              "${xdgCfg.configHome}/monitors.xml"
-            ];
+              "${xdgCfg.configHome}/monitors.xml" = { };
+            };
           };
         };
       }

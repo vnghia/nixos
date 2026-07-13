@@ -22,12 +22,11 @@ in
     };
 
     _ = {
-      nixos.impermanence.directories = [
-        {
-          directory = "${xdgCfg.configHome}/rclone";
+      nixos.impermanence.directories = {
+        "${xdgCfg.configHome}/rclone" = {
           mode = "0700";
-        }
-      ];
+        };
+      };
     };
   };
 }

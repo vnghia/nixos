@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  customLib,
   ...
 }:
 let
@@ -16,12 +17,12 @@ in
         home = mkEnableOption "Impermanence home";
         path = mkOption { type = types.path; };
         directories = mkOption {
-          type = types.listOf (types.either types.path (types.attrsOf types.anything));
-          default = [ ];
+          type = types.attrsOf types.anything;
+          default = { };
         };
         files = mkOption {
-          type = types.listOf (types.either types.path (types.attrsOf types.anything));
-          default = [ ];
+          type = types.attrsOf types.anything;
+          default = { };
         };
       };
     };
@@ -34,43 +35,43 @@ in
           enable = true;
           allowTrash = true;
           hideMounts = true;
-          directories = cfg.directories;
-          files = cfg.files;
+          directories = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig false (
+            path: path
+          )) cfg.directories;
+          files = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig true (path: path)) cfg.files;
         };
 
         _ = {
           nixos.impermanence = {
-            directories = [
+            directories = {
               # System state
-              "/var/log"
-              "/var/lib/nixos"
-              "/var/lib/systemd/coredump"
-              "/var/lib/systemd/timers"
-              "/var/lib/systemd/rfkill"
-              "/var/lib/systemd/backlight"
-              {
-                directory = "/var/lib/colord";
+              "/var/log" = { };
+              "/var/lib/nixos" = { };
+              "/var/lib/systemd/coredump" = { };
+              "/var/lib/systemd/timers" = { };
+              "/var/lib/systemd/rfkill" = { };
+              "/var/lib/systemd/backlight" = { };
+              "/var/lib/colord" = {
                 user = "colord";
                 group = "colord";
                 mode = "u=rwx,g=rx,o=";
-              }
+              };
 
               # Auth and SSH
-              "/etc/ssh"
+              "/etc/ssh" = { };
 
               # Hardware state
-              "/var/lib/bluetooth"
-              "/var/lib/upower"
-              "/var/lib/alsa"
-            ];
-
-            files = [
+              "/var/lib/bluetooth" = { };
+              "/var/lib/upower" = { };
+              "/var/lib/alsa" = { };
+            };
+            files = {
               # Machine id
-              "/etc/machine-id"
-              "/var/lib/dbus/machine-id"
+              "/etc/machine-id" = { };
+              "/var/lib/dbus/machine-id" = { };
               # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
-              "/var/lib/systemd/credential.secret"
-            ];
+              "/var/lib/systemd/credential.secret" = { };
+            };
           };
 
           users.hashedPasswordDirectory = "${cfg.path}/etc/hashed-passwords";

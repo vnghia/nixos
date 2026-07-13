@@ -40,14 +40,13 @@ in
           ];
 
         _ = {
-          nixos.impermanence.files = [
-            {
-              file = cfg.keyFile;
+          nixos.impermanence.files = {
+            ${cfg.keyFile} = {
               parentDirectory = {
                 mode = "0700";
               };
-            }
-          ];
+            };
+          };
         };
       }
       (lib.mkIf cfg.tpm2 {

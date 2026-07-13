@@ -40,12 +40,11 @@ in
         "fd7a:115c:a1e0::/48"
       ];
 
-      nixos.impermanence.directories = [
-        {
-          directory = "/var/lib/tailscale";
+      nixos.impermanence.directories = {
+        "/var/lib/tailscale" = {
           mode = "0600";
-        }
-      ];
+        };
+      };
     };
   };
 }

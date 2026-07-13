@@ -32,8 +32,10 @@ in
     ];
 
     _ = {
-      nixos.impermanence.directories = builtins.filter (path: path != null) (
-        lib.mapAttrsToList (directory: path: path) cfg.directories
+      nixos.impermanence.directories = lib.mergeAttrsList (
+        lib.forEach (builtins.filter (path: path != null) (lib.attrValues cfg.directories)) (path: {
+          ${path} = { };
+        })
       );
     };
   };

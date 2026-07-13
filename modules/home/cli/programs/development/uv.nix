@@ -38,10 +38,10 @@ in
     };
 
     _ = {
-      nixos.impermanence.directories = [
-        uvDataDirectory
-        uvCacheDirectory
-      ];
+      nixos.impermanence.directories = {
+        ${uvDataDirectory} = { };
+        ${uvCacheDirectory} = { };
+      };
     };
   };
 }

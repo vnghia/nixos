@@ -125,12 +125,12 @@ in
 
     _ = {
       nixos.impermanence = {
-        directories = if enabledAntidote then [ "${xdgCfg.cacheHome}/antidote" ] else [ ];
+        directories = if enabledAntidote then { "${xdgCfg.cacheHome}/antidote" = { }; } else { };
 
-        files = [
-          historyPath
-          compdumpPath
-        ];
+        files = {
+          ${historyPath} = { };
+          ${compdumpPath} = { };
+        };
       };
     };
   };

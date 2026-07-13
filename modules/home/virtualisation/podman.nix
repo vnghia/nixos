@@ -11,9 +11,9 @@ in
 {
   config = lib.mkIf virtualisationCfg.podman.enable {
     _ = {
-      nixos.impermanence.directories = [
-        "${xdgCfg.dataHome}/containers"
-      ];
+      nixos.impermanence.directories = {
+        "${xdgCfg.dataHome}/containers" = { };
+      };
     };
   };
 }

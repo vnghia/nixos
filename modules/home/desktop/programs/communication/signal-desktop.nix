@@ -25,9 +25,9 @@ in
         home.packages = [ pkgs.signal-desktop ];
 
         _ = {
-          nixos.impermanence.directories = [
-            "${xdgCfg.configHome}/Signal"
-          ];
+          nixos.impermanence.directories = {
+            "${xdgCfg.configHome}/Signal" = { };
+          };
         };
       }
       (customLib.home.desktop.programs.favorite.mkConfig "signal.desktop" cfg)

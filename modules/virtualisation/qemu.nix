@@ -54,9 +54,9 @@ in
 
         _ = {
           nixos.impermanence = {
-            directories = [
-              "/var/lib/libvirt"
-            ];
+            directories = {
+              "/var/lib/libvirt" = { };
+            };
           };
         };
       }
@@ -66,12 +66,11 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            {
-              directory = "/var/lib/swtpm-localca";
+          nixos.impermanence.directories = {
+            "/var/lib/swtpm-localca" = {
               user = "tss";
-            }
-          ];
+            };
+          };
         };
       })
     ]

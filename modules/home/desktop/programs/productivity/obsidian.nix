@@ -37,10 +37,10 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            "${xdgCfg.configHome}/obsidian"
-            "${userXdgCfg.directories.documents}/obsidian"
-          ];
+          nixos.impermanence.directories = {
+            "${xdgCfg.configHome}/obsidian" = { };
+            "${userXdgCfg.directories.documents}/obsidian" = { };
+          };
         };
       }
       (customLib.home.desktop.programs.favorite.mkConfig "obsidian.desktop" cfg)

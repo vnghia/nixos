@@ -87,9 +87,9 @@ in
       };
 
       nixos = {
-        impermanence.directories = [
-          techDirectory
-        ];
+        impermanence.directories = {
+          ${techDirectory} = { };
+        };
         sops = {
           enable = true;
         };

@@ -20,15 +20,15 @@ in
 
   config = lib.mkIf osCfg.enable {
     _ = {
-      nixos.impermanence.directories = [
+      nixos.impermanence.directories = {
         # Graphic cache
-        "${xdgCfg.cacheHome}/mesa_shader_cache"
-        "${xdgCfg.cacheHome}/radv_builtin_shaders"
+        "${xdgCfg.cacheHome}/mesa_shader_cache" = { };
+        "${xdgCfg.cacheHome}/radv_builtin_shaders" = { };
 
         # Application entries
-        "${xdgCfg.dataHome}/icons"
-        "${xdgCfg.dataHome}/applications"
-      ];
+        "${xdgCfg.dataHome}/icons" = { };
+        "${xdgCfg.dataHome}/applications" = { };
+      };
     };
   };
 }

@@ -47,12 +47,11 @@ in
         ];
 
         _ = {
-          nixos.impermanence.directories = [
-            {
-              directory = pkiBundle;
+          nixos.impermanence.directories = {
+            ${pkiBundle} = {
               mode = "0600";
-            }
-          ];
+            };
+          };
         };
       }
     ))

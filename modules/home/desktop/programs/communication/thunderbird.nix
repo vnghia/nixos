@@ -51,9 +51,9 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            "${homeCfg.homeDirectory}/.thunderbird"
-          ];
+          nixos.impermanence.directories = {
+            "${homeCfg.homeDirectory}/.thunderbird" = { };
+          };
 
           user.email.accounts.config = lib.concatMapAttrs (
             profile: accounts:

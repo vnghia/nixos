@@ -79,9 +79,9 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            cfg.directory
-          ];
+          nixos.impermanence.directories = {
+            ${cfg.directory} = { };
+          };
         };
       }
       (customLib.home.desktop.programs.favorite.mkConfig "org.keepassxc.KeePassXC.desktop" cfg)

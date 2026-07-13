@@ -50,9 +50,9 @@ in
     };
 
     _ = {
-      nixos.impermanence.directories = [
-        "${xdgCfg.stateHome}/syncthing"
-      ];
+      nixos.impermanence.directories = {
+        "${xdgCfg.stateHome}/syncthing" = { };
+      };
     };
   };
 }

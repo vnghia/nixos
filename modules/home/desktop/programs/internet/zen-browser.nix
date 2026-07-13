@@ -40,10 +40,10 @@ in
         };
 
         _ = {
-          nixos.impermanence.directories = [
-            "${xdgCfg.configHome}/zen"
-            "${xdgCfg.cacheHome}/zen"
-          ];
+          nixos.impermanence.directories = {
+            "${xdgCfg.configHome}/zen" = { };
+            "${xdgCfg.cacheHome}/zen" = { };
+          };
         };
       }
       (customLib.home.desktop.programs.favorite.mkConfig "zen-beta.desktop" cfg)
