@@ -13,7 +13,7 @@
           {
             "${if file then "file" else "directory"}" = mkPath path;
           }
-          value
+          (removeAttrs value [ "restic" ])
         ])
     );
   };

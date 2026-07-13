@@ -80,6 +80,16 @@ in
       };
 
       services = {
+        restic = {
+          enable = true;
+          home = {
+            inhibitsSleep = true;
+            timerConfig = {
+              OnCalendar = "daily";
+              Persistent = true;
+            };
+          };
+        };
         syncthing = {
           enable = true;
           devices = secrets.services.syncthing.devices;
