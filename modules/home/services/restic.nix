@@ -10,13 +10,12 @@ let
   cfg = config._.services.restic;
   xdgCfg = config.xdg;
   homeCfg = config.home;
-  homePrefix = "${homeCfg.homeDirectory}/";
 
   impermanenceOsCfg = osConfig._.nixos.impermanence;
   impermanencePath = if impermanenceOsCfg.enable then impermanenceOsCfg.path else null;
   impermanenceCfg = config._.nixos.impermanence;
 
-  mkImpermanencePath = path: "${homePrefix}${lib.removePrefix homePrefix path}";
+  mkImpermanencePath = path: "${homeCfg.homeDirectory}/${path}";
 
   backupNames = [ "home" ] ++ (builtins.attrNames cfg.backups);
 in
@@ -68,10 +67,10 @@ in
 
       services.restic.home.paths =
         (customLib.services.restic.mkImpermanencePaths impermanencePath mkImpermanencePath
-          impermanenceCfg.directories
+          impermanenceCfg.normalizedDirectories
         )
         ++ (customLib.services.restic.mkImpermanencePaths impermanencePath mkImpermanencePath
-          impermanenceCfg.files
+          impermanenceCfg.normalizedFiles
         );
     };
   };

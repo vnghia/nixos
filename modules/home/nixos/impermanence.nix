@@ -24,6 +24,14 @@ in
           type = types.attrsOf types.anything;
           default = { };
         };
+        normalizedDirectories = mkOption {
+          type = types.attrsOf types.anything;
+          readOnly = true;
+        };
+        normalizedFiles = mkOption {
+          type = types.attrsOf types.anything;
+          readOnly = true;
+        };
       };
     };
   };
@@ -33,8 +41,8 @@ in
       enable = true;
       allowTrash = true;
       hideMounts = true;
-      directories = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig false (lib.removePrefix homePrefix)) cfg.directories;
-      files = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig true (lib.removePrefix homePrefix)) cfg.files;
+      directories = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig false) cfg.normalizedDirectories;
+      files = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig true) cfg.normalizedFiles;
     };
 
     _ = {
@@ -53,6 +61,11 @@ in
             mode = "0700";
           };
         };
+      };
+
+      nixos.impermanence = {
+        normalizedDirectories = customLib.nixos.impermanence.mkNormalizedPaths (lib.removePrefix homePrefix) cfg.directories;
+        normalizedFiles = customLib.nixos.impermanence.mkNormalizedPaths (lib.removePrefix homePrefix) cfg.files;
       };
     };
   };

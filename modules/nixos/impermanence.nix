@@ -24,6 +24,14 @@ in
           type = types.attrsOf types.anything;
           default = { };
         };
+        normalizedDirectories = mkOption {
+          type = types.attrsOf types.anything;
+          readOnly = true;
+        };
+        normalizedFiles = mkOption {
+          type = types.attrsOf types.anything;
+          readOnly = true;
+        };
       };
     };
   };
@@ -35,10 +43,8 @@ in
           enable = true;
           allowTrash = true;
           hideMounts = true;
-          directories = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig false (
-            path: path
-          )) cfg.directories;
-          files = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig true (path: path)) cfg.files;
+          directories = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig false) cfg.normalizedDirectories;
+          files = lib.mapAttrsToList (customLib.nixos.impermanence.mkConfig true) cfg.normalizedFiles;
         };
 
         _ = {
@@ -72,6 +78,11 @@ in
               # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
               "/var/lib/systemd/credential.secret" = { };
             };
+          };
+
+          nixos.impermanence = {
+            normalizedDirectories = customLib.nixos.impermanence.mkNormalizedPaths (path: path) cfg.directories;
+            normalizedFiles = customLib.nixos.impermanence.mkNormalizedPaths (path: path) cfg.files;
           };
 
           users.hashedPasswordDirectory = "${cfg.path}/etc/hashed-passwords";

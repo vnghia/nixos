@@ -4,17 +4,20 @@
 }:
 {
   impermanence = {
+    mkNormalizedPaths =
+      mkPath: paths:
+      lib.mapAttrs' (
+        path: value: lib.nameValuePair (lib.strings.normalizePath (mkPath path)) value
+      ) paths;
+
     mkConfig = (
-      file: mkPath: path: value:
-      if ((builtins.length (builtins.attrNames value)) == 0) then
-        mkPath path
-      else
-        (lib.mkMerge [
-          {
-            "${if file then "file" else "directory"}" = mkPath path;
-          }
-          (removeAttrs value [ "restic" ])
-        ])
+      file: path: value:
+      (lib.mkMerge [
+        {
+          "${if file then "file" else "directory"}" = path;
+        }
+        (removeAttrs value [ "restic" ])
+      ])
     );
   };
 }
