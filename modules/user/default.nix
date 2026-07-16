@@ -66,7 +66,15 @@ in
             else
               [ ]
           )
-          ++ (if (userCfg.groups.qemu && virtualisationCfg.qemu.enable) then [ "libvirtd" ] else [ ])
+          ++ (
+            if (userCfg.groups.qemu && virtualisationCfg.qemu.enable) then
+              [
+                "libvirtd"
+                "kvm"
+              ]
+            else
+              [ ]
+          )
           ++ (if (userCfg.groups.tpm2 && tpm2Cfg.enable) then [ "tss" ] else [ ]);
       }) cfg.users;
 
