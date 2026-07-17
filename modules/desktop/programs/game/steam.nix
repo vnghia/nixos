@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -21,6 +22,9 @@ in
       {
         programs.steam = {
           enable = true;
+          extraCompatPackages = with pkgs; [
+            proton-ge-bin
+          ];
         };
       }
       (lib.mkIf cfg.gamemode {
