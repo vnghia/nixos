@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config._.programs.gvfs;
+  cfg = config._.programs.data.gvfs;
   gnomeCfg = config._.desktop.managers.gnome;
 in
 {
   options = with lib; {
     _ = {
-      programs.gvfs = {
+      programs.data.gvfs = {
         enable = mkEnableOption "Gvfs";
       };
     };

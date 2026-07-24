@@ -1,6 +1,5 @@
 {
   imports = [
-    ./data
-    ./nixos
+    ./gvfs.nix
   ];
 }

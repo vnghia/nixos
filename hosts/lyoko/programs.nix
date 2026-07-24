@@ -5,11 +5,15 @@
   config = {
     _ = {
       programs = {
-        gvfs = {
-          enable = true;
+        data = {
+          gvfs = {
+            enable = true;
+          };
         };
-        nixLd = {
-          enable = true;
+        nixos = {
+          nix-ld = {
+            enable = true;
+          };
         };
       };
     };

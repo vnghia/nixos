@@ -6,7 +6,7 @@
 }:
 let
   cfg = config._.cli.programs.development.uv;
-  nixLdCfg = osConfig._.programs.nixLd;
+  nixLdCfg = osConfig._.programs.nixos.nix-ld;
   xdgCfg = config.xdg;
 
   uvDataDirectory = "${xdgCfg.dataHome}/uv";
