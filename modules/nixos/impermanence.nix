@@ -70,6 +70,7 @@ in
               "/var/lib/bluetooth" = { };
               "/var/lib/upower" = { };
               "/var/lib/alsa" = { };
+              "/var/lib/power-profiles-daemon" = { };
             };
             files = {
               # Machine id
