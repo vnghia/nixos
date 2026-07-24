@@ -1,6 +1,5 @@
 {
   imports = [
     ./appimage.nix
-    ./nix-ld.nix
   ];
 }
