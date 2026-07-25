@@ -60,6 +60,12 @@ in
           desktop.programs.development.vscodium = {
             base = {
               extensions = with pkgs.nix-vscode-extensions.open-vsx-release; [
+                # Remote
+                google.colab
+                jeanp413.open-remote-ssh
+                s-h-a-d-o-w.dev-containers-oss
+                aergic.artizo-vscodium
+
                 # Theme
                 pkief.material-icon-theme
 
@@ -115,8 +121,9 @@ in
                   "editor.defaultFormatter" = "redhat.vscode-xml";
                 };
 
-                # RedHat extension
+                # Telemetry
                 "redhat.telemetry.enabled" = false;
+                "telemetry.telemetryLevel" = "off";
               };
             };
             profiles = {
