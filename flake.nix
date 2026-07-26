@@ -87,6 +87,7 @@
 
       unstablePackages = [
         "vscodium"
+        "pulumi"
       ];
 
       unfreePackages = [
