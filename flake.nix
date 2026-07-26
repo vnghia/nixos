@@ -4,6 +4,10 @@
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
 
+    nixpkgs-unstable = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,6 +66,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       disko,
       impermanence,
@@ -79,6 +84,10 @@
       customLib = (import ./lib) {
         inherit lib;
       };
+
+      unstablePackages = [
+        "vscodium"
+      ];
 
       unfreePackages = [
         "obsidian"
@@ -108,6 +117,7 @@
             flavor:
             let
               pkgs = import nixpkgs { system = value.platform; };
+              unstable-pkgs = import nixpkgs-unstable { system = value.platform; };
 
               hostName = mkHostName name flavor;
               hostSystem = lib.nixosSystem {
@@ -132,7 +142,17 @@
                       config = {
                         allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
                       };
-                      overlays = [ nix-vscode-extensions.overlays.default ];
+                      overlays = [
+                        (
+                          self: super:
+                          lib.mergeAttrsList (
+                            lib.forEach unstablePackages (pkg: {
+                              ${pkg} = lib.getAttrFromPath (lib.splitString "." pkg) unstable-pkgs;
+                            })
+                          )
+                        )
+                        nix-vscode-extensions.overlays.default
+                      ];
                     };
                   }
 
