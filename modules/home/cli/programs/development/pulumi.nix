@@ -18,7 +18,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.pulumi ];
+    home.packages = [
+      pkgs.pulumi
+      pkgs.pulumiPackages.pulumi-python
+    ];
 
     _ = {
       nixos.impermanence.directories = {
