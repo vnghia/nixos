@@ -145,14 +145,7 @@
                         allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
                       };
                       overlays = [
-                        (
-                          self: super:
-                          lib.mergeAttrsList (
-                            lib.forEach unstablePackages (pkg: {
-                              ${pkg} = lib.getAttrFromPath (lib.splitString "." pkg) unstable-pkgs;
-                            })
-                          )
-                        )
+                        (customLib.nixos.overlay.mkPackageOverlay unstable-pkgs unstablePackages)
                         nix-vscode-extensions.overlays.default
                       ];
                     };
