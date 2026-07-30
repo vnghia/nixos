@@ -7,6 +7,7 @@
 }:
 let
   cfg = config._.desktop.programs.development.vscodium;
+  homeCfg = config.home;
   xdgCfg = config.xdg;
 
   profile =
@@ -29,6 +30,10 @@ in
     _ = {
       desktop.programs.development.vscodium = {
         enable = mkEnableOption "VsCodium";
+        argvSettings = mkOption {
+          type = types.attrsOf types.anything;
+          default = { };
+        };
         base = mkOption {
           type = profile;
         };
@@ -46,6 +51,7 @@ in
       {
         programs.vscodium = {
           enable = true;
+          argvSettings = cfg.argvSettings;
           mutableExtensionsDir = false;
           profiles = lib.mapAttrs (
             name: profile:
@@ -58,13 +64,17 @@ in
 
         _ = {
           desktop.programs.development.vscodium = {
+            argvSettings = {
+              enable-proposed-api = [
+                "s-h-a-d-o-w.dev-containers-oss"
+              ];
+            };
             base = {
               extensions = with pkgs.nix-vscode-extensions.open-vsx-release; [
                 # Remote
                 google.colab
                 jeanp413.open-remote-ssh
                 s-h-a-d-o-w.dev-containers-oss
-                aergic.artizo-vscodium
 
                 # Theme
                 pkief.material-icon-theme
@@ -132,6 +142,7 @@ in
           };
 
           nixos.impermanence.directories = {
+            "${homeCfg.homeDirectory}/.vscode-oss-shared/sharedStorage" = { };
             "${xdgCfg.configHome}/VSCodium" = { };
             "${xdgCfg.stateHome}/VSCodium" = { };
           };
