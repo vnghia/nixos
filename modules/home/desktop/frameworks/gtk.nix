@@ -1,10 +1,12 @@
 {
+  lib,
   customLib,
   config,
   ...
 }:
 let
   cfg = config._.desktop.frameworks.gtk;
+  xdgCfg = config.xdg;
 in
 {
   options = {
@@ -17,5 +19,15 @@ in
     };
   };
 
-  config = customLib.home.desktop.theming.stylix.mkConfig "gtk" cfg;
+  config = lib.mkMerge [
+    (customLib.home.desktop.theming.stylix.mkConfig "gtk" cfg)
+    {
+      _ = {
+        nixos.impermanence.files = {
+          # Connected servers
+          "${xdgCfg.configHome}/gtk-4.0/servers" = { };
+        };
+      };
+    }
+  ];
 }
