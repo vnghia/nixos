@@ -35,13 +35,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.displayManager.gdm.enable = true;
-    services.desktopManager.gnome.enable = true;
-    services.gnome.gnome-keyring.enable = false;
+    services = {
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      gnome = {
+        gnome-browser-connector.enable = false;
+        gnome-keyring.enable = false;
 
-    services.gnome.core-apps.enable = false;
-    services.gnome.core-developer-tools.enable = false;
-    services.gnome.games.enable = false;
+        core-apps.enable = false;
+        core-developer-tools.enable = false;
+        games.enable = false;
+      };
+    };
+
     environment.gnome.excludePackages = with pkgs; [
       gnome-tour
       gnome-user-docs
