@@ -86,6 +86,7 @@
       };
 
       unstablePackages = [
+        "keepassxc"
         "pulumi"
         "vscodium"
         "uv"
