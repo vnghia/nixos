@@ -79,6 +79,9 @@ in
                 # Theme
                 pkief.material-icon-theme
 
+                # Data
+                muhammad-ahmad.xlsx-viewer
+
                 # Python
                 ms-python.debugpy
                 ms-python.python
