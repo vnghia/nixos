@@ -72,13 +72,6 @@ in
               "/var/lib/alsa" = { };
               "/var/lib/power-profiles-daemon" = { };
             };
-            files = {
-              # Machine id
-              "/etc/machine-id" = { };
-              "/var/lib/dbus/machine-id" = { };
-              # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
-              "/var/lib/systemd/credential.secret" = { };
-            };
           };
 
           nixos.impermanence = {
@@ -161,6 +154,10 @@ in
 
             delete_subvolume_recursively /btrfs/@root
             btrfs subvolume create /btrfs/@root
+
+            # Copy back /etc/machine-id from the old snapshot to the new one
+            mkdir -p /btrfs/@root/etc
+            cp "/btrfs/@snapshots/@root/$timestamp/etc/machine-id" /btrfs/@root/etc/machine-id
 
             ${lib.optionalString cfg.home ''
               for i in $(find /btrfs/@snapshots/@home/ -maxdepth 1 -mtime +30); do
