@@ -72,6 +72,10 @@ in
               "/var/lib/alsa" = { };
               "/var/lib/power-profiles-daemon" = { };
             };
+            files = {
+              # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
+              "/var/lib/systemd/credential.secret" = { };
+            };
           };
 
           nixos.impermanence = {
