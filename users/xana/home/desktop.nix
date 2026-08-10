@@ -214,6 +214,9 @@ in
               autostart = true;
               defaultDatabase = "me.kdbx";
             };
+            libreoffice = {
+              enable = true;
+            };
             nautilus = {
               enable = true;
               favorite = 50;
