@@ -62,6 +62,9 @@ in
               };
               flake = "${techDirectory}/code/infrastructure/nixos";
             };
+            tree = {
+              enable = true;
+            };
           };
           terminal = {
             starship = {
