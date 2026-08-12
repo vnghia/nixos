@@ -7,6 +7,7 @@
 let
   cfg = config._.user;
   shellCfg = osConfig._.shell;
+  xdgCfg = config.xdg;
 in
 {
   imports = [
@@ -49,6 +50,12 @@ in
     programs = {
       home-manager = {
         enable = true;
+      };
+    };
+
+    _ = {
+      nixos.impermanence.directories = {
+        "${xdgCfg.dataHome}/systemd/timers" = { };
       };
     };
   };
