@@ -21,6 +21,9 @@ in
             };
           };
           development = {
+            android-tools = {
+              enable = true;
+            };
             direnv = {
               enable = true;
               nix = true;

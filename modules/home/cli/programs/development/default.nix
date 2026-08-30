@@ -1,5 +1,6 @@
 {
   imports = [
+    ./android-tools.nix
     ./direnv.nix
     ./git.nix
     ./just.nix
