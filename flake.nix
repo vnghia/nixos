@@ -8,6 +8,10 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    nixpkgs-cake-wallet = {
+      url = "github:iamanaws/nixpkgs/pkgs/cake-wallet";
+    };
+
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +71,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-cake-wallet,
       home-manager,
       disko,
       impermanence,
@@ -121,6 +126,7 @@
             let
               pkgs = import nixpkgs { system = value.platform; };
               unstable-pkgs = import nixpkgs-unstable { system = value.platform; };
+              cake-wallet-pkgs = import nixpkgs-cake-wallet { system = value.platform; };
 
               hostName = mkHostName name flavor;
               hostSystem = lib.nixosSystem {
@@ -147,6 +153,7 @@
                       };
                       overlays = [
                         (customLib.nixos.overlay.mkPackageOverlay unstable-pkgs unstablePackages)
+                        (customLib.nixos.overlay.mkPackageOverlay cake-wallet-pkgs [ "cake-wallet" ])
                         nix-vscode-extensions.overlays.default
                       ];
                     };

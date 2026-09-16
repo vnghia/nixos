@@ -209,6 +209,9 @@ in
             };
           };
           productivity = {
+            cake-wallet = {
+              enable = true;
+            };
             keepassxc = {
               enable = true;
               autostart = true;
