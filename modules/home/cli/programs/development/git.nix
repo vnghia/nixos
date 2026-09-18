@@ -139,7 +139,17 @@ in
           pkgs.nix-vscode-extensions.open-vsx.eamodio.gitlens
         ];
         userSettings = {
+          "gitlens.plusFeatures.enabled" = false;
+
+          # AI
+          "gitlens.ai.enabled" = false;
+
+          # Commit graph
+          "gitlens.graph.sidebar.enabled" = false;
+
+          # Launchpad
           "gitlens.launchpad.indicator.enabled" = false;
+          "gitlens.views.launchpad.enabled" = false;
         };
       };
     };
