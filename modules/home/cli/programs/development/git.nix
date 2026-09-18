@@ -150,6 +150,9 @@ in
           # Launchpad
           "gitlens.launchpad.indicator.enabled" = false;
           "gitlens.views.launchpad.enabled" = false;
+
+          # Advance
+          "gitlens.telemetry.enabled" = false;
         };
       };
     };
