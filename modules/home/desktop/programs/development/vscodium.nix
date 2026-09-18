@@ -89,6 +89,9 @@ in
                 ms-toolsai.jupyter
                 charliermarsh.ruff
 
+                # Rust
+                rust-lang.rust-analyzer
+
                 # YAML
                 redhat.vscode-yaml
 
