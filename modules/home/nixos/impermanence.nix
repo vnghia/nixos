@@ -60,6 +60,8 @@ in
           "${xdgCfg.dataHome}/keyrings" = {
             mode = "0700";
           };
+
+          "${xdgCfg.dataHome}/nix" = { };
         };
       };
 
