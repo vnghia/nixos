@@ -24,6 +24,9 @@ in
             android-tools = {
               enable = true;
             };
+            cachix = {
+              enable = true;
+            };
             direnv = {
               enable = true;
               nix = true;
