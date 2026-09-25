@@ -44,9 +44,6 @@ in
             nixfmt = {
               enable = true;
             };
-            pulumi = {
-              enable = true;
-            };
             uv = {
               enable = true;
             };
