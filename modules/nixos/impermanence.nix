@@ -53,10 +53,7 @@ in
               # System state
               "/var/log" = { };
               "/var/lib/nixos" = { };
-              "/var/lib/systemd/coredump" = { };
-              "/var/lib/systemd/timers" = { };
-              "/var/lib/systemd/rfkill" = { };
-              "/var/lib/systemd/backlight" = { };
+              "/var/lib/systemd" = { };
               "/var/lib/colord" = {
                 user = "colord";
                 group = "colord";
@@ -71,10 +68,6 @@ in
               "/var/lib/upower" = { };
               "/var/lib/alsa" = { };
               "/var/lib/power-profiles-daemon" = { };
-            };
-            files = {
-              # TODO: Remove this after https://github.com/NixOS/nixpkgs/issues/501336
-              "/var/lib/systemd/credential.secret" = { };
             };
           };
 

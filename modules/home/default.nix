@@ -55,7 +55,7 @@ in
 
     _ = {
       nixos.impermanence.directories = {
-        "${xdgCfg.dataHome}/systemd/timers" = { };
+        "${xdgCfg.dataHome}/systemd" = { };
       };
     };
   };
