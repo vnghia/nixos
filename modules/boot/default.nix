@@ -17,6 +17,15 @@ in
             "lanzaboote"
           ];
         };
+        lanzaboote = {
+          measuredBoot = {
+            enable = mkEnableOption "Measured boot";
+            pcrs = mkOption {
+              type = types.listOf types.int;
+              default = [ ];
+            };
+          };
+        };
       };
     };
   };
@@ -32,14 +41,35 @@ in
     (lib.mkIf (cfg.type == "lanzaboote") (
       let
         pkiBundle = "/var/lib/sbctl";
+        pcrlockDirectory = "/var/lib/pcrlock.d";
+        # No need to persist this file because it resides inside already-persisted systemd directory.
+        pcrlockPolicy = "/var/lib/systemd/pcrlock.json";
       in
       {
         boot.loader.systemd-boot.enable = lib.mkForce false;
 
-        boot.lanzaboote = {
-          enable = true;
-          pkiBundle = pkiBundle;
-        };
+        boot.lanzaboote = lib.mkMerge [
+          {
+            enable = true;
+            inherit pkiBundle;
+            autoGenerateKeys = {
+              enable = true;
+            };
+            autoEnrollKeys = {
+              # TODO: enable this after a new lanzaboote release which has `includeFirmwareBuiltinKeys`
+              enable = false;
+              # includeFirmwareBuiltinKeys = true;
+            };
+          }
+          cfg.lanzaboote
+          (lib.optionalAttrs cfg.lanzaboote.measuredBoot.enable {
+            configurationLimit = 8;
+            measuredBoot = {
+              inherit pcrlockDirectory;
+              inherit pcrlockPolicy;
+            };
+          })
+        ];
 
         environment.systemPackages = [
           # For debugging and troubleshooting Secure Boot.
@@ -47,10 +77,18 @@ in
         ];
 
         _ = {
-          nixos.impermanence.directories = {
-            ${pkiBundle} = {
-              mode = "0600";
-            };
+          nixos.impermanence = {
+            directories = lib.mkMerge [
+              {
+                ${pkiBundle} = {
+                  mode = "0600";
+                };
+                "/var/lib/auto-cryptenroll" = { };
+              }
+              (lib.optionalAttrs cfg.lanzaboote.measuredBoot.enable {
+                ${pcrlockDirectory} = { };
+              })
+            ];
           };
         };
       }
