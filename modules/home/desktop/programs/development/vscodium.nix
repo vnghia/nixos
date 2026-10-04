@@ -71,6 +71,9 @@ in
             };
             base = {
               extensions = with pkgs.nix-vscode-extensions.open-vsx-release; [
+                # Nix
+                arrterian.nix-env-selector
+
                 # Remote
                 google.colab
                 jeanp413.open-remote-ssh
@@ -113,6 +116,9 @@ in
                 };
                 "diffEditor.ignoreTrimWhitespace" = false;
                 "workbench.iconTheme" = "material-icon-theme";
+
+                # Nix
+                "nixEnvSelector.useFlakes" = true;
 
                 # Python
                 "python.languageServer" = "None";
