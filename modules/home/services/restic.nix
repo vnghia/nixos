@@ -35,43 +35,57 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    sops.secrets = lib.mergeAttrsList (
-      lib.forEach backupNames (backup: {
-        "${customLib.services.restic.secretPrefix}/${backup}/repository" = { };
-        "${customLib.services.restic.secretPrefix}/${backup}/password" = { };
-        "${customLib.services.restic.secretPrefix}/${backup}/environment" = { };
-      })
-    );
+  config = lib.mkIf cfg.enable (
+    let
+      backups = {
+        home = cfg.home;
+      }
+      // cfg.backups;
+    in
+    {
+      sops.secrets = lib.mergeAttrsList (
+        lib.forEach backupNames (backup: {
+          "${customLib.services.restic.secretPrefix}/${backup}/repository" = { };
+          "${customLib.services.restic.secretPrefix}/${backup}/password" = { };
+          "${customLib.services.restic.secretPrefix}/${backup}/environment" = { };
+        })
+      );
 
-    services.restic = {
-      enable = true;
-      backups = lib.mkMerge [
-        {
-          home = customLib.services.restic.mkConfig config "home" cfg.home;
-        }
-        (lib.mapAttrs (name: backup: customLib.services.restic.mkConfig config name backup) cfg.backups)
-      ];
-    };
-
-    home.packages = with pkgs; [
-      restic
-    ];
-
-    _ = {
-      nixos.impermanence.directories = {
-        "${xdgCfg.cacheHome}/restic" = {
-          restic = false;
-        };
+      services.restic = {
+        enable = true;
+        backups = (
+          lib.mapAttrs (name: backup: customLib.services.restic.mkConfig config name backup) backups
+        );
       };
 
-      services.restic.home.paths =
-        (customLib.services.restic.mkImpermanencePaths impermanencePath mkImpermanencePath
-          impermanenceCfg.normalizedDirectories
+      systemd.user.services = lib.mapAttrs' (
+        name: _:
+        lib.nameValuePair "restic-backups-${name}" (
+          customLib.nixos.sops.mkSystemdServiceRequirements {
+            requiresSops = true;
+          }
         )
-        ++ (customLib.services.restic.mkImpermanencePaths impermanencePath mkImpermanencePath
-          impermanenceCfg.normalizedFiles
-        );
-    };
-  };
+      ) backups;
+
+      home.packages = with pkgs; [
+        restic
+      ];
+
+      _ = {
+        nixos.impermanence.directories = {
+          "${xdgCfg.cacheHome}/restic" = {
+            restic = false;
+          };
+        };
+
+        services.restic.home.paths =
+          (customLib.services.restic.mkImpermanencePaths impermanencePath mkImpermanencePath
+            impermanenceCfg.normalizedDirectories
+          )
+          ++ (customLib.services.restic.mkImpermanencePaths impermanencePath mkImpermanencePath
+            impermanenceCfg.normalizedFiles
+          );
+      };
+    }
+  );
 }
