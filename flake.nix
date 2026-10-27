@@ -93,6 +93,8 @@
       unstablePackages = [
         "keepassxc"
         "pulumi"
+        "mullvad"
+        "mullvad-vpn"
         "vscodium"
         "uv"
       ];
