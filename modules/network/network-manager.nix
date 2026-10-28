@@ -113,11 +113,11 @@ in
           enable = true;
           dispatcherScripts = [
             (lib.mkIf (activateDefaultVpnPackage != null) {
-              source = "${activateDefaultVpnPackage}/bin/activate-default-vpn";
+              source = lib.getExe activateDefaultVpnPackage;
               type = "basic";
             })
             {
-              source = "${modifyInterfaceDNSConfigPackage}/bin/modify-interface-dns-config";
+              source = lib.getExe modifyInterfaceDNSConfigPackage;
               type = "basic";
             }
           ];

@@ -31,9 +31,9 @@ in
           network.vpn.commands = {
             mullvad = {
               inputs = [ pkgs.jq ];
-              check = "${pkgs.mullvad}/bin/mullvad status --json | jq '.state == \"connected\"'";
-              up = "${pkgs.mullvad}/bin/mullvad connect --wait";
-              down = "${pkgs.mullvad}/bin/mullvad disconnect --wait";
+              check = "${lib.getExe pkgs.mullvad} status --json | jq '.state == \"connected\"'";
+              up = "${lib.getExe pkgs.mullvad} connect --wait";
+              down = "${lib.getExe pkgs.mullvad} disconnect --wait";
             };
           };
 

@@ -52,7 +52,7 @@ in
     ];
 
     _ = {
-      activateSpecialisationBin = "${activateSpecialisationPackage}/bin/activate-specialisation";
+      activateSpecialisationBin = lib.getExe activateSpecialisationPackage;
     };
 
     specialisation = lib.concatMapAttrs (

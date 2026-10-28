@@ -101,7 +101,7 @@ in
         useUserPackages = true;
         verbose = false;
 
-        backupCommand = "${pkgs.trash-cli}/bin/trash-put";
+        backupCommand = lib.getExe pkgs.trash-cli;
 
         extraSpecialArgs = {
           inherit inputs;
