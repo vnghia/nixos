@@ -29,13 +29,9 @@ in
           };
         };
 
-        programs.gpg = {
-          enable = true;
-          package = pkgs.sequoia-chameleon-gnupg;
-        };
-
         home.packages = with pkgs; [
           sequoia-sq
+          sequoia-chameleon-gnupg
         ];
 
         _ = {
