@@ -82,6 +82,9 @@ in
           };
         };
         security = {
+          gpg = {
+            enable = true;
+          };
           ssh = {
             type = "tpm";
           };

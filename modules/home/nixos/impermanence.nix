@@ -51,9 +51,6 @@ in
           # Audio
           "${xdgCfg.stateHome}/wireplumber" = { };
 
-          "${homePrefix}.gnupg" = {
-            mode = "0700";
-          };
           "${homePrefix}.ssh" = {
             mode = "0700";
           };

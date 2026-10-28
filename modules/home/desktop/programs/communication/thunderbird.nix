@@ -21,6 +21,17 @@ in
         profiles = mkOption {
           type = types.attrsOf types.anything;
         };
+        encryption = {
+          keyServers = mkOption {
+            type = types.listOf types.str;
+            default = [
+              "hkps://keys.openpgp.org"
+              "hkps://keys.mailvelope.com"
+              "hkps://keyserver.ubuntu.com"
+              "hkps://sks.pod01.fleetstreetops.com"
+            ];
+          };
+        };
       }
       // customLib.home.desktop.programs.favorite.mkOption;
     };
@@ -41,6 +52,12 @@ in
             # Composition
             "mail.compose.default_to_paragraph" = false;
             "mail.compose.warned_about_customize_from" = true;
+
+            # Encryption
+            "mail.e2ee.auto_enable" = true;
+            "mail.e2ee.auto_disable" = true;
+            "mail.e2ee.notify_on_auto_disable" = true;
+            "mail.openpgp.keyserver_list" = lib.concatStringsSep "," cfg.encryption.keyServers;
 
             # Privacy
             "datareporting.healthreport.uploadEnabled" = false;
