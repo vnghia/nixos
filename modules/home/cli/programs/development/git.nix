@@ -12,6 +12,7 @@ in
     _ = {
       cli.programs.development.git = {
         enable = mkEnableOption "Git";
+        signing = mkEnableOption "Signing";
         user = {
           name = mkOption { type = types.str; };
           email = mkOption { type = types.str; };
@@ -23,6 +24,11 @@ in
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
+      signing = {
+        signByDefault = cfg.signing;
+        format = "openpgp";
+        signer = lib.getExe pkgs.sequoia-chameleon-gnupg;
+      };
       settings = {
         user = lib.mkMerge [
           cfg.user

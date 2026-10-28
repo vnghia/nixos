@@ -33,6 +33,7 @@ in
             };
             git = {
               enable = true;
+              signing = true;
               user = secrets.cli.programs.development.git.user;
             };
             just = {
