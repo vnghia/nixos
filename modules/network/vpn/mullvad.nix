@@ -30,10 +30,13 @@ in
         _ = {
           network.vpn.commands = {
             mullvad = {
-              inputs = [ pkgs.jq ];
-              check = "${lib.getExe pkgs.mullvad} status --json | jq '.state == \"connected\"'";
-              up = "${lib.getExe pkgs.mullvad} connect --wait";
-              down = "${lib.getExe pkgs.mullvad} disconnect --wait";
+              inputs = [
+                pkgs.mullvad
+                pkgs.jq
+              ];
+              check = "mullvad status --json | jq '.state == \"connected\"'";
+              up = "mullvad connect --wait";
+              down = "mullvad disconnect --wait";
             };
           };
 
