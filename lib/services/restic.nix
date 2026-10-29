@@ -39,6 +39,7 @@ in
           environmentFile = config.sops.secrets."${secretPrefix}/${name}/environment".path;
           extraBackupArgs = [
             "--tag=${name}"
+            "--exclude-caches"
           ]
           ++ (
             if userName != null then
