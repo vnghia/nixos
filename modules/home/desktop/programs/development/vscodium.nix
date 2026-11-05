@@ -133,6 +133,10 @@ in
                   "editor.defaultFormatter" = "redhat.vscode-yaml";
                 };
 
+                "[rust]" = {
+                  "editor.defaultFormatter" = "rust-lang.rust-analyzer";
+                };
+
                 # TOML
                 "[toml]" = {
                   "editor.defaultFormatter" = "tamasfe.even-better-toml";

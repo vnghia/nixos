@@ -158,6 +158,15 @@ in
                     };
                   };
                 };
+                gui = {
+                  extensions = with pkgs.nix-vscode-extensions.open-vsx-release; [
+                    slint.slint
+                  ];
+                  userSettings = {
+                    # Slint
+                    "slint.lspBinaryPath" = "slint-lsp";
+                  };
+                };
               };
               stylix = {
                 enable = true;
@@ -166,6 +175,7 @@ in
                   profileNames = [
                     "default"
                     "homelab"
+                    "gui"
                   ];
                 };
               };
