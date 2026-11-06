@@ -6,6 +6,7 @@
 }:
 let
   cfg = config._.desktop.programs.productivity.keepassxc;
+  xdgCfg = config.xdg;
   userXdgCfg = config._.user.xdg;
   homeCfg = config.home;
 in
@@ -67,6 +68,7 @@ in
               };
               Security = {
                 EnableCopyOnDoubleClick = true;
+                QuickUnlock = false;
                 LockDatabaseIdleSeconds = 3600;
                 LockDatabaseScreenLock = true;
               };
@@ -81,6 +83,7 @@ in
         _ = {
           nixos.impermanence.directories = {
             ${cfg.directory} = { };
+            "${xdgCfg.stateHome}/keepassxc" = { };
           };
         };
       }
