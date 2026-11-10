@@ -91,10 +91,19 @@
       };
 
       unstablePackages = [
-        "mullvad"
-        "mullvad-vpn"
+        # development
         "vscodium"
         "uv"
+
+        # game
+        "dwproton-bin"
+        "proton-ge-bin"
+        "steam"
+        "steam-unwrapped"
+
+        # internet
+        "mullvad"
+        "mullvad-vpn"
       ];
 
       unfreePackages = [
@@ -102,6 +111,8 @@
         "steam"
         "steam-unwrapped"
       ];
+
+      allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
 
       hosts = {
         lyoko = {
@@ -124,9 +135,18 @@
           lib.lists.forEach value.flavors (
             flavor:
             let
-              pkgs = import nixpkgs { system = value.platform; };
-              unstable-pkgs = import nixpkgs-unstable { system = value.platform; };
-              cake-wallet-pkgs = import nixpkgs-cake-wallet { system = value.platform; };
+              pkgs = import nixpkgs {
+                system = value.platform;
+                config = { inherit allowUnfreePredicate; };
+              };
+              unstable-pkgs = import nixpkgs-unstable {
+                system = value.platform;
+                config = { inherit allowUnfreePredicate; };
+              };
+              cake-wallet-pkgs = import nixpkgs-cake-wallet {
+                system = value.platform;
+                config = { inherit allowUnfreePredicate; };
+              };
 
               hostName = mkHostName name flavor;
               hostSystem = lib.nixosSystem {
@@ -148,9 +168,7 @@
                   {
                     nixpkgs = {
                       hostPlatform = value.platform;
-                      config = {
-                        allowUnfreePredicate = package: builtins.elem (lib.getName package) unfreePackages;
-                      };
+                      config = { inherit allowUnfreePredicate; };
                       overlays = [
                         (customLib.nixos.overlay.mkPackageOverlay unstable-pkgs unstablePackages)
                         (customLib.nixos.overlay.mkPackageOverlay cake-wallet-pkgs [ "cake-wallet" ])

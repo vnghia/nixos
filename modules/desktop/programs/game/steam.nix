@@ -23,6 +23,7 @@ in
         programs.steam = {
           enable = true;
           extraCompatPackages = with pkgs; [
+            dwproton-bin
             proton-ge-bin
           ];
         };
