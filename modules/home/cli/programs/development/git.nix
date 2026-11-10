@@ -142,23 +142,14 @@ in
     _ = {
       desktop.programs.development.vscodium.base = {
         extensions = [
-          pkgs.nix-vscode-extensions.open-vsx.eamodio.gitlens
+          pkgs.nix-vscode-extensions.open-vsx.waderyan.gitblame
         ];
         userSettings = {
-          "gitlens.plusFeatures.enabled" = false;
-
-          # AI
-          "gitlens.ai.enabled" = false;
-
-          # Commit graph
-          "gitlens.graph.sidebar.enabled" = false;
-
-          # Launchpad
-          "gitlens.launchpad.indicator.enabled" = false;
-          "gitlens.views.launchpad.enabled" = false;
-
-          # Advance
-          "gitlens.telemetry.enabled" = false;
+          "gitblame.currentUserAlias" = "You";
+          "gitblame.statusBarMessageFormat" = "\${author.name} (\${time.ago})";
+          "gitblame.inlineMessageEnabled" = true;
+          "gitblame.inlineMessageFormat" = "\${author.name}, \${time.ago} • \${commit.summary}";
+          "gitblame.extendedHoverInformation" = "inline-status";
         };
       };
     };
