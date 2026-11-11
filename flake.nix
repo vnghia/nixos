@@ -64,6 +64,15 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+    };
+  };
+
+  nixConfig = {
+    extra-substituters = "https://cache.lantian.pub/lantian";
+    extra-trusted-public-keys = "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ=";
   };
 
   outputs =
@@ -80,6 +89,7 @@
       zen-browser,
       nix-vscode-extensions,
       sops-nix,
+      nix-cachyos-kernel,
       ...
     }@inputs:
     let
@@ -135,10 +145,7 @@
           lib.lists.forEach value.flavors (
             flavor:
             let
-              pkgs = import nixpkgs {
-                system = value.platform;
-                config = { inherit allowUnfreePredicate; };
-              };
+              pkgs = import nixpkgs { system = value.platform; };
               unstable-pkgs = import nixpkgs-unstable {
                 system = value.platform;
                 config = { inherit allowUnfreePredicate; };
@@ -173,6 +180,7 @@
                         (customLib.nixos.overlay.mkPackageOverlay unstable-pkgs unstablePackages)
                         (customLib.nixos.overlay.mkPackageOverlay cake-wallet-pkgs [ "cake-wallet" ])
                         nix-vscode-extensions.overlays.default
+                        nix-cachyos-kernel.overlays.pinned
                       ];
                     };
                   }

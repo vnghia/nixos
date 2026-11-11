@@ -9,7 +9,7 @@
         dbus = {
           implementation = "broker";
         };
-        kernel = pkgs.linuxPackages_zen;
+        kernel = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-x86_64-v4;
       };
     };
   };
