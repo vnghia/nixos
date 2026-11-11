@@ -97,12 +97,17 @@ in
       (customLib.home.desktop.programs.favorite.mkConfig desktop cfg)
       (lib.mkIf cfg.default (
         let
-          mimeApps = {
-            "x-scheme-handler/mailto" = [ (lib.mkForce desktop) ];
-            "x-scheme-handler/mid" = [ (lib.mkForce desktop) ];
-            "x-scheme-handler/net.thunderbird" = [ (lib.mkForce desktop) ];
-            "message/rfc822" = [ (lib.mkForce desktop) ];
-          };
+          mimeApps =
+            lib.genAttrs
+              [
+                "x-scheme-handler/mailto"
+                "x-scheme-handler/mid"
+                "x-scheme-handler/net.thunderbird"
+                "message/rfc822"
+              ]
+              (scheme: [
+                (lib.mkForce desktop)
+              ]);
         in
         {
           xdg.mimeApps = {

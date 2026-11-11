@@ -249,6 +249,10 @@ in
                 me = { };
               };
             };
+            papers = {
+              enable = true;
+              default = true;
+            };
           };
         };
         security = {

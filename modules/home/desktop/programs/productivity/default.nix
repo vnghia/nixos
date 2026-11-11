@@ -5,5 +5,6 @@
     ./libreoffice.nix
     ./nautilus.nix
     ./obsidian.nix
+    ./papers.nix
   ];
 }
