@@ -182,6 +182,11 @@ in
               favorite = 5;
             };
           };
+          game = {
+            prismlauncher = {
+              enable = true;
+            };
+          };
           internet = {
             chromium = {
               enable = true;
