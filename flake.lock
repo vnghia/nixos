@@ -290,6 +290,22 @@
         "type": "github"
       }
     },
+    "jail-nix": {
+      "locked": {
+        "lastModified": 1768943323,
+        "narHash": "sha256-UhgDNhfMhIGRHrojQ4O0X/rT80W3URrbXOn4NIirzoo=",
+        "ref": "main",
+        "rev": "a045ce7ba53ff7f2a158963506781aafbe5c2580",
+        "revCount": 132,
+        "type": "git",
+        "url": "https://codeberg.org/MohrJonas/jail.nix"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://codeberg.org/MohrJonas/jail.nix"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -507,6 +523,7 @@
         "disko": "disko",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "jail-nix": "jail-nix",
         "lanzaboote": "lanzaboote",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-vscode-extensions": "nix-vscode-extensions",

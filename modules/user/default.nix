@@ -4,6 +4,7 @@
   customLib,
   config,
   pkgs,
+  jail,
   ...
 }:
 let
@@ -119,9 +120,12 @@ in
         userName: userCfg:
         lib.mkMerge [
           {
-            config._module.args.secrets =
-              customLib.nixos.sops.mkSecrets pkgs "user-build-secrets-${userName}"
-                ../../secrets/users/${userName}/build/secrets.yaml;
+            config._module.args = {
+              inherit jail;
+              secrets =
+                customLib.nixos.sops.mkSecrets pkgs "user-build-secrets-${userName}"
+                  ../../secrets/users/${userName}/build/secrets.yaml;
+            };
           }
           { imports = [ userCfg.home ]; }
         ]

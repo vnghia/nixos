@@ -7,5 +7,6 @@
     (import ./desktop {
       inherit lib;
     })
+    // (import ./nixos { inherit lib; })
     // (import ./specialisation { inherit lib; });
 }

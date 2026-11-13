@@ -68,6 +68,11 @@
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };
+
+    jail-nix = {
+      # Use upstream after https://codeberg.org/alexdavid/jail.nix/issues/4
+      url = "git+https://codeberg.org/MohrJonas/jail.nix?ref=main";
+    };
   };
 
   nixConfig = {
@@ -86,10 +91,10 @@
       impermanence,
       stylix,
       lanzaboote,
-      zen-browser,
       nix-vscode-extensions,
       sops-nix,
       nix-cachyos-kernel,
+      jail-nix,
       ...
     }@inputs:
     let
@@ -146,6 +151,8 @@
             flavor:
             let
               pkgs = import nixpkgs { system = value.platform; };
+              jail = jail-nix.lib.init pkgs;
+
               unstable-pkgs = import nixpkgs-unstable {
                 system = value.platform;
                 config = { inherit allowUnfreePredicate; };
@@ -160,6 +167,7 @@
                 specialArgs = {
                   inherit inputs;
                   inherit customLib;
+                  inherit jail;
                   secrets =
                     customLib.nixos.sops.mkSecrets pkgs "host-build-secrets-${name}"
                       ./secrets/hosts/${name}/build/secrets.yaml;
@@ -179,6 +187,8 @@
                       overlays = [
                         (customLib.nixos.overlay.mkPackageOverlay unstable-pkgs unstablePackages)
                         (customLib.nixos.overlay.mkPackageOverlay cake-wallet-pkgs [ "cake-wallet" ])
+                      ]
+                      ++ [
                         nix-vscode-extensions.overlays.default
                         nix-cachyos-kernel.overlays.pinned
                       ];
