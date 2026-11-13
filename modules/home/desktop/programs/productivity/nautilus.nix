@@ -23,6 +23,7 @@ in
       {
         home.packages = [
           pkgs.nautilus
+          pkgs.sushi
         ];
 
         _ = {
